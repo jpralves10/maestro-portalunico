@@ -4,7 +4,8 @@ import { IndicadoresComponent } from './dashboard/indicadores/indicadores.compon
 import { ImportacaoComponent } from './produtos/importacao/importacao.component';
 
 export const ROUTES: Routes = [
-    { path: '', component: IndicadoresComponent },
+    //{ path: '', component: IndicadoresComponent },
+    { path: '', redirectTo: 'unificacao', pathMatch: 'full' },
     { path: 'importacao', component: ImportacaoComponent },
     { path: 'catalogo', loadChildren: './produtos/catalogo/catalogo.module#CatalogoModule' },
     { path: 'unificacao', loadChildren: './produtos/unificacao/unificacao.module#UnificacaoModule' },

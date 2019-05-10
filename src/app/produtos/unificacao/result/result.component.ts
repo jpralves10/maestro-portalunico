@@ -53,7 +53,8 @@ export class ResultComponent implements OnInit {
             descricaoBruta: '', 
             ncm: '', 
             status: '', 
-            cnpj: ''
+            cnpj: '',
+            operador: ''
         }
     };
 
@@ -406,7 +407,6 @@ export class ResultComponent implements OnInit {
             fabricanteConhecido: false,
             cpfCnpjFabricante: null,
             codigoOperadorEstrangeiro: null,
-            descricaoOperadorEstrangeiro: null,
             atributos: null,
             codigosInterno: null,
             dataCriacao: null,
@@ -419,7 +419,9 @@ export class ResultComponent implements OnInit {
             chartCanais: []  ,
             canalDominante: 0,
             importadorNome: '',
-            importadorNumero: '08532602000100'
+            importadorNumero: '08532602000100',
+            fornecedorNome: '',
+            fabricanteNome: ''
         }
 
         var produto2 = {...produto};

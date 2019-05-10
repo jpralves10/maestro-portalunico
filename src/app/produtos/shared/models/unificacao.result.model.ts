@@ -17,5 +17,6 @@ export interface ResultItem {
         ncm: string;
         status: string;
         cnpj: string;
+        operador: string;
     };
 }

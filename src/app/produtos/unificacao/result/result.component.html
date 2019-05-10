@@ -120,7 +120,7 @@
             <mat-accordion>
                 <mat-expansion-panel style="margin-bottom: 20px;">
                     <mat-expansion-panel-header style="height: 48px;">
-                        <mat-panel-title>
+                        <mat-panel-title style="color:#596679;">
                             Filtrar Itens
                         </mat-panel-title>
                     </mat-expansion-panel-header>
@@ -148,13 +148,13 @@
                                     [(ngModel)]="current_filtro.produto.ncm"
                                     (ngModelChange)="updateFiltro()" />
                             </mat-form-field>
-                            <!--mat-form-field>
+                            <mat-form-field>
                                 <input
                                     matInput
-                                    placeholder="Status"
-                                    [(ngModel)]="current_filtro.produto.status"
+                                    placeholder="Operador Estrangeiro"
+                                    [(ngModel)]="current_filtro.produto.operador"
                                     (ngModelChange)="updateFiltro()" />
-                            </mat-form-field-->
+                            </mat-form-field>
                         </div>
 
                         <div class="filtro-fields-two">

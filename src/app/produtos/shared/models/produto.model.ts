@@ -23,7 +23,10 @@ export interface Produto {
     /** Dados Importador **/
     importadorNome: string;
     importadorNumero: string;
-    descricaoOperadorEstrangeiro: string;
+
+    /** Dados Operador Estrangeiro **/
+    fornecedorNome: string;
+    fabricanteNome: string;
 
     /** Histórico **/
     dataCriacao: Date;
@@ -73,7 +76,10 @@ export class ProdutoClass implements Produto{
     /** Dados Importador **/
     importadorNome: string;
     importadorNumero: string;
-    descricaoOperadorEstrangeiro: string;
+    
+    /** Dados Operador Estrangeiro **/
+    fornecedorNome: string;
+    fabricanteNome: string;
 
     /** Histórico **/
     dataCriacao: Date;

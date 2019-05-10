@@ -34,7 +34,8 @@ export class CatalogoComponent implements OnInit {
             descricaoBruta: '',
             ncm: '',
             status: '',
-            cnpj: ''
+            cnpj: '',
+            operador: ''
         }
     };
 

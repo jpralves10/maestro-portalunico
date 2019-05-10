@@ -97,6 +97,20 @@ export class ProdutosListDataSource extends DataSource<Produto> {
                 d.status.toUpperCase().includes(produto.status.toUpperCase())
             );
         }*/
+        if (produto.operador !== '') {
+            newData = newData.filter(d => {
+                if(d.fabricanteNome != undefined && d.fabricanteNome != null){
+                    produto.operador.toUpperCase().includes(
+                        d.fabricanteNome.toUpperCase()
+                    )
+                }                
+            });
+            /*newData = newData.filter(d =>
+                produto.operador.toUpperCase().includes(
+                    d.fornecedorNome.toUpperCase()
+                )
+            );*/
+        }
 
         if(this.filter.importadores.length > 0){
 

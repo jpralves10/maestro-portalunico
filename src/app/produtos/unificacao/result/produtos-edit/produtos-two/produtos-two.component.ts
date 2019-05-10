@@ -47,7 +47,7 @@ export class ProdutosTwoComponent implements OnInit {
     dataSource: ProdutosTwoDataSource;
 
     current_filtro: ResultItem = {
-        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: ''}
+        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: '', operador: ''}
     };
 
     displayedColumns = ['select', 'descricaoBruta', 'similaridade', 'canal', 'operacoes'];
@@ -379,7 +379,6 @@ export class ProdutosTwoComponent implements OnInit {
             fabricanteConhecido: false,
             cpfCnpjFabricante: null,
             codigoOperadorEstrangeiro: null,
-            descricaoOperadorEstrangeiro: null,
             atributos: null,
             codigosInterno: null,
             dataCriacao: null,
@@ -392,7 +391,9 @@ export class ProdutosTwoComponent implements OnInit {
             chartCanais: []  ,
             canalDominante: 0,
             importadorNome: '',
-            importadorNumero: ''      
+            importadorNumero: '',
+            fornecedorNome: '',
+            fabricanteNome: ''    
         }
         
 
