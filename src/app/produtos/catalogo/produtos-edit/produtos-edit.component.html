@@ -78,7 +78,8 @@
                     <input
                         matInput
                         placeholder="Código NCM"
-                        [(ngModel)]="produto.ncm"/>
+                        [(ngModel)]="produto.ncm"
+                        (change)="carregarAtributosChange()"/>
                 </mat-form-field>
 
                 <mat-form-field>

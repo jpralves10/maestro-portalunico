@@ -60,7 +60,7 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-            
+
                 <mat-form-field>
                     <mat-label>Modalidade do Produto</mat-label>
                     <mat-select [(ngModel)]="produto.modalidade">
@@ -71,12 +71,13 @@
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
-                
+
                 <mat-form-field>
                     <input
                         matInput
                         placeholder="Código NCM"
-                        [(ngModel)]="produto.ncm"/>
+                        [(ngModel)]="produto.ncm"
+                        (change)="carregarAtributosChange()"/>
                 </mat-form-field>
 
                 <mat-form-field>
@@ -189,18 +190,19 @@
                             </mat-form-field>
 
                             <button
-                                mat-raised-button 
-                                class="atributo-button-add" 
+                                mat-raised-button
+                                class="atributo-button-add"
+                                [disabled]="listaAtributos.length == 0"
                                 (click)="adicionarAtributo()">
                                     Adicionar
                             </button>
                         </div>
 
-                        <table 
+                        <table
                             *ngIf="listaAtributosDataSource.data.length > 0"
                             mat-table
                             [dataSource]="listaAtributosDataSource"
-                            class="mat-elevation-z8 codigointerno-table">                        
+                            class="mat-elevation-z8 codigointerno-table">
                             
                             <ng-container matColumnDef="codigo">
                                 <th mat-header-cell *matHeaderCellDef></th>

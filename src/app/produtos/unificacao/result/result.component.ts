@@ -119,6 +119,13 @@ export class ResultComponent implements OnInit {
                 produto.dataRegistro = new Date(produto.dataRegistro);
                 produto.dataCriacao = new Date(produto.dataCriacao);
 
+                if(produto.fabricanteNome == undefined || produto.fabricanteNome == null){
+                    produto.fabricanteNome = ''
+                }
+                if(produto.fornecedorNome == undefined || produto.fornecedorNome == null){
+                    produto.fornecedorNome = ''
+                }
+
                 if(produto.declaracoes == null || produto.declaracoes == undefined){
                     produto.declaracoes = [];
                 }

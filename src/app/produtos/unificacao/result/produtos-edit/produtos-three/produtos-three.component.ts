@@ -33,7 +33,7 @@ export class ProdutosThreeComponent implements OnInit {
     attrList: any = [];
 
     mensagem: any = {id: 0, tipo: '', class: '', lista: []};
-    
+
     listaAtributosDataSource = new MatTableDataSource<{
         codigo: string, dominio: string, descricao: string
     }>();
@@ -82,6 +82,14 @@ export class ProdutosThreeComponent implements OnInit {
         this.carregarCodigoInterno();
     }
 
+    carregarAtributosChange(){
+        this.attrList = [];
+        this.listaAtributos = [];
+        this.produto.atributos = [];
+        this.listaAtributosDataSource.data = [...[]];
+        this.carregarAtributos();
+    }
+
     carregarAtributos(){
         if(this.produto.atributos == null || this.produto.atributos == undefined){
             this.produto.atributos = [];
@@ -106,7 +114,6 @@ export class ProdutosThreeComponent implements OnInit {
                     }
                 }
             });
-
             if(this.produto.atributos.length > 0){
 
                 let listaData = [];
@@ -123,15 +130,6 @@ export class ProdutosThreeComponent implements OnInit {
                 this.attrList = [...listaData];
                 this.listaAtributosDataSource.data = [...listaData];
             }            
-        }
-    }
-
-    carregarCodigoInterno(){
-        if(this.produto.codigosInterno == null || this.produto.codigosInterno == undefined){
-            this.produto.codigosInterno = [];
-            this.codigoInternoDataSource.data = [];
-        }else{
-            this.codigoInternoDataSource.data = [...this.produto.codigosInterno];
         }
     }
 
@@ -157,6 +155,15 @@ export class ProdutosThreeComponent implements OnInit {
 
     updateListaAtributos(){
         this.listaAtributosDataSource.data = [...this.attrList];
+    }
+
+    carregarCodigoInterno(){
+        if(this.produto.codigosInterno == null || this.produto.codigosInterno == undefined){
+            this.produto.codigosInterno = [];
+            this.codigoInternoDataSource.data = [];
+        }else{
+            this.codigoInternoDataSource.data = [...this.produto.codigosInterno];
+        }
     }
 
     adicionarCodigoInterno(){

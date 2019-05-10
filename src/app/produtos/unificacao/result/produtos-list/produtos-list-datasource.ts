@@ -98,18 +98,11 @@ export class ProdutosListDataSource extends DataSource<Produto> {
             );
         }*/
         if (produto.operador !== '') {
-            newData = newData.filter(d => {
-                if(d.fabricanteNome != undefined && d.fabricanteNome != null){
-                    d.fabricanteNome.toUpperCase().includes(
-                        produto.operador.toUpperCase()
-                    )
-                }                
-            });
-            /*newData = newData.filter(d =>
-                produto.operador.toUpperCase().includes(
-                    d.fornecedorNome.toUpperCase()
+            newData = newData.filter(d =>
+                (d.fabricanteNome.toUpperCase() + d.fornecedorNome.toUpperCase()).includes(
+                    produto.operador.toUpperCase()
                 )
-            );*/
+            );
         }
 
         if(this.filter.importadores.length > 0){
