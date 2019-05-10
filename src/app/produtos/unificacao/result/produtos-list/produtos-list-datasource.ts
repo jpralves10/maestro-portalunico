@@ -100,8 +100,8 @@ export class ProdutosListDataSource extends DataSource<Produto> {
         if (produto.operador !== '') {
             newData = newData.filter(d => {
                 if(d.fabricanteNome != undefined && d.fabricanteNome != null){
-                    produto.operador.toUpperCase().includes(
-                        d.fabricanteNome.toUpperCase()
+                    d.fabricanteNome.toUpperCase().includes(
+                        produto.operador.toUpperCase()
                     )
                 }                
             });
