@@ -1,0 +1,56 @@
+<div class="modal-header">
+    <span class="modal-title">
+        Detalhes do Produto
+    </span>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div class="modal-body">
+    <span class="title-body">
+        Importadores do Produto:
+    </span>
+
+    <div class="container-list clearfix">
+        <div class="container-body container-item">
+            <ul *ngFor="let node of produto.declaracaoNode">
+                <li (click)="toggleImporter(node)" class="tree-head">
+                    <fa-icon *ngIf="!node.toggle" icon="angle-right" size="fa-xs" class="icon-toggle"></fa-icon>
+                    <fa-icon *ngIf="node.toggle" icon="angle-down" size="fa-xs" class="icon-toggle"></fa-icon>
+                    <span style="font-weight: 500px">
+                        {{node.name}}
+                        (CNPJ: {{node.cnpj | mask: '00.000.000/0000-00'}})
+                    </span>                
+                </li>
+                <li *ngIf="node.toggle">
+                    <ul *ngFor="let declaracao of node.declaracoes">
+                        <li class="tree-body">
+                            DI: {{declaracao.numeroDI | mask: '00/0000000-0' }} - 
+                            {{declaracao.dataRegistro.toLocaleDateString()}}
+                            <fa-icon 
+                                icon="circle" 
+                                size="fa-xs" 
+                                class="{{
+                                    declaracao.canal == '001' ? 'canal-verde' : 
+                                    declaracao.canal == '002' ? 'canal-amarelo' :
+                                    declaracao.canal == '003' ? 'canal-vermelho' :
+                                    'canal-cinza'
+                                }}">
+                            </fa-icon>                        
+                        </li>                
+                    </ul>
+                </li>        
+            </ul>
+        </div>
+        
+        <div class="container-body container-item">
+            <canvas id="dialog-{{produto._id}}"></canvas>
+        </div>
+    </div>    
+
+</div>
+<!--div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">
+        Fechar
+    </button>
+</div-->

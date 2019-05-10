@@ -1,0 +1,44 @@
+.filter-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+}
+
+.mat-card.filtro-card {
+    margin-bottom: 5px;
+}
+
+.mat-card-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 10px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.importer-fields-file {
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-file-span {
+    padding: 10px;
+    font-weight: 500;
+}
+
+.file-img {
+    height:30px;
+    padding-right:10px;
+}

@@ -1,0 +1,243 @@
+<div *ngIf="loading" fxAlign="center" class="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p>Carregando os dados para exibição...</p>
+</div>
+
+<div class="produtos-container">
+    <h3>Verificar Versões do Produto</h3>
+
+    <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
+        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
+            <span class="alert-text">{{msg}}</span>
+        </div>
+    </div>
+
+    <!--mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+            <mat-card-title>
+                <fa-icon
+                    icon="exclamation-triangle"
+                    size="fa-xs"
+                    style="color:darkgrey;">
+                </fa-icon>
+                Atenção!
+            </mat-card-title>
+            <div class="info-etapa">
+                <p>1º - Utilize a lista de produtos abaixo para preencher corretamente a descrição!</p>
+                <p>2º - Descarte as versões que não terão mais utilidade!</p>
+            </div>            
+        </mat-card-content>
+    </mat-card-->
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+            <mat-card-title>
+                CNPJ Raiz: 
+                {{
+                    produto.cnpjRaiz | mask: '00.000.000/0000-00'
+                }}
+                {{
+                    produto.codigosInterno.length > 0 ? 
+                    '/ Código Interno: ' + produto.codigosInterno[0] :
+                    ''
+                }}
+            </mat-card-title>
+            <mat-card-subtitle style="font-size: 1.2em;font-weight: 500;">
+                Status do Produto: 
+                <mat-chip style="background-color:#D4E6F1;">
+                    {{produto.status}}
+                </mat-chip>
+            </mat-card-subtitle>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+            <h5>Digíte a descrição do produto a ser considerada:</h5>
+                
+            <div class="step-content descricao-fields">
+                <div class="step-content-form">
+                    <mat-form-field class="step-form-field">
+                        <textarea
+                            matInput
+                            [(ngModel)]="produto.descricao"
+                            (input)="validaDescricao($event)"
+                            class="textarea-style">
+                        </textarea>
+                        <mat-hint class="step-hint">
+                            Descrição do produto a ser considerada
+                        </mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+            <div class="produto-fields">
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Descrição do Produto"
+                        [(ngModel)]="current_filtro.produto.descricaoBruta"
+                        (ngModelChange)="updateFiltro()" />
+                </mat-form-field>
+            </div>
+
+            <div class="table-list">
+                <table
+                    mat-table
+                    class="full-width-table"
+                    [dataSource]="dataSource"
+                    matSort
+                    aria-label="Elements"
+                    (cdkObserveContent)="projectContentChanged($event)"
+                    (matSortChange)="projectSortData($event)">
+            
+                    <!-- Column -->
+                    <ng-container matColumnDef="select">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <mat-checkbox
+                                class="select-check"
+                                (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                            </mat-checkbox>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <mat-checkbox
+                                class="select-check"
+                                (click)="$event.stopPropagation()"
+                                (change)="$event ? selection.toggle(row) : null"
+                                [checked]="selection.isSelected(row)">
+                            </mat-checkbox>
+                        </td>
+                    </ng-container>
+            
+                    <!-- Column -->
+                    <ng-container matColumnDef="descricaoBruta">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Descrição do Produto
+                        </th>
+                        <td
+                            [ngClass]="{'descarte-row': row.status === 'Inativo'}"
+                            mat-cell
+                            *matCellDef="let row">
+                                {{ row.descricaoBruta }}
+                        </td>
+                    </ng-container>
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="similaridade">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Similaridade (%)
+                        </th>
+                        <td
+                            mat-cell
+                            *matCellDef="let row"
+                            style="text-align:center;">
+                                {{ row.compatibilidade.similaridade }}%
+                        </td>
+                    </ng-container>
+
+                    <!-- Column -->
+                    <ng-container matColumnDef="canal">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Canal
+                        </th>
+                        <td mat-cell (click)="openDialogDeclaracoes(row)" *matCellDef="let row">
+            
+                            <canvas id="two-{{ row._id }}"></canvas>
+            
+                            <!--canvas id="list-{{ row._id }}" width="100%" height="100%"></canvas-->
+                        </td>
+                    </ng-container>
+            
+                    <!-- Column -->
+                    <ng-container matColumnDef="operacoes">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let row">
+                            <button
+                                mat-button
+                                title="Inativar"
+                                [disabled]="!selection.isSelected(row)"
+                                (click)="inativarProduto(row)">
+                                <fa-icon icon="times" size="lg"></fa-icon>
+                            </button>
+                        </td>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+
+                <div *ngIf="dataSource.data.length == 0" class="table-not-records">
+                    Nenhum registro encontrado!
+                </div>
+            
+                <mat-paginator
+                    #paginator
+                    [length]="dataSource.data.length"
+                    [pageIndex]="0"
+                    [pageSize]="5"
+                    [pageSizeOptions]="[5, 10, 20, 50, 100, 200, 500, 1000]"
+                    (page)="pageEvent = projectPageEvent($event)">
+                </mat-paginator>
+            
+                <div *ngIf="selection.selected.length > 0" class="selected-itens">
+                    {{ selection.selected.length }}
+                    {{
+                        selection.selected.length > 1
+                            ? 'produtos selecionados'
+                            : 'produto selecionado'
+                    }}
+                    <button
+                        mat-button 
+                        color="warn" 
+                        (click)="deselectAll()">
+                        Desmarcar tudo
+                    </button>
+                    {{
+                        selection.hasValue() && isAllSelected()
+                            ? '/'
+                            : ''
+                    }}
+                    <button
+                        mat-button
+                        *ngIf="selection.hasValue() && isAllSelected()"
+                        color="warn" 
+                        (click)="inativarTodos()">
+                        Inativar todos
+                    </button>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5">
+        <mat-card-actions align="end" style="padding:0;margin:0;">
+            <button
+                id="previous-two"
+                mat-raised-button matStepperPrevious
+                (click)="voltarEtapa()"
+                class="step-button-return"
+                style="margin: 0 8px;">
+                <fa-icon icon="angle-double-left" size="fa-sm"></fa-icon>
+                Voltar Etapa Anterior
+            </button>
+            <button
+                id="next-two"
+                mat-raised-button matStepperNext
+                (click)="proximaEtapa()"
+                class="step-button-next">
+                Próxima Etapa
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+</div>

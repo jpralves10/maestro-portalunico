@@ -1,0 +1,44 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.filter-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+}
+
+.mat-card.filtro-card {
+    margin-bottom: 5px;
+}
+
+.importer-fields {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-column-gap: 10px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.period-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.filter-button {
+    background: #673AB7;
+    color: #fff;
+}

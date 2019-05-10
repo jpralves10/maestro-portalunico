@@ -1,0 +1,131 @@
+.sidenav-container {
+    height: 100%;
+}
+
+.sidenav {
+    width: 300px;
+    max-width: 300px;
+    overflow: hidden;
+    box-shadow: 1px 0px 3px rgba(0, 0, 0, 0.3);
+    border-right: 1px rgba(0, 0, 0, 0.2);
+    background: inherit;
+}
+
+.mat-toolbar.mat-primary {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.mat-toolbar.logo {
+    height: 90px;
+    border: none;
+    min-height: 80px;
+    margin-bottom: 1px;
+
+    background-image: url(http://relatorios.eficilog.com/img/logo_white.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 70%;
+
+    -webkit-box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+    box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
+}
+
+.content {
+    padding: 10px;
+}
+
+.mat-list-item.active {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+/* Lista Menus */
+
+.tree-content {
+    position: relative;
+    overflow: hidden !important;
+}
+
+.tree-scrollable {
+    height: 464px;
+    width: 317px;
+    overflow-y: scroll !important;
+}
+
+.ul-tree {
+    transform: translate3d(0px, 0px, 0px);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    overflow-y: hidden;
+    font-size: 12px;
+}
+
+.icon-toggle {
+    color:darkgrey;
+    padding-right: 5px;
+}
+
+.li-one {
+    cursor: pointer;
+    border-top: 1px solid #F2F4F4;
+    border-bottom: 1px solid #E5E8E8;
+    line-height: 66px;
+}
+
+.li-one:hover {
+    background: #EAECEE;
+}
+
+.li-one-head {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 30px;
+    line-height: 66px;
+    height: 70px;
+    color: #596679; //#97a8b6;
+}
+
+.li-two {
+    display: block;
+    padding: 3px 0;
+    margin: 0;
+    font-size: 12px;
+    border-left: 4px solid #EAECEE;
+    list-style: none;
+}
+
+.ul-two-sub {
+    margin-top: 7px !important;
+    margin-left: 50px !important;
+    color: #576473 !important;
+    font-size: 13px;
+
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.li-two-active {
+    display: table;
+    height: 33px;
+    overflow: hidden;
+    width: 100%;
+}
+
+.li-two-active:hover {
+    background: #EAECEE;
+}
+
+.item-two {
+    vertical-align: middle;
+    display: table-cell;
+    outline: none;
+    text-decoration: none;
+    background-color: transparent;
+    font-size: 1em;
+    font-weight: 500;
+    padding: 0 30px;
+    color: #596679;
+}

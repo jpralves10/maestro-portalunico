@@ -1,0 +1,144 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.produtos-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+}
+
+.mat-card.filtro-card {
+    margin-bottom: 5px;
+}
+
+.produto-fields {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr 1fr;
+    grid-column-gap: 10px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.period-fields {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-column-gap: 10px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.filtro-panel-content {
+    max-height: 300px;
+    padding: 0 15px 15px;
+}
+
+.filtro-fields-one {
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.filtro-fields-two {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.mat-card-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: 10px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.mat-card-list-item {
+    display: inline-block;
+    margin: 0;
+    vertical-align: top;
+}
+
+.mat-card-icon {
+    padding: 10px;
+    font-size: 22px;
+    float: left;
+    margin-right: 10px;
+}
+
+.mat-card-title {
+    font-size: 12px;
+    font-weight: 700;
+    color: #596679;
+}
+
+.mat-cad-body {
+    font-size: 22px;
+    font-weight: 700;
+    margin-top: -6px;
+}
+
+.declaracoes {
+    color: #e8b71a!important;
+}
+
+.total {
+    color: #54c08a!important;
+}
+
+.cadastrados {
+    color: #638ca5!important;
+}
+
+.add-button {
+    color: #fff;
+    float: right;
+    background: #54c08a !important;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.importer-content {
+    max-height: 200px;
+    overflow: auto;
+    margin-top: 10px;
+}
+
+.importer-title {
+    width: 100%;
+    font-size: 14px;
+    font-weight: 500;
+    color: #596679;
+    margin-bottom: .5rem;
+    line-height: 1.2;
+}
+
+.importer-list {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.importer-item {
+    font-size: 12px;
+    font-weight: 400;
+    color: #596679;
+}

@@ -1,0 +1,30 @@
+<div *ngIf="loading" fxAlign="center" class="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p>Carregando dados da consulta...</p>
+</div>
+
+<div *ngIf="!loading" class="filter-container">
+    <h3>Importar Arquivo</h3>
+
+    <div class="mat-card-list">
+
+        <mat-card *ngIf="importerSelected" class="mat-elevation-z5 filtro-card">
+            <mat-card-content class="form-container">
+                <h5 class="title-app">Importar lista de Itens</h5>
+                <div class="importer-fields-file">
+                    <button type="button" mat-raised-button (click)="imgFileInput.click()">
+                        Selecionar Arquivo
+                    </button>
+                    <input hidden type="file" #imgFileInput (change)="fileChange($event)"/>
+
+                    <img *ngIf="spinner" src="assets/spinner.gif" class="file-img">
+
+                    <span *ngIf="!spinner && message" class="filter-file-span">
+                        Lista de itens importados com sucesso!
+                    </span>
+                </div>
+            </mat-card-content>
+        </mat-card>
+
+    </div>
+</div>

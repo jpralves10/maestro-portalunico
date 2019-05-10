@@ -1,0 +1,98 @@
+<div *ngIf="loading" fxAlign="center" class="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p>Carregando dados da consulta...</p>
+</div>
+
+<div *ngIf="!loading" class="filter-container">
+    <h3>Catálogo de Produtos</h3>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+            <div class="table-head clearfix">
+                <span class="table-title">
+                    Produtos
+                </span>
+                <!--div class="baixar-itegrados">
+                    <a mat-button color="warn" 
+                        href="http://homologacao.eficilog.com:4545/catalogo-produtos/extrato?cnpj={{filter.importers[0]}}"
+                        style="text-decoration:none;"
+                        target="_blank">
+                        <fa-icon icon="file-csv" size="fa-sm" class="file-csv"></fa-icon>
+                        Exportar Mercadorias
+                    </a>
+                </div-->
+                <div class="baixar-itegrados">
+                    <a mat-button color="warn"
+                        href="#"
+                        style="text-decoration:none;"
+                        target="_blank">
+                        <fa-icon icon="file-csv" size="fa-sm" class="file-csv"></fa-icon>
+                        Baixar
+                    </a>
+                </div>
+            </div>
+
+            <mat-accordion>
+                <mat-expansion-panel style="margin-bottom: 20px;">
+                    <mat-expansion-panel-header style="height: 48px;">
+                        <mat-panel-title>
+                            Filtrar Itens
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+    
+                    <div class="filtro-panel-content">
+                        <div class="filtro-fields-one">
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Descrição do Produto"
+                                    [(ngModel)]="current_filtro.produto.descricaoBruta"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Número NCM"
+                                    [(ngModel)]="current_filtro.produto.ncm"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Número da DI"
+                                    [(ngModel)]="current_filtro.produto.numeroDI"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Status"
+                                    [(ngModel)]="current_filtro.produto.status"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="filtro-fields-two">
+
+                            
+                            
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <app-produtos-list
+                *ngIf="data !== null"
+                [data]="data.produtos"
+                [status]="status"
+                [filter]="filter">
+            </app-produtos-list>
+
+            <!--app-produtos-list>
+            </app-produtos-list-->
+
+        </mat-card-content>
+    </mat-card>
+
+</div>

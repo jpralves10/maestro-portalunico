@@ -1,0 +1,251 @@
+//@import 'variables';
+//@import '../node_modules/bootstrap/scss/bootstrap';
+//@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '@angular/material/prebuilt-themes/deeppurple-amber.css';
+//@import '@angular/material/prebuilt-themes/pink-bluegrey.css';
+//@import '@angular/material/prebuilt-themes/purple-green.css';
+
+body,
+html {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 100%;
+    background-color: #673ab7;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Title App */
+
+h3 {
+    font-size: 1.50rem;
+    font-weight: 500;
+    color: #596679;
+    margin-top: 10px;
+}
+
+h5 {
+    font-size: 20px;
+    font-weight: 400;
+    color: #596679;
+}
+
+/* Table App */
+
+.table-list {
+    table {
+        width: 100%;
+    }
+}
+
+td.mat-cell,
+td.mat-footer-cell,
+th.mat-header-cell {
+    padding: 5px !important;
+}
+
+td.mat-cell {
+    font-size: 12px;
+    font-weight: 400;
+    color: #596679;
+}
+
+.mat-row:hover {
+    background-color: #EAF2F8;
+}
+
+.table-not-records {
+    color: rgba(0,0,0,.54);
+    padding: 10px;
+}
+
+.table-title {
+    font-size: 20px;
+    font-weight: 400;
+    color: #596679;
+}
+
+.table-head {
+    margin-bottom: 10px;
+}
+
+/* App */
+
+.loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-items: center;
+}
+
+.app-loading {
+    box-sizing: border-box;
+    background-image: url(http://relatorios.eficilog.com/img/logo_white.png);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: 300px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+}
+
+.clearfix::after{
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.lds-ellipsis {
+    display: inline-block;
+    position: relative;
+    width: 64px;
+    height: 64px;
+}
+.lds-ellipsis div {
+    position: absolute;
+    top: 27px;
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+    background: #fff;
+    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+    left: 6px;
+    animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+    left: 6px;
+    animation: lds-ellipsis2 0.6s infinite;
+    }
+.lds-ellipsis div:nth-child(3) {
+    left: 26px;
+    animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+    left: 45px;
+    animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+    0% {
+        transform: scale(0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes lds-ellipsis3 {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(0);
+    }
+}
+@keyframes lds-ellipsis2 {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(19px, 0);
+    }
+}
+
+@media (min-width: 576px){
+    .modal-dialog {
+        max-width: 800px;
+        margin: 1.75rem auto;
+    }
+}
+
+/* Correção de bug do Google Charts (tooltip)
+  https://stackoverflow.com/questions/37902708/google-charts-tooltip-flickering
+*/
+svg > g > g:last-child {
+  pointer-events: none;
+}
+
+app-root {
+  width: 100%;
+}
+
+/** Mensagens Alerta **/
+
+.alert{
+    position: relative;
+    padding: .75rem 1.25rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: .25rem;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+.alert-text {
+    font-size: 1.1em;
+    font-weight: 400;
+}
+
+/** Style Formulários **/
+
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+
+/** Material Div Style **/
+
+.mat-card-div {
+    /*background: #fff;
+    color: rgba(0,0,0,.87);*/
+
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    display: block;
+    position: relative;
+    padding: 16px;
+    border-radius: 4px;
+    margin-bottom: 20px;
+
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    box-shadow: 0 3px 5px -1px rgba(0,0,0,.2), 0 5px 8px 0 rgba(0,0,0,.14), 0 1px 14px 0 rgba(0,0,0,.12);
+}
+
+.mat-card-content-div {
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+}
+
+.mat-card-content-div:first-child {
+    margin-top: 0;
+}
+
+

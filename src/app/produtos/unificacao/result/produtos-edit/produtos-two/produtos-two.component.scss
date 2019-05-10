@@ -1,0 +1,83 @@
+//@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+canvas {
+    width: 80px !important;
+    height: 40px !important;
+    margin: 0 !important;
+}
+
+.selected-itens {
+    font-size: 0.75rem;
+    font-weight: 600;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.produtos-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+}
+
+.mat-card-title {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.mat-card.filtro-card {
+    margin-bottom: 5px;
+}
+
+.produto-fields {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.descarte-row {
+    text-decoration: line-through;
+    font-style: italic;
+}
+
+.step-button-next {
+    background-color: #673AB7; //#BB8FCE;
+    color: #fff;
+}
+
+.step-button-return {
+    color:darkgrey;
+}
+
+.step-content {
+    margin-left: 10px;
+    border: 0;
+    position: relative;
+}
+
+.step-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.textarea-style {
+    font-size: 1.3em;
+    //font-weight: 600;
+    color: rgba(0,0,0,.70);
+    min-height:80px;    
+}
+
+.step-hint {
+    font-size: 1.4em;
+}
+
+.info-etapa {
+    font-weight:500;
+    padding-left: 30px;
+}

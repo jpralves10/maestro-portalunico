@@ -1,0 +1,343 @@
+<div *ngIf="loading" fxAlign="center" class="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p>Carregando os dados para exibição...</p>
+</div>
+
+<div *ngIf="!loading && !finish" class="produtos-container">
+    <h3>Editar Produto</h3>
+
+    <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
+        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
+            <span class="alert-text">{{msg.valor}}</span>
+        </div>
+    </div>
+    
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+            <mat-card-title>
+                CNPJ Raiz: 
+                {{
+                    produto.cnpjRaiz | mask: '00.000.000/0000-00'
+                }}
+                {{
+                    produto.codigosInterno.length > 0 ? 
+                    '/ Código Interno: ' + produto.codigosInterno[0] :
+                    ''
+                }}
+            </mat-card-title>
+            <mat-card-subtitle style="font-size: 1.2em;font-weight: 500;">
+                Status do Produto: 
+                <mat-chip style="background-color:#D4E6F1;">
+                    {{produto.status}}
+                </mat-chip>
+            </mat-card-subtitle>
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+            <div class="produto-fields-textarea">
+
+                <mat-form-field>
+                    <textarea
+                        matInput
+                        placeholder="Descrição do Produto"
+                        [(ngModel)]="produto.descricao"
+                        class="produto-descricao">
+                    </textarea>
+                </mat-form-field>
+
+            </div>
+
+            <div class="produto-fields">
+            
+                <mat-form-field>
+                    <mat-label>Situação do Produto</mat-label>
+                    <mat-select [(ngModel)]="produto.situacao">
+                        <mat-option
+                            *ngFor="let situacao of situacoes"
+                            [value]="situacao.value">
+                                {{situacao.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            
+                <mat-form-field>
+                    <mat-label>Modalidade do Produto</mat-label>
+                    <mat-select [(ngModel)]="produto.modalidade">
+                        <mat-option
+                            *ngFor="let modalidade of modalidades"
+                            [value]="modalidade.value">
+                                {{modalidade.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Código NCM"
+                        [(ngModel)]="produto.ncm"/>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Código Naladi"
+                        [(ngModel)]="produto.codigoNaladi"/>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>País de Origem</mat-label>
+                    <mat-select [(ngModel)]="produto.paisOrigem">
+                        <mat-option
+                            *ngFor="let pais of paises"
+                            [value]="pais.value">
+                                {{pais.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <mat-label>Fabricante Conhecido</mat-label>
+                    <mat-select [(ngModel)]="produto.fabricanteConhecido">
+                        <mat-option
+                            *ngFor="let fabricante of fabricantes"
+                            [value]="fabricante.value">
+                                {{fabricante.viewValue}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="produto.fabricanteConhecido && produto.paisOrigem == 'BR'">
+                    <input
+                        matInput
+                        placeholder="CPF/CNPJ do Fabricante"
+                        [(ngModel)]="produto.cpfCnpjFabricante"/>
+                </mat-form-field>
+
+                <mat-form-field *ngIf="produto.fabricanteConhecido && produto.paisOrigem != 'BR'">
+                    <input
+                        matInput
+                        placeholder="Código Operador Estrangeiro"
+                        [(ngModel)]="produto.codigoOperadorEstrangeiro"/>
+                </mat-form-field>
+
+                <mat-checkbox
+                    [checked]="produto.status == 'Aprovado'"
+                    (change)="setStatusProduto($event)">
+                    Aprovar Produtos
+                </mat-checkbox>
+            </div>
+
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Outros Códigos
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="codigos-panel-content">
+                        <div class="produto-codigos-fields">
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Código GPC"
+                                    [(ngModel)]="produto.codigoGPC"/>
+                            </mat-form-field>
+            
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Código GPC - Brick"
+                                    [(ngModel)]="produto.codigoGPCBrick"/>
+                            </mat-form-field>
+            
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Código UNSPSC"
+                                    [(ngModel)]="produto.codigoUNSPSC"/>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                                    
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Atributos NCM
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+
+                    <div class="atributos-panel-content">
+                        <div class="produto-atributo-fields">
+
+                            <mat-form-field>
+                                <mat-label>Atributos NCM</mat-label>
+                                <mat-select [(ngModel)]="attrSelect">
+                                    <mat-option
+                                        *ngFor="let attr of listaAtributos"
+                                        [value]="attr"
+                                        style="font-size: 12px;">
+                                            ({{attr.codigo}}) {{attr.dominio}} - {{attr.descricao}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+
+                            <button
+                                mat-raised-button 
+                                class="atributo-button-add" 
+                                (click)="adicionarAtributo()">
+                                    Adicionar
+                            </button>
+                        </div>
+
+                        <table 
+                            *ngIf="listaAtributosDataSource.data.length > 0"
+                            mat-table
+                            [dataSource]="listaAtributosDataSource"
+                            class="mat-elevation-z8 codigointerno-table">                        
+                            
+                            <ng-container matColumnDef="codigo">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let row">{{row.codigo}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="dominio">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let row">{{row.dominio}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="descricao">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let row">{{row.descricao}}</td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="operacao">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let row">
+                                    <button mat-button (click)="removeRowAtributo(row)" title="Remover">
+                                        <fa-icon icon="minus-square" size="lg"></fa-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="atributosColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: atributosColumns;"></tr>
+                        </table>
+
+                        <!--div *ngIf="attrList.length > 0">
+                            <div *ngFor="let attr of attrList">
+                                ({{attr.codigo}}) {{attr.dominio}} - {{attr.descricao}}
+                            </div>
+                        </div-->
+                    </div>
+                
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <mat-accordion>
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                        <mat-panel-title>
+                            Códigos Internos
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+                
+                    <div class="codigointerno-panel-content">
+                        
+                        <div class="produto-codigointerno-fields">
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Código"
+                                    [(ngModel)]="codigointerno_form"/>
+                            </mat-form-field>
+
+                            <button 
+                                mat-raised-button 
+                                class="codigointerno-button-add" 
+                                (click)="adicionarCodigoInterno()">
+                                    Adicionar
+                            </button>
+                        </div>
+
+                        <table 
+                            *ngIf="codigoInternoDataSource.data.length > 0"
+                            mat-table 
+                            [dataSource]="codigoInternoDataSource" 
+                            class="mat-elevation-z8 codigointerno-table">                        
+                            
+                            <ng-container matColumnDef="valor">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let row"> {{row}} </td>
+                            </ng-container>
+
+                            <ng-container matColumnDef="operacao">
+                                <th mat-header-cell *matHeaderCellDef></th>
+                                <td mat-cell *matCellDef="let row">
+                                    <button mat-button (click)="removeRowCodigoInterno(row)" title="Remover">
+                                        <fa-icon icon="minus-square" size="lg"></fa-icon>
+                                    </button>
+                                </td>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="codigoInternoColumns"></tr>
+                            <tr mat-row *matRowDef="let row; columns: codigoInternoColumns;"></tr>
+                        </table>
+
+                    </div>
+
+                </mat-expansion-panel>
+            </mat-accordion>
+
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5">
+        
+        <mat-card-actions align="end" style="padding:0;margin:0;">
+
+            <img *ngIf="spinner" src="assets/spinner.gif" style="height:30px;padding-right:10px;">
+
+            <button
+                mat-raised-button
+                (click)="voltarEtapa()"
+                class="step-button-return"
+                style="margin: 0 8px;">
+                <fa-icon
+                    icon="angle-double-left"
+                    size="fa-sm">
+                </fa-icon>
+                Voltar Etapa Anterior
+            </button>
+            <button
+                mat-raised-button
+                (click)="finalizarPreenchimento()"
+                class="step-button-finish">
+                <fa-icon
+                    icon="check"
+                    size="fa-sm">
+                </fa-icon>
+                Finalizar
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+</div>
+
+<div *ngIf="!loading && finish" class="produtos-container">
+
+    <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
+        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
+            <span class="alert-text">{{msg.valor}}</span>
+        </div>
+    </div>
+
+</div>

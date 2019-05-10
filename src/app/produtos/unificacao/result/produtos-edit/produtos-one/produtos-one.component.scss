@@ -1,0 +1,122 @@
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.produtos-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0px 10px;
+    margin-bottom: 10px;
+}
+
+.form-container-item {
+    margin: 0 0 20px 16px;
+}
+
+.mat-card.filtro-card {
+    margin-bottom: 5px;
+}
+
+.descricao-fields {
+    display: grid;
+    //grid-template-columns: 2fr 2fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.input-style {
+    font-size: 1.3em;
+    color: rgba(0,0,0,.70);
+    min-height:40px;
+}
+
+.textarea-style {
+    font-size: 1.3em;
+    //font-weight: 600;
+    color: rgba(0,0,0,.70);
+    min-height:80px;    
+}
+
+.codigo-selecionado {
+    font-weight: 600;
+}
+
+.step-config {
+    margin: 0 0 20px 16px;
+}
+
+.step-title {
+    outline: 0;
+    cursor: pointer;
+    position: relative;
+    box-sizing: content-box;
+    -webkit-tap-highlight-color: transparent;
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.step-icon {
+    margin-right: 8px;
+    background-color: #CEBEEB; //#D2B4DE;
+    color: #fff;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
+    position: relative;
+}
+
+.step-button-next {
+    background-color: #673AB7; //#BB8FCE;
+    color: #fff;
+}
+
+.step-icon-number {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+
+.step-hint {
+    font-size: 1.4em;
+}
+
+.step-content {
+    margin-left: 10px;
+    border: 0;
+    position: relative;
+}
+
+.step-content::before {
+    content: '';
+    position: absolute;
+    top: -16px;
+    bottom: -16px;
+    left: 0;
+    border-left-width: 1px;
+    border-left-style: solid;
+    border-left-color: rgba(0,0,0,.12);
+}
+
+.step-content-form {
+    padding: 0 24px 24px 24px;
+}
+
+.step-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.step-form-button {
+    width: 100%;
+}
+
+.info-etapa {
+    font-weight:500;
+    padding-left: 30px;
+}

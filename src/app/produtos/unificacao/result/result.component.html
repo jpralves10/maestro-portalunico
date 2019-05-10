@@ -1,0 +1,191 @@
+<div *ngIf="loading" fxAlign="center" class="loading">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+  <p>Carregando dados da consulta...</p>
+</div>
+
+<div *ngIf="!loading" class="produtos-container">
+    <h3>Unificar Produtos</h3>
+
+    <div class="mat-card-list">
+
+        <!--mat-card class="mat-elevation-z5 filtro-card mat-card-list-item">
+            <mat-card-content class="form-container">    
+                <span class="mat-card-title">
+                    De: {{resumo.periodoInicial | mask: 'AA/AA/AAAA'}} -
+                    {{resumo.periodoFinal | mask: 'AA/AA/AAAA'}}
+                </span>
+                <div style="font-size:1.1em;">
+                    Qtd. de DIs: {{resumo.qtdDeclaracoes}} >> 
+                    Qtd. de Itens: {{resumo.qtdItens}} >>
+                    Qtd. de Itens Cadastrados: {{resumo.qtdItensCadastrados}}
+                </mat-card-subtitle>
+                <mat-card-subtitle>
+                    <mat-chip-list>
+                        <mat-chip>
+                            CNPJ(s):
+                        </mat-chip>
+                        <mat-chip
+                            *ngFor="let cnpj of resumo.cnpjList"
+                            style="font-size:0.9em; background-color:#F4F6F6;">
+                            {{cnpj | mask: '00.000.000/0000-00'}}
+                        </mat-chip>
+                    </mat-chip-list>
+                </mat-card-subtitle>
+            </mat-card-content>
+        </mat-card-->
+
+        <mat-card
+            class="mat-elevation-z5 filtro-card mat-card-list-item"
+            style="margin-bottom: 20px;">
+            <mat-card-content class="form-container">
+
+                <div class="mat-card-icon declaracoes">
+                    <fa-icon icon="file-contract" size="lg"></fa-icon>
+                </div>
+
+                <div>
+                    <span class="mat-card-title">
+                        Declarações (DI)
+                    </span>
+                    <div class="mat-cad-body declaracoes">
+                        {{resumo.qtdDeclaracoes}}
+                    </div>
+                </div>    
+                
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card 
+            class="mat-elevation-z5 filtro-card mat-card-list-item"
+            style="margin-bottom: 20px;">
+            <mat-card-content class="form-container">
+
+                <div class="mat-card-icon total">
+                    <fa-icon icon="coins" size="lg"></fa-icon>
+                </div>
+
+                <div>
+                    <span class="mat-card-title">
+                        Itens
+                    </span>
+                    <div class="mat-cad-body total">
+                        {{resumo.qtdItens}}
+                    </div>
+                </div>
+                
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card
+            class="mat-elevation-z5 filtro-card mat-card-list-item"
+            style="margin-bottom: 20px;">
+            <mat-card-content class="form-container">
+
+                <div class="mat-card-icon cadastrados">
+                    <fa-icon icon="tasks" size="lg"></fa-icon>
+                </div>
+
+                <div>
+                    <span class="mat-card-title">
+                        Produtos Cadastrados
+                    </span>
+                    <div class="mat-cad-body cadastrados">
+                        {{resumo.qtdItensCadastrados}}
+                    </div>
+                </div>
+
+            </mat-card-content>
+        </mat-card>
+    </div>    
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+            <div class="table-head clearfix">
+                <span class="table-title">
+                    Período: 
+                    {{resumo.periodoInicial.toLocaleDateString()}} a
+                    {{resumo.periodoFinal.toLocaleDateString()}}
+                </span>
+
+                <!--button
+                    mat-raised-button
+                    (click)="addProdutos()"
+                    class="add-button">
+                    <fa-icon icon="plus" size="lg" style="font-size: 10px;"></fa-icon>
+                    Add Item
+                </button-->
+            </div>
+
+            <mat-accordion>
+                <mat-expansion-panel style="margin-bottom: 20px;">
+                    <mat-expansion-panel-header style="height: 48px;">
+                        <mat-panel-title>
+                            Filtrar Itens
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+    
+                    <div class="filtro-panel-content">
+                        <div class="filtro-fields-one">
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Número da DI"
+                                    [(ngModel)]="current_filtro.produto.numeroDI"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Descrição do Produto"
+                                    [(ngModel)]="current_filtro.produto.descricaoBruta"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Número NCM"
+                                    [(ngModel)]="current_filtro.produto.ncm"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field>
+                            <!--mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Status"
+                                    [(ngModel)]="current_filtro.produto.status"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field-->
+                        </div>
+
+                        <div class="filtro-fields-two">
+
+                            <div *ngIf="importers.length > 0" class="importer-content">
+                                <div class="importer-title">Importadores Selecionados:</div>
+                                <div *ngFor="let importer of importers" class="importer-list">
+                                    <div class="importer-item">
+                                        <mat-checkbox
+                                            [checked]="importer.checked"
+                                            (change)="setCheckedImporter($event, importer)"
+                                            style="margin-right: 5px;">
+                                        </mat-checkbox>
+                                        {{importer.name}} 
+                                        (CNPJ: {{importer.cnpj | mask: '00.000.000/0000-00'}})
+                                    </div> 
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <app-produtos-list
+                *ngIf="data !== null"
+                [data]="data.produtos"
+                [status]="status"
+                [filter]="filter">
+            </app-produtos-list>
+        </mat-card-content>
+    </mat-card>
+
+</div>

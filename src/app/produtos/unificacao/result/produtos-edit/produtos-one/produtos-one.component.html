@@ -1,0 +1,94 @@
+<div *ngIf="loading" fxAlign="center" class="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p>Carregando os dados para exibição...</p>
+</div>
+
+<div *ngIf="!loading" class="produtos-container">
+    <h3>Identificar Código / Expressão</h3>
+
+    <!--mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+            <mat-card-title>
+                <fa-icon
+                    icon="exclamation-triangle" 
+                    size="fa-xs" 
+                    style="color:darkgrey;">
+                </fa-icon>
+                Atenção!
+            </mat-card-title>
+            <div class="info-etapa">
+                <p>Indentifique o 'Código' do produto selecionando-o na descrição abaixo!</p>   
+            </div>                     
+        </mat-card-content>
+    </mat-card-->
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+            <div class="form-container-item">
+
+                <div class="step-title">
+                    <div class="step-icon">
+                        <span class="step-icon-number">1</span>
+                    </div>
+                    <h5>Selecionar Código:</h5>
+                </div>                
+                    
+                <div class="step-content descricao-fields">
+                    <div class="step-content-form">
+                        <mat-form-field class="step-form-field">
+                            <textarea
+                                matInput
+                                [(ngModel)]="descricaoBruta"
+                                class="textarea-style"
+                                (blur)="selecionarCodigoDescricao($event)">
+                            </textarea>
+                            <mat-hint class="step-hint">Descrição Atual do Produto</mat-hint>
+                        </mat-form-field>
+
+                        <div class="step-form-button">
+                            <button mat-raised-button>Confirmar Seleção</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-container-item">
+
+                <div class="step-title">
+                    <div class="step-icon">
+                        <span class="step-icon-number">2</span>
+                    </div>
+                    <h5>Confirmar Seleção Visualmente:</h5>
+                </div>                
+
+                <div class="step-content descricao-fields">
+                    <div class="step-content-form">
+                        <mat-form-field class="step-form-field">
+                            <textarea
+                                matInput
+                                [(ngModel)]="codigoSelecionado"
+                                class="textarea-style codigo-selecionado"
+                                disabled>
+                            </textarea>
+                            <mat-hint class="step-hint">Código do Produto Selecionado</mat-hint>
+                        </mat-form-field>
+                    </div>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5">
+        <mat-card-actions align="end" style="padding:0;margin:0;">
+            <button 
+                mat-raised-button matStepperNext
+                (click)="proximaEtapa()"
+                class="step-button-next">
+                Próxima Etapa
+            </button>
+        </mat-card-actions>
+    </mat-card>
+
+</div>
