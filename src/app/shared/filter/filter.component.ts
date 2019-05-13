@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Route, CanLoad, CanActivate } from '@angular/router';
+import { NgbActiveModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { Filter, FilterItem, FilterResult } from '../../produtos/shared/models/unificacao.filter.model';
 
@@ -19,6 +20,8 @@ export class FilterComponent implements OnInit {
     loading = true;
     errored = false;
 
+    closeResult: boolean = false;
+
     @Input() current_filtro: FilterItem = {
         importer: {cpf_cnpj: '', name: ''}
     };
@@ -29,7 +32,8 @@ export class FilterComponent implements OnInit {
         private produtoService: ProdutoService,
         private filterService: FilterService,
         private router: Router,
-        private route: ActivatedRoute
+        private route: ActivatedRoute,
+        public activeModal: NgbActiveModal
     ) {
         filterService.filterResult.subscribe(f => {
             this.filtro = f;
@@ -57,7 +61,7 @@ export class FilterComponent implements OnInit {
         this.filterService.clearFilter();
     }
 
-    public getDataTransformed(data: any): Filter {
+    getDataTransformed(data: any): Filter {
         return {
             importers: Object.keys(data.importers)
                 .map(key => {
@@ -72,15 +76,15 @@ export class FilterComponent implements OnInit {
         }
     }
 
-    public updateFiltro() {
+    updateFiltro() {
         this.filterService.changeFilter(this.current_filtro);
     }
 
-    public updateFiltroFinal() {
+    updateFiltroFinal() {
         this.filterService.changeFilterResult(this.filtro);
     }
 
-    public generateReport() {
+    generateReport() {
         window.sessionStorage.setItem('result', this.getFilterAsString());
 
         /*this.router.navigate([`./result`], {
@@ -92,7 +96,7 @@ export class FilterComponent implements OnInit {
         });*/
     }
 
-    public getFilterAsString(): string {
+    getFilterAsString(): string {
 
         var cnpjRaiz = this.filtro.importers.map(i => 
             i.cpf_cnpj.replace(/[/\/\-\.]/g, '').substring(0, 8)
@@ -107,7 +111,7 @@ export class FilterComponent implements OnInit {
         } as FilterResult);
     }
 
-    public listaCNPJ(cnpjRaiz: string[]): [{}]{
+    listaCNPJ(cnpjRaiz: string[]): [{}]{
 
         let listaImporters: any = [];
 

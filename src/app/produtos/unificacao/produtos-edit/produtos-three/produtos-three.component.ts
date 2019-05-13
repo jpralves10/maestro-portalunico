@@ -232,7 +232,7 @@ export class ProdutosThreeComponent implements OnInit {
                             .setAlterarProdutos(this.produto)
                             .subscribe(versoes => {}, error => { this.errored = true;});
 
-                        this.router.navigate([`/`], {
+                        this.router.navigate([`/unificacao`], {
                             relativeTo: this.route,
                             replaceUrl: true,
                             queryParams: {

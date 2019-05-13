@@ -39,6 +39,12 @@ export class ProdutoService {
         );
     }
 
+    setProdutosImportacao(importacao: any): Observable<Produto[]> {
+        return this.httpClient.post<Produto[]>(
+            `${ EFICILOG_API_HOMOLOCACAO }/importacao-produtos/salvar`, importacao
+        );
+    }
+
     //Teste
     serverGoogle(): Observable<any> {
         var headers = new HttpHeaders();

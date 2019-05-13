@@ -11,7 +11,7 @@
             <span class="alert-text">{{msg.valor}}</span>
         </div>
     </div>
-    
+
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
             <mat-card-title>
@@ -332,12 +332,11 @@
 
 </div>
 
-<div *ngIf="!loading && finish" class="produtos-container">
+<div *ngIf="!loading && finish" class="produtos-container" style="margin-top:20px;">
 
     <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
         <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
             <span class="alert-text">{{msg.valor}}</span>
         </div>
     </div>
-
 </div>

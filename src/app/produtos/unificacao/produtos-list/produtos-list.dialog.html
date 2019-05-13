@@ -20,7 +20,7 @@
                     <span style="font-weight: 500px">
                         {{node.name}}
                         (CNPJ: {{node.cnpj | mask: '00.000.000/0000-00'}})
-                    </span>                
+                    </span>
                 </li>
                 <li *ngIf="node.toggle">
                     <ul *ngFor="let declaracao of node.declaracoes">

@@ -1,46 +1,56 @@
-<div *ngIf="loading" fxAlign="center" class="loading">
-  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
-  <p>Carregando os dados para filtro...</p>
+<div class="modal-header">
+    <span class="modal-title">
+        Importador / Exportador
+    </span>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
 </div>
+<div class="modal-body">
 
-<div *ngIf="!loading" class="filter-container">
-<h3>Filtro</h3>
+    <div *ngIf="loading" fxAlign="center" class="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        <p>Carregando os dados para filtro...</p>
+    </div>
 
-    <mat-card class="mat-elevation-z5 filtro-card">
-        <mat-card-content class="form-container">
-            <h5 class="title-app">Importador / Exportador</h5>
-            <div class="importer-fields">
-                <mat-form-field>
-                    <input
-                        matInput
-                        placeholder="Razão Social"
-                        [(ngModel)]="current_filtro.importer.name"
-                        (ngModelChange)="updateFiltro()" />
-                </mat-form-field>
-                <mat-form-field>
-                    <input
-                        matInput
-                        placeholder="CPF / CNPJ"
-                        [(ngModel)]="current_filtro.importer.cpf_cnpj"
-                        (ngModelChange)="updateFiltro()" />
-                </mat-form-field>
-            </div>
-            <app-importers-list
-                *ngIf="data !== null" 
-                [data]="data.importers">
-            </app-importers-list>
-        </mat-card-content>
-    </mat-card>
+    <div *ngIf="!loading" class="filter-container">
+    <h3>Filtro</h3>
 
-    <mat-card class="mat-elevation-z5">
-        <mat-card-content>
-            <button 
-                mat-raised-button
-                class="filter-button"
-                (click)="generateReport()">
-                Filtrar
-            </button>
-        </mat-card-content>
-    </mat-card>
+        <mat-card class="mat-elevation-z5 filtro-card">
+            <mat-card-content class="form-container">
+                <div class="importer-fields">
+                    <mat-form-field>
+                        <input
+                            matInput
+                            placeholder="Razão Social"
+                            [(ngModel)]="current_filtro.importer.name"
+                            (ngModelChange)="updateFiltro()" />
+                    </mat-form-field>
+                    <mat-form-field>
+                        <input
+                            matInput
+                            placeholder="CPF / CNPJ"
+                            [(ngModel)]="current_filtro.importer.cpf_cnpj"
+                            (ngModelChange)="updateFiltro()" />
+                    </mat-form-field>
+                </div>
+                <app-importers-list
+                    *ngIf="data !== null" 
+                    [data]="data.importers">
+                </app-importers-list>
+            </mat-card-content>
+        </mat-card>
 
+        <mat-card class="mat-elevation-z5">
+            <mat-card-content>
+                <button 
+                    mat-raised-button
+                    class="filter-button"
+                    (click)="generateReport();activeModal.dismiss('Cross click')">
+                    Filtrar
+                </button>
+            </mat-card-content>
+        </mat-card>
+
+    </div>
 </div>

@@ -13,22 +13,15 @@
                 <span class="table-title">
                     Produtos
                 </span>
-                <!--div class="baixar-itegrados">
+                <div
+                    *ngIf="filter != null && filter.importers[0].length > 0"
+                    class="baixar-itegrados">
                     <a mat-button color="warn" 
                         href="http://homologacao.eficilog.com:4545/catalogo-produtos/extrato?cnpj={{filter.importers[0]}}"
                         style="text-decoration:none;"
                         target="_blank">
                         <fa-icon icon="file-csv" size="fa-sm" class="file-csv"></fa-icon>
-                        Exportar Mercadorias
-                    </a>
-                </div-->
-                <div class="baixar-itegrados">
-                    <a mat-button color="warn"
-                        href="#"
-                        style="text-decoration:none;"
-                        target="_blank">
-                        <fa-icon icon="file-csv" size="fa-sm" class="file-csv"></fa-icon>
-                        Baixar
+                        Exportar
                     </a>
                 </div>
             </div>

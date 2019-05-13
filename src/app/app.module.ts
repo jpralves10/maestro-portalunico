@@ -26,12 +26,16 @@ import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { IndicadoresComponent } from './dashboard/indicadores/indicadores.component';
 import { ImportacaoComponent } from './produtos/importacao/importacao.component';
+import { FilterComponent } from './shared/filter/filter.component';
+import { ImportersListComponent } from './shared/filter/importers-list/importers-list.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         NavegacaoComponent,
         HomeComponent,
+        FilterComponent,
+        ImportersListComponent,
         IndicadoresComponent,
         ImportacaoComponent
     ],
@@ -53,6 +57,9 @@ import { ImportacaoComponent } from './produtos/importacao/importacao.component'
             multi: true,
             deps: [KeycloakService]
         }
+    ],
+    entryComponents: [
+        FilterComponent
     ],
     bootstrap: [AppComponent]
 })

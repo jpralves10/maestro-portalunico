@@ -41,8 +41,6 @@ import { ComentariosEditComponent } from './comentarios/comentarios-edit/comenta
         RouterModule.forChild(CLASSIFICACAO_ROUTES),
         NgxMaskModule.forRoot()
     ],
-    entryComponents: [
-        
-    ]
+    entryComponents: []
 })
 export class ClassificacaoModule { }

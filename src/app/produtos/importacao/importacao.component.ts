@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Filter, FilterResult } from '../shared/models/unificacao.filter.model';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FilterComponent } from '../../shared/filter/filter.component';
+import { ProdutoService } from '../shared/services/produtos.service';
 
 /*import { writeFileSync, readFileSync, existsSync } from 'fs';
 import * as fs from "file-system";
@@ -23,18 +26,40 @@ export class ImportacaoComponent implements OnInit {
 
     filtro: Filter = { importers: [] };
 
-    constructor() {
-
+    constructor(
+        private produtoService: ProdutoService,
+        private modalService: NgbModal
+    ) {
         /*if(!this.importerSelected && this.filtro.importers.length > 0){
             this.importerSelected = true;
         }*/
 
-        setTimeout(() => {
-            this.loading = false;
-        }, 2000);
+        this.getFilterResult();
+        this.loading = false;
+
+        if(this.filter != null && this.filter.importers.length > 0){
+            setTimeout(() => {
+                this.loading = false;
+            }, 2000);
+        } else {
+            this.openDialogFilter();
+        }
     }
 
     ngOnInit() { }
+
+    openDialogFilter(): void {
+        this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
+            this.getFilterResult();
+            setTimeout(() => {
+                this.loading = false;
+            }, 2000);
+        });
+    }
+
+    getFilterResult(){
+        this.filter = JSON.parse(window.sessionStorage.getItem('result'));
+    }
 
     fileChange(event: any){
 
@@ -43,11 +68,9 @@ export class ImportacaoComponent implements OnInit {
         if (event.target.files.length > 0) {
             let file = event.target.files[0];
 
-            console.log(file.length)
-            
-
-            console.log(btoa(file).length)
-
+            this.produtoService.setProdutosImportacao(
+                { importer:this.filter.importers[0], file:btoa(file) }
+            ).subscribe(status => { });
         }
 
         setTimeout(() => {

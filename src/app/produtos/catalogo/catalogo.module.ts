@@ -43,8 +43,6 @@ import { ProdutosEditComponent } from './produtos-edit/produtos-edit.component';
         RouterModule.forChild(CATALOGO_ROUTES),
         NgxMaskModule.forRoot()
     ],
-    entryComponents: [
-        
-    ]
+    entryComponents: []
 })
 export class CatalogoModule { }

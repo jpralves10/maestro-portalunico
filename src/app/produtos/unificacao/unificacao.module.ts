@@ -22,8 +22,6 @@ library.add(fas, far, faChevronDown, faFileMedical, faInfoCircle);
 
 import { UNIFICACAO_ROUTES } from './unificacao.routes';
 
-import { FilterComponent } from '../../shared/filter/filter.component';
-import { ImportersListComponent } from '../../shared/filter/importers-list/importers-list.component';
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
 import { ProdutosListDialog } from './produtos-list/produtos-list.dialog'; 
 import { ProdutosEditComponent } from './produtos-edit/produtos-edit.component';
@@ -34,8 +32,6 @@ import { UnificacaoComponent } from './unificacao.component';
 
 @NgModule({
     declarations: [
-        FilterComponent,
-        ImportersListComponent,
         ProdutosListComponent,
         ProdutosListDialog,
         ProdutosEditComponent,

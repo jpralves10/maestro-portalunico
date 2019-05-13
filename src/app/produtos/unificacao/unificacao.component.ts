@@ -6,10 +6,12 @@ import { Declaracao } from '../shared/models/legendas.model';
 import { Result, ResultItem, ResultClass } from '../shared/models/unificacao.result.model';
 import { Resumo } from '../shared/models/legendas.model';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { ProdutoService } from '../shared/services/produtos.service';
 import { ResultService } from '../shared/services/unificacao.result.service';
-
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
+import { FilterComponent } from '../../shared/filter/filter.component';
 
 @Component({
     selector: 'app-unificacao',
@@ -62,23 +64,16 @@ export class UnificacaoComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private produtoService: ProdutoService,
-        private resultService: ResultService
+        private resultService: ResultService,
+        private modalService: NgbModal
     ) {
-        this.filter = JSON.parse(window.sessionStorage.getItem('result'));
-
-        console.log('filter> ', this.filter)
-        console.log('route> ', this.route)
+        this.getFilterResult();
+        this.loading = false;
 
         if(this.filter != null && this.filter.importers.length > 0){
-            this.status = this.filter.status;
-
-            this.importers = [...this.filter.importadores];
-
-            //this.produtos = this.getMockDados();
-            this.loading = false;
-            this.setDadosResult();
+            this.setDadosInit();
         } else {
-
+            this.openDialogFilter();
         } 
 
         /*this.route.queryParamMap.subscribe(paramMap => {
@@ -98,6 +93,26 @@ export class UnificacaoComponent implements OnInit {
     ngOnInit() { }
 
     ngAfterViewInit() { }
+
+    openDialogFilter(): void {
+        this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
+            this.getFilterResult();
+            this.setDadosInit();
+        });
+    }
+
+    getFilterResult(){
+        this.filter = JSON.parse(window.sessionStorage.getItem('result'));
+    }
+
+    setDadosInit(){
+        if(this.filter != null){
+            this.status = ['Pendente', 'Completo', 'Aprovado', 'Integrado']; //this.filter.status;
+            this.importers = [...this.filter.importadores];
+            this.loading = false;
+            this.setDadosResult();
+        }
+    }
 
     setDadosResult(){
         this.data = new ResultClass();
@@ -137,12 +152,11 @@ export class UnificacaoComponent implements OnInit {
                 produto.dataCriacao = new Date(produto.dataCriacao);
 
                 if(produto.fabricanteNome == undefined || produto.fabricanteNome == null){
-                    produto.fabricanteNome = ''
+                    produto.fabricanteNome = '';
                 }
                 if(produto.fornecedorNome == undefined || produto.fornecedorNome == null){
-                    produto.fornecedorNome = ''
+                    produto.fornecedorNome = '';
                 }
-
                 if(produto.declaracoes == null || produto.declaracoes == undefined){
                     produto.declaracoes = [];
                 }

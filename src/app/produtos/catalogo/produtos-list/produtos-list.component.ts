@@ -28,7 +28,7 @@ export class ProdutosListComponent implements OnInit {
 
     dataSource: ProdutosListDataSource;
     selection = new SelectionModel<Produto>(true, []);
-    displayedColumns = ['descricaoBruta', 'ncm', 'canal'];
+    displayedColumns = ['descricaoBruta', 'ncm'];
 
     public filtroValue: ResultItem;
     public currentFilter: Result;
@@ -50,7 +50,7 @@ export class ProdutosListComponent implements OnInit {
         });
     }
 
-    ngOnInit() { 
+    ngOnInit() {
         this.statusOld = [...this.status]
 
         this.dataSource = new ProdutosListDataSource(

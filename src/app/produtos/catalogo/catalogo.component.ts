@@ -6,11 +6,13 @@ import { Produto } from '../shared/models/produto.model';
 import { ProdutoService } from '../shared/services/produtos.service';
 import { ResultService } from '../shared/services/unificacao.result.service';
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { FilterComponent } from '../../shared/filter/filter.component';
 
 @Component({
-  selector: 'app-catalogo',
-  templateUrl: './catalogo.component.html',
-  styleUrls: ['./catalogo.component.scss']
+    selector: 'app-catalogo',
+    templateUrl: './catalogo.component.html',
+    styleUrls: ['./catalogo.component.scss']
 })
 export class CatalogoComponent implements OnInit {
 
@@ -43,10 +45,30 @@ export class CatalogoComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private resultService: ResultService,
-        private produtoService: ProdutoService
+        private produtoService: ProdutoService,
+        private modalService: NgbModal
     ) {
+        this.getFilterResult();
         this.loading = false;
-        this.setDadosResult();
+
+        if(this.filter != null && this.filter.importers.length > 0){
+            this.setDadosResult();
+        } else {
+            this.openDialogFilter();
+        }
+    }
+
+    openDialogFilter(): void {
+        this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
+            this.getFilterResult();
+            if(this.filter != null){
+                this.setDadosResult();
+            }
+        });
+    }
+
+    getFilterResult(){
+        this.filter = JSON.parse(window.sessionStorage.getItem('result'));
     }
 
     setDadosResult(){
@@ -76,7 +98,7 @@ export class CatalogoComponent implements OnInit {
 
         this.produtoService.getProdutosGenerico(
             {
-                cnpjRaiz: "08532602", //this.filter.importers[0],
+                cnpjRaiz: this.filter.importers[0],
                 status: this.status,
                 dataInicial: new Date(date.setMonth(date.getMonth() - 12)),
                 dataFinal: new Date()
@@ -101,9 +123,7 @@ export class CatalogoComponent implements OnInit {
 
             //this.agruparDeclaracoes(this.data.produtos);
             this.produtos = this.data.produtos;
-
             this.childUpdateDataSource();
-
             this.loading = false;
         },
         error => { this.errored = true; })

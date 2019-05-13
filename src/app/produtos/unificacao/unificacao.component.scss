@@ -8,11 +8,9 @@
     padding: 0px 10px;
     margin-bottom: 10px;
 }
-
 .mat-card.filtro-card {
     margin-bottom: 5px;
 }
-
 .produto-fields {
     display: grid;
     grid-template-columns: 1fr 3fr 1fr 1fr;
@@ -22,7 +20,6 @@
         flex-direction: column;
     }
 }
-
 .period-fields {
     display: grid;
     grid-template-columns: 3fr 1fr;
@@ -32,12 +29,10 @@
         flex-direction: column;
     }
 }
-
 .filtro-panel-content {
     max-height: 300px;
     padding: 0 15px 15px;
 }
-
 .filtro-fields-one {
     display: grid;
     grid-template-columns: 2fr 2fr;
@@ -47,7 +42,6 @@
         flex-direction: column;
     }
 }
-
 .filtro-fields-two {
     display: grid;
     grid-template-columns: 1fr;
@@ -118,7 +112,7 @@
 }
 
 .importer-content {
-    max-height: 200px;
+    max-height: 170px;
     overflow: auto;
     margin-top: 10px;
 }

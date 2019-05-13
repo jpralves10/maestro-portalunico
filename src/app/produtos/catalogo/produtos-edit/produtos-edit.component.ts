@@ -220,7 +220,7 @@ export class ProdutosEditComponent implements OnInit {
                         if(this.produto.status == 'Pendente'){
                             this.produto.status = 'Completo';
                         }                        
-                        
+
                         this.produto.dataAtualizacao = new Date();
                         this.produto.versoesProduto = undefined;
                         this.produto.etapaUnificacao = undefined;
@@ -237,8 +237,8 @@ export class ProdutosEditComponent implements OnInit {
                         this.produtoService
                             .setAlterarProdutos(this.produto)
                             .subscribe(versoes => {}, error => { this.errored = true;});
-                        
-                        this.router.navigate([`./result`], {
+
+                        this.router.navigate([`/catalogo`], {
                             relativeTo: this.route,
                             replaceUrl: true,
                             queryParams: {

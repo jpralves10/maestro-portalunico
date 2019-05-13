@@ -1,7 +1,5 @@
 import { Component, Input } from '@angular/core';
-
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-
 import { DeclaracaoNode } from '../../shared/models/legendas.model';
 import { Produto } from '../../shared/models/produto.model';
 
