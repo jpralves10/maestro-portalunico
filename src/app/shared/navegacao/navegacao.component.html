@@ -72,20 +72,22 @@
             </a>
         </mat-nav-list-->
     </mat-sidenav>
-  
+
     <mat-sidenav-content>
-        <mat-toolbar color="primary" *ngIf="(isHandset$ | async)">
+        <mat-toolbar class="content" color="primary" > <!--*ngIf="(isHandset$ | async)"-->
             <button
                 type="button"
                 aria-label="Toggle sidenav"
                 mat-icon-button
-                (click)="drawer.toggle()"
-                *ngIf="(isHandset$ | async)" >
+                style="color:#757575;"
+                (click)="drawer.toggle()">
+                <!--*ngIf="(isHandset$ | async)" > -->
                 <mat-icon aria-label="Side nav toggle icon">
                     menu
                 </mat-icon>
             </button>
             <span></span>
+            
         </mat-toolbar>
 
         <router-outlet></router-outlet>

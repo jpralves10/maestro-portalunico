@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+//import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -12,21 +12,21 @@ export class NavegacaoComponent implements OnInit {
 
     //https://app.trackado.com/Dashboard/
 
-    isHandset$: Observable<boolean> = this.breakpointObserver
+    /*isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
-    .pipe(map(result => result.matches));
+    .pipe(map(result => result.matches));*/
 
     listaMenus = this.getListaMenus();
 
     constructor(
-        private breakpointObserver: BreakpointObserver
+        //private breakpointObserver: BreakpointObserver
     ) { }
 
     ngOnInit() { }
 
-    checkClose() {
+    /*checkClose() {
         return this.breakpointObserver.isMatched('(max-width: 600px)');
-    }
+    }*/
 
     toggleMenu(menu: any){
         menu.toggle = !menu.toggle;

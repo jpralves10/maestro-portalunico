@@ -1,27 +1,27 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FilterResult } from '../../shared/models/unificacao.filter.model';
-import { Produto } from '../../shared/models/produto.model';
-import { Declaracao } from '../../shared/models/legendas.model';
-import { Result, ResultItem, ResultClass } from '../../shared/models/unificacao.result.model';
-import { Resumo } from '../../shared/models/legendas.model';
+import { FilterResult } from '../shared/models/unificacao.filter.model';
+import { Produto } from '../shared/models/produto.model';
+import { Declaracao } from '../shared/models/legendas.model';
+import { Result, ResultItem, ResultClass } from '../shared/models/unificacao.result.model';
+import { Resumo } from '../shared/models/legendas.model';
 
-import { ProdutoService } from '../../shared/services/produtos.service';
-import { ResultService } from '../../shared/services/unificacao.result.service';
+import { ProdutoService } from '../shared/services/produtos.service';
+import { ResultService } from '../shared/services/unificacao.result.service';
 
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
 
 @Component({
-    selector: 'app-result',
-    templateUrl: './result.component.html',
-    styleUrls: ['./result.component.scss']
+    selector: 'app-unificacao',
+    templateUrl: './unificacao.component.html',
+    styleUrls: ['./unificacao.component.scss']
 })
-export class ResultComponent implements OnInit {
+export class UnificacaoComponent implements OnInit {
 
     @ViewChild(ProdutosListComponent) 
     childProdutosList:ProdutosListComponent;
 
-    filter: FilterResult;
+    filter: FilterResult = null;
     loading = true;
     errored = false;
 
@@ -64,16 +64,33 @@ export class ResultComponent implements OnInit {
         private produtoService: ProdutoService,
         private resultService: ResultService
     ) {
-        this.route.queryParamMap.subscribe(paramMap => {
-            this.filter = JSON.parse(paramMap.get('filter'));
+        this.filter = JSON.parse(window.sessionStorage.getItem('result'));
+
+        console.log('filter> ', this.filter)
+        console.log('route> ', this.route)
+
+        if(this.filter != null && this.filter.importers.length > 0){
             this.status = this.filter.status;
-            
+
             this.importers = [...this.filter.importadores];
 
             //this.produtos = this.getMockDados();
             this.loading = false;
             this.setDadosResult();
-        });
+        } else {
+
+        } 
+
+        /*this.route.queryParamMap.subscribe(paramMap => {
+            this.filter = JSON.parse(paramMap.get('filter'));
+            this.status = this.filter.status;
+
+            this.importers = [...this.filter.importadores];
+
+            //this.produtos = this.getMockDados();
+            this.loading = false;
+            this.setDadosResult();
+        });*/
 
         this.resultService.clearFilter();
     }
@@ -94,7 +111,7 @@ export class ResultComponent implements OnInit {
                 this.data.produtos.push(produto);
             }
         })
-        
+
         this.agruparDeclaracoes(this.data.produtos);
         this.produtos = this.data.produtos;
         this.setResumoCards();

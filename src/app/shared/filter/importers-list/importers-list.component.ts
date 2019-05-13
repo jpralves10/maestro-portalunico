@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 
-import { Importer } from '../../../shared/models/importer.model';
+import { Importer } from '../../../produtos/shared/models/importer.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { ImportersListDataSource } from './importers-list-datasource';
-import { FilterItem } from '../../../shared/models/unificacao.filter.model';
-import { Filter } from '../../../shared/models/unificacao.filter.model';
-import { FilterService } from '../../../shared/services/unificacao.filter.service';
+import { FilterItem } from '../../../produtos/shared/models/unificacao.filter.model';
+import { Filter } from '../../../produtos/shared/models/unificacao.filter.model';
+import { FilterService } from '../../../produtos/shared/services/unificacao.filter.service';
 
 @Component({
     selector: 'app-importers-list',

@@ -1,17 +1,17 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router, ActivatedRoute, Route, CanLoad, CanActivate } from '@angular/router';
 
-import { Filter, FilterItem, FilterResult } from '../../shared/models/unificacao.filter.model';
+import { Filter, FilterItem, FilterResult } from '../../produtos/shared/models/unificacao.filter.model';
 
-import { ProdutoService } from '../../shared/services/produtos.service';
-import { FilterService } from '../../shared/services/unificacao.filter.service';
+import { ProdutoService } from '../../produtos/shared/services/produtos.service';
+import { FilterService } from '../../produtos/shared/services/unificacao.filter.service';
 import { ImportersListComponent } from './importers-list/importers-list.component';
-import { Importer } from '../../shared/models/importer.model';
+import { Importer } from '../../produtos/shared/models/importer.model';
 
 @Component({
-  selector: 'app-filter',
-  templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.scss']
+    selector: 'app-filter',
+    templateUrl: './filter.component.html',
+    styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent implements OnInit {
 
@@ -42,7 +42,6 @@ export class FilterComponent implements OnInit {
         /* Mock */
         /*
         this.data = this.getMockDados();
-        window.sessionStorage.setItem('filter', JSON.stringify(this.data));
         this.loading = false;
 
         /* End Mock */
@@ -50,7 +49,6 @@ export class FilterComponent implements OnInit {
         this.produtoService.getDadosFiltro().subscribe(
             data => {
                 this.data = this.getDataTransformed(data);
-                window.sessionStorage.setItem('filter', JSON.stringify(this.data));
                 this.loading = false;
             },
             error => { this.errored = true; }
@@ -83,13 +81,15 @@ export class FilterComponent implements OnInit {
     }
 
     public generateReport() {
-        this.router.navigate([`./result`], {
+        window.sessionStorage.setItem('result', this.getFilterAsString());
+
+        /*this.router.navigate([`./result`], {
             relativeTo: this.route,
             replaceUrl: true,
             queryParams: {
                 filter: this.getFilterAsString()
             }
-        });
+        });*/
     }
 
     public getFilterAsString(): string {

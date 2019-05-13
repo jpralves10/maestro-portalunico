@@ -6,20 +6,20 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { PageEvent } from '@angular/material';
 
-import { Produto } from '../../../shared/models/produto.model';
+import { Produto } from '../../shared/models/produto.model';
 import { ProdutosListDataSource } from './produtos-list-datasource';
-import { ResultItem } from '../../../shared/models/unificacao.result.model';
-import { Result } from '../../../shared/models/unificacao.result.model';
-import { ResultService } from '../../../shared/services/unificacao.result.service';
-import { FilterResult } from '../../../shared/models/unificacao.filter.model';
+import { ResultItem } from '../../shared/models/unificacao.result.model';
+import { Result } from '../../shared/models/unificacao.result.model';
+import { ResultService } from '../../shared/services/unificacao.result.service';
+import { FilterResult } from '../../shared/models/unificacao.filter.model';
 import { ProdutosListDialog } from './produtos-list.dialog'
 
 import { Chart } from 'chart.js';
 
 @Component({
-  selector: 'app-produtos-list',
-  templateUrl: './produtos-list.component.html',
-  styleUrls: ['./produtos-list.component.scss']
+    selector: 'app-produtos-list',
+    templateUrl: './produtos-list.component.html',
+    styleUrls: ['./produtos-list.component.scss']
 })
 export class ProdutosListComponent implements OnInit {
 

@@ -22,27 +22,27 @@ library.add(fas, far, faChevronDown, faFileMedical, faInfoCircle);
 
 import { UNIFICACAO_ROUTES } from './unificacao.routes';
 
-import { FilterComponent } from './filter/filter.component';
-import { ResultComponent } from './result/result.component';
-import { ImportersListComponent } from './filter/importers-list/importers-list.component'; 
-import { ProdutosListComponent } from './result/produtos-list/produtos-list.component';
-import { ProdutosListDialog } from './result/produtos-list/produtos-list.dialog'; 
-import { ProdutosEditComponent } from './result/produtos-edit/produtos-edit.component';
-import { ProdutosOneComponent } from './result/produtos-edit/produtos-one/produtos-one.component';
-import { ProdutosTwoComponent } from './result/produtos-edit/produtos-two/produtos-two.component';
-import { ProdutosThreeComponent } from './result/produtos-edit/produtos-three/produtos-three.component';
+import { FilterComponent } from '../../shared/filter/filter.component';
+import { ImportersListComponent } from '../../shared/filter/importers-list/importers-list.component';
+import { ProdutosListComponent } from './produtos-list/produtos-list.component';
+import { ProdutosListDialog } from './produtos-list/produtos-list.dialog'; 
+import { ProdutosEditComponent } from './produtos-edit/produtos-edit.component';
+import { ProdutosOneComponent } from './produtos-edit/produtos-one/produtos-one.component';
+import { ProdutosTwoComponent } from './produtos-edit/produtos-two/produtos-two.component';
+import { ProdutosThreeComponent } from './produtos-edit/produtos-three/produtos-three.component';
+import { UnificacaoComponent } from './unificacao.component';
 
 @NgModule({
     declarations: [
         FilterComponent,
-        ResultComponent,
         ImportersListComponent,
         ProdutosListComponent,
         ProdutosListDialog,
         ProdutosEditComponent,
         ProdutosOneComponent,
         ProdutosTwoComponent,
-        ProdutosThreeComponent
+        ProdutosThreeComponent,
+        UnificacaoComponent
     ],
     imports: [
         CommonModule,

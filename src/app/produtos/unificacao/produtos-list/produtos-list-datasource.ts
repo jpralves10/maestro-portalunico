@@ -3,10 +3,10 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { Input } from '@angular/core';
 import { map, filter } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, from } from 'rxjs';
-import { Produto } from '../../../shared/models/produto.model';
-import { ResultItem } from '../../../shared/models/unificacao.result.model';
-import { ResultService } from '../../../shared/services/unificacao.result.service';
-import { FilterResult } from '../../../shared/models/unificacao.filter.model';
+import { Produto } from '../../shared/models/produto.model';
+import { ResultItem } from '../../shared/models/unificacao.result.model';
+import { ResultService } from '../../shared/services/unificacao.result.service';
+import { FilterResult } from '../../shared/models/unificacao.filter.model';
 
 export class ProdutosListDataSource extends DataSource<Produto> {
 

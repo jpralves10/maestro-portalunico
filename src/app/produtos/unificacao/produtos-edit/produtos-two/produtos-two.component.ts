@@ -6,21 +6,21 @@ import $ from "jquery";
 import { Chart } from 'chart.js';
 import { PageEvent } from '@angular/material';
 
-import { msg_produtos_two } from '../../../../../utilitarios/mensagens.module';
+import { msg_produtos_two } from '../../../../utilitarios/mensagens.module';
 
-import { Produto } from '../../../../shared/models/produto.model';
-import { Compatibilidade } from '../../../../shared/models/legendas.model';
+import { Produto } from '../../../shared/models/produto.model';
+import { Compatibilidade } from '../../../shared/models/legendas.model';
 import { ProdutosTwoDataSource } from './produtos-two-datasource';
-import { ResultItem } from '../../../../shared/models/unificacao.result.model';
-import { Result } from '../../../../shared/models/unificacao.result.model';
+import { ResultItem } from '../../../shared/models/unificacao.result.model';
+import { Result } from '../../../shared/models/unificacao.result.model';
 
-import { ProdutoService } from '../../../../shared/services/produtos.service';
-import { ResultService } from '../../../../shared/services/unificacao.result.service';
+import { ProdutoService } from '../../../shared/services/produtos.service';
+import { ResultService } from '../../../shared/services/unificacao.result.service';
 
 @Component({
-  selector: 'app-produtos-two',
-  templateUrl: './produtos-two.component.html',
-  styleUrls: ['./produtos-two.component.scss']
+    selector: 'app-produtos-two',
+    templateUrl: './produtos-two.component.html',
+    styleUrls: ['./produtos-two.component.scss']
 })
 export class ProdutosTwoComponent implements OnInit {
 

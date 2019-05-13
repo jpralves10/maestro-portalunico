@@ -3,9 +3,9 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { Input } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { Produto } from '../../../../shared/models/produto.model';
-import { ResultItem } from '../../../../shared/models/unificacao.result.model';
-import { ResultService } from '../../../../shared/services/unificacao.result.service';
+import { Produto } from '../../../shared/models/produto.model';
+import { ResultItem } from '../../../shared/models/unificacao.result.model';
+import { ResultService } from '../../../shared/services/unificacao.result.service';
 
 export class ProdutosTwoDataSource extends DataSource<Produto> {
 

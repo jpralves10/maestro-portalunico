@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Filter, FilterResult } from '../shared/models/unificacao.filter.model';
 
+/*import { writeFileSync, readFileSync, existsSync } from 'fs';
+import * as fs from "file-system";
+import * as fs from 'fs';*/
+
 @Component({
   selector: 'app-importacao',
   templateUrl: './importacao.component.html',
@@ -36,9 +40,19 @@ export class ImportacaoComponent implements OnInit {
 
         this.spinner = true;
 
+        if (event.target.files.length > 0) {
+            let file = event.target.files[0];
+
+            console.log(file.length)
+            
+
+            console.log(btoa(file).length)
+
+        }
+
         setTimeout(() => {
             this.spinner = false;
             this.message = true;
-        }, 2000);        
+        }, 2000);
     }
 }

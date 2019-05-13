@@ -1,15 +1,15 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
-import { Produto } from '../../../../shared/models/produto.model';
-import { Atributos } from '../../../../shared/models/legendas.model';
+import { Produto } from '../../../shared/models/produto.model';
+import { Atributos } from '../../../shared/models/legendas.model';
 
-import { FilterResult } from '../../../../shared/models/unificacao.filter.model';
-import { ProdutoService } from '../../../../shared/services/produtos.service';
+import { FilterResult } from '../../../shared/models/unificacao.filter.model';
+import { ProdutoService } from '../../../shared/services/produtos.service';
 
-import paises from '../../../../../utilitarios/pais-origem.model';
-import listaNcm from '../../../../../utilitarios/ncm.model';
-import { msg_produtos_three } from '../../../../../utilitarios/mensagens.module';
+import paises from '../../../../utilitarios/pais-origem.model';
+import listaNcm from '../../../../utilitarios/ncm.model';
+import { msg_produtos_three } from '../../../../utilitarios/mensagens.module';
 
 @Component({
     selector: 'app-produtos-three',
@@ -231,8 +231,8 @@ export class ProdutosThreeComponent implements OnInit {
                         this.produtoService
                             .setAlterarProdutos(this.produto)
                             .subscribe(versoes => {}, error => { this.errored = true;});
-                        
-                        this.router.navigate([`./result`], {
+
+                        this.router.navigate([`/`], {
                             relativeTo: this.route,
                             replaceUrl: true,
                             queryParams: {
