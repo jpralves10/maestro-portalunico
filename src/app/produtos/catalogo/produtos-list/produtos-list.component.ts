@@ -4,6 +4,7 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { Produto } from '../../shared/models/produto.model';
+import { ProdutoService } from '../../shared/services/produtos.service';
 import { ProdutosListDataSource } from './produtos-list-datasource';
 import { ResultItem } from '../../shared/models/unificacao.result.model';
 import { Result } from '../../shared/models/unificacao.result.model';
@@ -24,11 +25,13 @@ export class ProdutosListComponent implements OnInit {
     @Input() status: string[];
     @Input() filter: FilterResult;
 
+    produtosAprovados: Produto[] = [];
     statusOld: string[];
+    errored = false;
 
     dataSource: ProdutosListDataSource;
     selection = new SelectionModel<Produto>(true, []);
-    displayedColumns = ['descricaoBruta', 'ncm'];
+    displayedColumns = ['select', 'descricaoBruta', 'ncm'];
 
     public filtroValue: ResultItem;
     public currentFilter: Result;
@@ -36,7 +39,8 @@ export class ProdutosListComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private resultService: ResultService
+        private resultService: ResultService,
+        private produtoService: ProdutoService
     ) { 
         resultService.filter.subscribe(f => (this.filtroValue = f));
 
@@ -97,6 +101,18 @@ export class ProdutosListComponent implements OnInit {
         this.paginator.firstPage();
     }
 
+    masterToggle() {
+        const visibleData = this.getVisibleData();
+        const allSelected = this.isAllSelected();
+
+        if (allSelected) {
+            this.selection.deselect(...visibleData);
+        } else {
+            this.selection.select(...visibleData);
+        }
+        return;
+    }
+
     editRowProduto(row: Produto){
         this.router.navigate([`/catalogo/catalogo-edit`], {
             relativeTo: this.route,
@@ -105,5 +121,51 @@ export class ProdutosListComponent implements OnInit {
                 filterCatalogo: JSON.stringify({...row})
             }
         });
+    }
+
+    aprovarTodos(){
+        const visibleData = this.getVisibleData();
+        visibleData.forEach(row =>{
+            if(row.status != 'Aprovado'){
+                this.aprovarProduto(row);
+            }
+        });
+        this.salvarAprovados();
+    }
+
+    aprovarProduto(row: Produto) {
+        if(this.selection.isSelected(row)){
+            row.status = 'Aprovado';
+
+            this.produtosAprovados.push(row);
+
+            setTimeout(() => {
+                this.dataSource.getUpdatedData();
+                this.updateFiltro();
+            }, 500);
+        }        
+    }
+
+    salvarAprovados(){
+        this.produtosAprovados.forEach(produto => {
+            produto.dataAtualizacao = new Date();
+            produto.versoesProduto = undefined;
+            produto.etapaUnificacao = undefined;
+            produto.compatibilidade = undefined;
+            produto.declaracaoNode = undefined;
+            produto.declaracoes = undefined;
+            produto.chartCanais = undefined;
+            produto.canalDominante = undefined;
+            produto.quantidade = undefined;
+    
+            if(produto.atributos.length <= 0){
+                produto.atributos = undefined;
+            }
+    
+            this.produtoService
+                .setAlterarProdutos(produto)
+                .subscribe(versoes => {}, error => { this.errored = true;});
+        })
+        this.produtosAprovados = [];
     }
 }

@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterResult } from '../shared/models/unificacao.filter.model';
 import { ResultItem, Result, ResultClass } from '../shared/models/unificacao.result.model';
-import { Produto } from '../shared/models/produto.model';
+import { Produto, ProdutoClass } from '../shared/models/produto.model';
 import { ProdutoService } from '../shared/services/produtos.service';
 import { ResultService } from '../shared/services/unificacao.result.service';
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
@@ -131,6 +131,26 @@ export class CatalogoComponent implements OnInit {
 
     ngOnInit() { }
 
+    adicionarProduto(){
+        let produto = new ProdutoClass();
+        produto._id = null;
+        produto.seq = "001";
+        produto.codigo = null;
+        produto.status = 'Novo';
+
+        produto.dataRegistro = new Date();
+        produto.dataCriacao = new Date();
+        produto.dataAtualizacao = new Date();
+
+        this.router.navigate([`/catalogo/catalogo-edit`], {
+            relativeTo: this.route,
+            replaceUrl: false,
+            queryParams: {
+                filterCatalogo: JSON.stringify({...produto})
+            }
+        });
+    }
+
     childUpdateDataSource(){
         if(this.childProdutosList != undefined){
             this.childProdutosList.updateDataSource(this.data.produtos);
@@ -154,6 +174,7 @@ export class CatalogoComponent implements OnInit {
 
             produto.declaracaoNode = [];
             produto.chartCanais = [];
+            produto.quantidade = 0;
 
             if(produto.declaracoes != null && produto.declaracoes != undefined){
 
@@ -186,6 +207,7 @@ export class CatalogoComponent implements OnInit {
                             }
                         })
 
+                        produto.quantidade = declaracaoNode.declaracoes.length;
                         produto.declaracaoNode.push(declaracaoNode);
                     }
                 })

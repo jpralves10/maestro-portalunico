@@ -126,7 +126,7 @@
                 <mat-checkbox
                     [checked]="produto.status == 'Aprovado'"
                     (change)="setStatusProduto($event)">
-                    Aprovar Produtos
+                    Aprovar Produto
                 </mat-checkbox>
             </div>
 
@@ -317,6 +317,14 @@
                 </fa-icon>
                 Voltar Etapa Anterior
             </button-->
+            <button
+                mat-raised-button
+                (click)="voltarEtapa()"
+                class="button-return"
+                style="margin: 0 8px;">
+                <fa-icon icon="angle-double-left" size="fa-sm"></fa-icon>
+                Voltar
+            </button>
             <button
                 mat-raised-button
                 (click)="finalizarPreenchimento()"

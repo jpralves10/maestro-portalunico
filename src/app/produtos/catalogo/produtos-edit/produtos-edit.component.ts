@@ -26,7 +26,7 @@ export class ProdutosEditComponent implements OnInit {
 
     paises: Array<{ value: string; viewValue: string; }> = [];
     listaNcm: any = {};
-    attrSelect: any = {};
+    attrSelect: any = undefined;
     listaAtributos: any = [];
     attrList: any = [];
 
@@ -142,13 +142,16 @@ export class ProdutosEditComponent implements OnInit {
     }
 
     adicionarAtributo(){
-        this.produto.atributos.push({
-            atributo: this.attrSelect.codigo,
-            valor: this.attrSelect.dominio
-        })
-        this.attrList.push(this.attrSelect);
-        this.listaAtributos.splice(this.listaAtributos.indexOf(this.attrSelect), 1);
-        this.updateListaAtributos();
+        if(this.attrSelect != undefined){
+            this.produto.atributos.push({
+                atributo: this.attrSelect.codigo,
+                valor: this.attrSelect.dominio
+            })
+            this.attrList.push(this.attrSelect);
+            this.listaAtributos.splice(this.listaAtributos.indexOf(this.attrSelect), 1);
+            this.updateListaAtributos();
+            this.attrSelect = undefined;
+        }
     }
 
     removeRowAtributo(attr: any){
@@ -175,9 +178,11 @@ export class ProdutosEditComponent implements OnInit {
     }
 
     adicionarCodigoInterno(){
-        this.produto.codigosInterno.push(this.codigointerno_form);
-        this.codigointerno_form = '';
-        this.updateCodigoInterno();
+        if(this.codigointerno_form.length > 0){
+            this.produto.codigosInterno.push(this.codigointerno_form);
+            this.codigointerno_form = '';
+            this.updateCodigoInterno();
+        }        
     }
 
     removeRowCodigoInterno(row: string){
@@ -212,12 +217,12 @@ export class ProdutosEditComponent implements OnInit {
                     this.mensagem.lista.push({chave: 0, valor: 'Produto cadastrado com sucesso!'});
 
                     this.finish = true;
-                
+
                     setTimeout(() => {
                         this.finish = false;
                         this.mensagem = null;
 
-                        if(this.produto.status == 'Pendente'){
+                        if(this.produto.status == 'Pendente' || this.produto.status == 'Novo'){
                             this.produto.status = 'Completo';
                         }                        
 
@@ -229,6 +234,7 @@ export class ProdutosEditComponent implements OnInit {
                         this.produto.declaracoes = undefined;
                         this.produto.chartCanais = undefined;
                         this.produto.canalDominante = undefined;
+                        this.produto.quantidade = undefined;
 
                         if(this.produto.atributos.length <= 0){
                             this.produto.atributos = undefined;
@@ -372,5 +378,15 @@ export class ProdutosEditComponent implements OnInit {
             start_date: start_date,
             end_date: new Date()
         } as FilterResult);
+    }
+
+    public voltarEtapa(){
+        this.router.navigate([`/catalogo`], {
+            relativeTo: this.route,
+            replaceUrl: true,
+            queryParams: {
+                filter: this.getFilterAsString()
+            }
+        });
     }
 }

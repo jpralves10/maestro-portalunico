@@ -82,6 +82,15 @@
 
     <mat-card class="mat-elevation-z5">
         <mat-card-actions align="end" style="padding:0;margin:0;">
+            <button
+                id="previous-two"
+                mat-raised-button matStepperPrevious
+                (click)="voltarEtapa()"
+                class="button-return"
+                style="margin: 0 8px;">
+                <fa-icon icon="angle-double-left" size="fa-sm"></fa-icon>
+                Voltar
+            </button>
             <button 
                 mat-raised-button matStepperNext
                 (click)="proximaEtapa()"

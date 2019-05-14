@@ -171,7 +171,6 @@ export class UnificacaoComponent implements OnInit {
             this.agruparDeclaracoes(this.data.produtos);
             this.produtos = this.data.produtos;
             this.setResumoCards();
-
             this.childUpdateDataSource();
 
             this.loading = false;
@@ -181,6 +180,9 @@ export class UnificacaoComponent implements OnInit {
 
     childUpdateDataSource(){
         if(this.childProdutosList != undefined){
+            this.data.produtos = this.produtos.filter(item =>
+                item.status.includes('Pendente')
+            )
             this.childProdutosList.updateDataSource(this.data.produtos);
             this.childProdutosList.eventTable = 1;
         }
@@ -258,6 +260,7 @@ export class UnificacaoComponent implements OnInit {
 
             produto.declaracaoNode = [];
             produto.chartCanais = [];
+            produto.quantidade = 0;
 
             if(produto.declaracoes != null && produto.declaracoes != undefined){
 
@@ -290,6 +293,7 @@ export class UnificacaoComponent implements OnInit {
                             }
                         })
 
+                        produto.quantidade = declaracaoNode.declaracoes.length;
                         produto.declaracaoNode.push(declaracaoNode);
                     }
                 })
@@ -450,6 +454,7 @@ export class UnificacaoComponent implements OnInit {
             dataCriacao: null,
             dataAtualizacao: null,
             usuarioAtualizacao: null,
+            quantidade: 0,
             declaracoes: [],
             versoesProduto: [],
             compatibilidade: null,

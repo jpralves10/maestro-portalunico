@@ -23,7 +23,7 @@ library.add(fas, far, faChevronDown, faFileMedical, faInfoCircle);
 import { UNIFICACAO_ROUTES } from './unificacao.routes';
 
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
-import { ProdutosListDialog } from './produtos-list/produtos-list.dialog'; 
+import { ProdutosInfoDialog } from './produtos-info/produtos-info.dialog'; 
 import { ProdutosEditComponent } from './produtos-edit/produtos-edit.component';
 import { ProdutosOneComponent } from './produtos-edit/produtos-one/produtos-one.component';
 import { ProdutosTwoComponent } from './produtos-edit/produtos-two/produtos-two.component';
@@ -33,7 +33,7 @@ import { UnificacaoComponent } from './unificacao.component';
 @NgModule({
     declarations: [
         ProdutosListComponent,
-        ProdutosListDialog,
+        ProdutosInfoDialog,
         ProdutosEditComponent,
         ProdutosOneComponent,
         ProdutosTwoComponent,
@@ -53,7 +53,7 @@ import { UnificacaoComponent } from './unificacao.component';
         //GoogleChartsModule.forRoot()
     ],
     entryComponents: [
-        ProdutosListDialog
+        ProdutosInfoDialog
     ]
 })
 export class UnificacaoModule { }

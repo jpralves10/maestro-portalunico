@@ -132,6 +132,19 @@
                     </ng-container>
 
                     <!-- Column -->
+                    <ng-container matColumnDef="quantidade">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header>
+                            Quantidade
+                        </th>
+                        <td
+                            mat-cell
+                            *matCellDef="let row"
+                            style="text-align:center;">
+                                {{ row.quantidade }}
+                        </td>
+                    </ng-container>
+
+                    <!-- Column -->
                     <ng-container matColumnDef="similaridade">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header>
                             Similaridade (%)
@@ -150,9 +163,9 @@
                             Canal
                         </th>
                         <td mat-cell (click)="openDialogDeclaracoes(row)" *matCellDef="let row">
-            
+
                             <canvas id="two-{{ row._id }}"></canvas>
-            
+
                             <!--canvas id="list-{{ row._id }}" width="100%" height="100%"></canvas-->
                         </td>
                     </ng-container>
@@ -199,7 +212,11 @@
                         mat-button 
                         color="warn" 
                         (click)="deselectAll()">
-                        Desmarcar tudo
+                        {{
+                            selection.selected.length > 1
+                                ? 'Desmarcar todos'
+                                : 'Desmarcar'
+                        }}
                     </button>
                     {{
                         selection.hasValue() && isAllSelected()
@@ -211,7 +228,11 @@
                         *ngIf="selection.hasValue() && isAllSelected()"
                         color="warn" 
                         (click)="inativarTodos()">
-                        Inativar todos
+                        {{
+                            selection.selected.length > 1
+                                ? 'Inativar todos'
+                                : 'Inativar'
+                        }}
                     </button>
                 </div>
             </div>

@@ -5,6 +5,7 @@ import $ from "jquery";
 
 import { Chart } from 'chart.js';
 import { PageEvent } from '@angular/material';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { msg_produtos_two } from '../../../../utilitarios/mensagens.module';
 
@@ -16,6 +17,7 @@ import { Result } from '../../../shared/models/unificacao.result.model';
 
 import { ProdutoService } from '../../../shared/services/produtos.service';
 import { ResultService } from '../../../shared/services/unificacao.result.service';
+import { ProdutosInfoDialog } from '../../produtos-info/produtos-info.dialog'
 
 @Component({
     selector: 'app-produtos-two',
@@ -30,6 +32,11 @@ export class ProdutosTwoComponent implements OnInit {
     @Input() produto: Produto;
     @Output() produtoAlterado = new EventEmitter();
 
+    canalVerde: number = 0;
+    canalAmarelo: number = 0;
+    canalVermelho: number = 0;
+    canalCinza: number = 0;
+
     pageEvent:any = PageEvent;
 
     inativos: Produto[] = [];
@@ -39,25 +46,23 @@ export class ProdutosTwoComponent implements OnInit {
     errored = false;
 
     eventTable: number = 0;
- 
     mensagem: any = {id: 0, tipo: '', class: '', lista: []};
-
     selection = new SelectionModel<Produto>(true, []);
-
     dataSource: ProdutosTwoDataSource;
 
     current_filtro: ResultItem = {
         produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: '', operador: ''}
     };
 
-    displayedColumns = ['select', 'descricaoBruta', 'similaridade', 'canal', 'operacoes'];
+    displayedColumns = ['select', 'descricaoBruta', 'quantidade', 'similaridade', 'canal', 'operacoes'];
 
     public filtroValue: ResultItem;
     public currentFilter: Result;
 
     constructor(
         private produtoService: ProdutoService,
-        private resultService: ResultService
+        private resultService: ResultService,
+        private modalService: NgbModal
     ) {
         resultService.filter.subscribe(f => (this.filtroValue = f));
 
@@ -112,7 +117,8 @@ export class ProdutosTwoComponent implements OnInit {
                     }
                 });
 
-                window.sessionStorage.setItem('produtos', JSON.stringify(this.data));
+                //window.sessionStorage.setItem('produtos', JSON.stringify(this.data));
+                this.agruparDeclaracoes(this.produto.versoesProduto);
                 this.setDataSource();
                 this.eventTable = 1;
             },
@@ -181,6 +187,13 @@ export class ProdutosTwoComponent implements OnInit {
         this.paginator.firstPage();
     }
 
+    inativarTodos(){
+        const visibleData = this.getVisibleData();
+        visibleData.forEach(row =>{
+            this.inativarProduto(row);
+        });
+    }
+
     inativarProduto(row: Produto) {
         this.produto.versoesProduto.splice(this.produto.versoesProduto.indexOf(row), 1);
         this.dataSource.data = [...this.produto.versoesProduto];
@@ -195,13 +208,6 @@ export class ProdutosTwoComponent implements OnInit {
             this.updateFiltro();
             this.eventTable = 1;
         }, 500);
-    }
-
-    inativarTodos(){
-        const visibleData = this.getVisibleData();
-        visibleData.forEach(row =>{
-            this.inativarProduto(row);
-        });
     }
 
     proximaEtapa(){
@@ -240,8 +246,9 @@ export class ProdutosTwoComponent implements OnInit {
 
     /** Chart Doughnut **/
 
-    openDialogDeclaracoes(produto: Produto){
-
+    openDialogDeclaracoes(row: Produto): void {
+        var modalRef = this.modalService.open(ProdutosInfoDialog);
+        modalRef.componentInstance.produto = row;
     }
 
     setChartList(produtos: Produto[]){
@@ -271,7 +278,7 @@ export class ProdutosTwoComponent implements OnInit {
         }
     }
 
-    getCanalDominante(produto: Produto){
+    /*getCanalDominante(produto: Produto){
 
         var canais = [
             produto.compatibilidade.verde,
@@ -287,6 +294,84 @@ export class ProdutosTwoComponent implements OnInit {
                 }
             })
         })
+    }*/
+
+    agruparDeclaracoes(produtos: Produto[]){
+
+        produtos.forEach(produto =>{
+
+            this.canalVerde = 0
+            this.canalAmarelo = 0
+            this.canalVermelho = 0
+            this.canalCinza = 0
+
+            produto.declaracaoNode = [];
+            produto.chartCanais = [];
+            produto.quantidade = 0;
+
+            if(produto.declaracoes != null && produto.declaracoes != undefined){
+
+                produto.declaracoes.forEach(declaracao_one =>{
+
+                    let itemExistente = false;
+                    for (let item of produto.declaracaoNode){
+                        if(item.cnpj == declaracao_one.importadorNumero){
+                            itemExistente = true;
+                        }
+                    }
+                    if(!itemExistente){
+        
+                        let declaracaoNode = {
+                            name: declaracao_one.importadorNome,
+                            cnpj: declaracao_one.importadorNumero,
+                            toggle: true,
+                            declaracoes: []
+                        }
+
+                        produto.declaracoes.forEach(declaracao_two => {
+                            if(declaracao_one.importadorNumero == declaracao_two.importadorNumero){
+                                declaracaoNode.declaracoes.push({
+                                    numeroDI: declaracao_two.numeroDI,
+                                    dataRegistro: new Date(declaracao_two.dataRegistro),
+                                    numeroAdicao: declaracao_two.numeroAdicao,
+                                    canal: Number(declaracao_two.canal)
+                                });
+                                this.calcularQtdCanais(Number(declaracao_two.canal))
+                            }
+                        })
+
+                        produto.quantidade = declaracaoNode.declaracoes.length;
+                        produto.declaracaoNode.push(declaracaoNode);
+                    }
+                })
+
+                produto.chartCanais = [
+                    this.canalVerde,
+                    this.canalAmarelo,
+                    this.canalVermelho,
+                    this.canalCinza
+                ]
+
+                this.getCanalDominante(produto);
+            }
+        });
+    }
+
+    getCanalDominante(produto: Produto){
+        produto.chartCanais.forEach((canal1, index) => {
+            produto.chartCanais.forEach(canal2 => {
+                if(canal1 > canal2){
+                    produto.canalDominante = index;
+                }
+            })
+        })
+    }
+
+    calcularQtdCanais(canal: number){
+        canal == 1 ? this.canalVerde++ : 
+        canal == 2 ? this.canalAmarelo++ :
+        canal == 3 ? this.canalVermelho++ :
+        this.canalCinza++
     }
 
     getChartDoughnut(produto: Produto){
@@ -341,8 +426,6 @@ export class ProdutosTwoComponent implements OnInit {
         }
     }
 
-
-
     /* Mocks */
 
     public getMockDados(): Produto[]{
@@ -384,6 +467,7 @@ export class ProdutosTwoComponent implements OnInit {
             dataCriacao: null,
             dataAtualizacao: null,
             usuarioAtualizacao: null,
+            quantidade: 0,
             declaracoes: [],
             versoesProduto: [],
             compatibilidade: compatibilidade,
@@ -393,7 +477,7 @@ export class ProdutosTwoComponent implements OnInit {
             importadorNome: '',
             importadorNumero: '',
             fornecedorNome: '',
-            fabricanteNome: ''    
+            fabricanteNome: ''
         }
         
 

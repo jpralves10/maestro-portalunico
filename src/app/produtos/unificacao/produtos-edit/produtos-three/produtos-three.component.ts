@@ -28,7 +28,7 @@ export class ProdutosThreeComponent implements OnInit {
 
     paises: Array<{ value: string; viewValue: string; }> = [];
     listaNcm: any = {};
-    attrSelect: any = {};
+    attrSelect: any = undefined;
     listaAtributos: any = [];
     attrList: any = [];
 
@@ -134,13 +134,16 @@ export class ProdutosThreeComponent implements OnInit {
     }
 
     adicionarAtributo(){
-        this.produto.atributos.push({
-            atributo: this.attrSelect.codigo,
-            valor: this.attrSelect.dominio
-        })
-        this.attrList.push(this.attrSelect);
-        this.listaAtributos.splice(this.listaAtributos.indexOf(this.attrSelect), 1);
-        this.updateListaAtributos();
+        if(this.attrSelect != undefined){
+            this.produto.atributos.push({
+                atributo: this.attrSelect.codigo,
+                valor: this.attrSelect.dominio
+            })
+            this.attrList.push(this.attrSelect);
+            this.listaAtributos.splice(this.listaAtributos.indexOf(this.attrSelect), 1);
+            this.updateListaAtributos();
+            this.attrSelect = undefined;
+        }
     }
 
     removeRowAtributo(attr: any){
@@ -167,9 +170,11 @@ export class ProdutosThreeComponent implements OnInit {
     }
 
     adicionarCodigoInterno(){
-        this.produto.codigosInterno.push(this.codigointerno_form);
-        this.codigointerno_form = '';
-        this.updateCodigoInterno();
+        if(this.codigointerno_form.length > 0){
+            this.produto.codigosInterno.push(this.codigointerno_form);
+            this.codigointerno_form = '';
+            this.updateCodigoInterno();
+        }
     }
 
     removeRowCodigoInterno(row: string){
@@ -221,6 +226,7 @@ export class ProdutosThreeComponent implements OnInit {
                         this.produto.declaracoes = undefined;
                         this.produto.chartCanais = undefined;
                         this.produto.canalDominante = undefined;
+                        this.produto.quantidade = undefined;
 
                         if(this.produto.atributos.length <= 0){
                             this.produto.atributos = undefined;

@@ -16,7 +16,6 @@ export class ProdutosListDataSource extends DataSource<Produto> {
     public filteredData: Produto[];
 
     public filtro: ResultItem;
-
     public dataObservable: Observable<any>;
 
     constructor(

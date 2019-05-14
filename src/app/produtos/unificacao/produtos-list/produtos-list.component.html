@@ -17,9 +17,9 @@
                 mat-cell
                 (click)="editRowProduto(row)"
                 *matCellDef="let row">
-                <span *ngIf="status.length > 1" class="chip chip-standard chip-{{row.status}}">
+                <!--span *ngIf="status.length > 1" class="chip chip-standard chip-{{row.status}}">
                     {{ row.status }}
-                </span>
+                </span-->
                 {{ row.descricaoBruta }}
             </td>
         </ng-container>

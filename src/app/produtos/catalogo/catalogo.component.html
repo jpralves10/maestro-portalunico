@@ -13,6 +13,13 @@
                 <span class="table-title">
                     Produtos
                 </span>
+                <button
+                    mat-raised-button
+                    (click)="adicionarProduto()"
+                    class="button-return">
+                    <fa-icon icon="plus" size="fa-sm"></fa-icon>
+                    Adicionar
+                </button>
                 <div
                     *ngIf="filter != null && filter.importers[0].length > 0"
                     class="baixar-itegrados">
@@ -23,7 +30,7 @@
                         <fa-icon icon="file-csv" size="fa-sm" class="file-csv"></fa-icon>
                         Exportar
                     </a>
-                </div>
+                </div>                
             </div>
 
             <mat-accordion>

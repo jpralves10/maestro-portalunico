@@ -6,11 +6,11 @@ import { Produto } from '../../shared/models/produto.model';
 import { Chart } from 'chart.js';
 
 @Component({
-    selector: 'produtos-list.dialog',
-    templateUrl: 'produtos-list.dialog.html',
-    styleUrls: ['./produtos-list.dialog.scss']
+    selector: 'produtos-info.dialog',
+    templateUrl: 'produtos-info.dialog.html',
+    styleUrls: ['./produtos-info.dialog.scss']
 })
-export class ProdutosListDialog {
+export class ProdutosInfoDialog {
 
     @Input() produto: Produto;
 

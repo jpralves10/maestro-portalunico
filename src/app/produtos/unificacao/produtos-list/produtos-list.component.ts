@@ -12,7 +12,7 @@ import { ResultItem } from '../../shared/models/unificacao.result.model';
 import { Result } from '../../shared/models/unificacao.result.model';
 import { ResultService } from '../../shared/services/unificacao.result.service';
 import { FilterResult } from '../../shared/models/unificacao.filter.model';
-import { ProdutosListDialog } from './produtos-list.dialog'
+import { ProdutosInfoDialog } from '../produtos-info/produtos-info.dialog'
 
 import { Chart } from 'chart.js';
 
@@ -120,7 +120,7 @@ export class ProdutosListComponent implements OnInit {
     }
 
     openDialogDeclaracoes(row: Produto): void {
-        var modalRef = this.modalService.open(ProdutosListDialog);
+        var modalRef = this.modalService.open(ProdutosInfoDialog);
         modalRef.componentInstance.produto = row;
     }
 
