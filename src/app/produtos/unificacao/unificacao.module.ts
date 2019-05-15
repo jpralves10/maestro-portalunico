@@ -12,14 +12,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from '../../utilitarios/material.module';
 import { NgxMaskModule } from 'ngx-mask';
 
-// Add these
-//import { faAdobe } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas, faChevronDown, faFileMedical, faInfoCircle } from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
-library.add(fas, far, faChevronDown, faFileMedical, faInfoCircle);
-
 import { UNIFICACAO_ROUTES } from './unificacao.routes';
 
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
@@ -45,7 +37,6 @@ import { UnificacaoComponent } from './unificacao.component';
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
-        FontAwesomeModule,
         ObserversModule,
         NgbModule.forRoot(),
         RouterModule.forChild(UNIFICACAO_ROUTES),

@@ -15,13 +15,8 @@
         <div class="comment-title">
             Inserir Comentário
         </div>
-        <div>
-            <fa-icon
-                (click)="openForm()"
-                icon="plus-square"
-                size="fa-sm"
-                class="comment-icon">
-            </fa-icon>
+        <div (click)="openForm()">
+            <i class="fas fa-plus-square fa-sm comment-icon"></i>
         </div>
     </div>
 </div>
@@ -33,13 +28,8 @@
             <div class="comment-title">
                 Inserir Comentário
             </div>
-            <div>
-                <fa-icon
-                    (click)="closeForm()"
-                    icon="minus-square"
-                    size="fa-sm"
-                    class="comment-icon">
-                </fa-icon>
+            <div (click)="closeForm()">
+                <i class="fas fa-minus-square fa-sm comment-icon"></i>
             </div>
         </div>
     </div>

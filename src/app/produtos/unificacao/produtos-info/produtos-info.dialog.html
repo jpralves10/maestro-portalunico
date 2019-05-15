@@ -15,19 +15,25 @@
         <div class="container-body container-item">
             <ul *ngFor="let node of produto.declaracaoNode">
                 <li (click)="toggleImporter(node)" class="tree-head">
-                    <fa-icon *ngIf="!node.toggle" icon="angle-right" size="fa-xs" class="icon-toggle"></fa-icon>
-                    <fa-icon *ngIf="node.toggle" icon="angle-down" size="fa-xs" class="icon-toggle"></fa-icon>
-                    <span style="font-weight: 500px">
-                        {{node.name}}
-                        (CNPJ: {{node.cnpj | mask: '00.000.000/0000-00'}})
-                    </span>
+                    <div *ngIf="!node.toggle">
+                        <i class="fas fa-angle-right icon-toggle"></i>
+                        <span style="font-weight: 500px">
+                            {{node.name}} (CNPJ: {{node.cnpj | mask: '00.000.000/0000-00'}})
+                        </span>
+                    </div>
+                    <div *ngIf="node.toggle">
+                        <i class="fas fa-angle-down icon-toggle"></i>
+                        <span style="font-weight: 500px">
+                            {{node.name}} (CNPJ: {{node.cnpj | mask: '00.000.000/0000-00'}})
+                        </span>
+                    </div>
                 </li>
                 <li *ngIf="node.toggle">
                     <ul *ngFor="let declaracao of node.declaracoes">
                         <li class="tree-body">
                             DI: {{declaracao.numeroDI | mask: '00/0000000-0' }} - 
                             {{declaracao.dataRegistro.toLocaleDateString()}}
-                            <fa-icon 
+                            <!-- <fa-icon 
                                 icon="circle" 
                                 size="fa-xs" 
                                 class="{{
@@ -36,7 +42,7 @@
                                     declaracao.canal == '003' ? 'canal-vermelho' :
                                     'canal-cinza'
                                 }}">
-                            </fa-icon>                        
+                            </fa-icon> -->
                         </li>                
                     </ul>
                 </li>        

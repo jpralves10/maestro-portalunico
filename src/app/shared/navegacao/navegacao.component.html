@@ -14,8 +14,8 @@
                 <ul *ngFor="let menu of listaMenus" class="ul-tree">
                     <li *ngIf="menu.enable" (click)="toggleMenu(menu)" class="li-one">
                         <div class="li-one-head">
-                            <fa-icon *ngIf="!menu.toggle" icon="angle-right" size="fa-xs" class="icon-toggle"></fa-icon>
-                            <fa-icon *ngIf="menu.toggle" icon="angle-down" size="fa-xs" class="icon-toggle"></fa-icon>
+                            <i *ngIf="!menu.toggle" class="fas fa-angle-right fa-xs icon-toggle"></i>
+                            <i *ngIf="menu.toggle" class="fas fa-angle-down fa-xs icon-toggle"></i>
                             <span style="font-weight: 500px">
                                 {{ menu.name }}
                             </span>
@@ -35,7 +35,6 @@
                         </ul>
                     </li>
 
-
                     <!--li *ngIf="menu.toggle" class="sub-menu-tree">
                         <ul *ngFor="let submenu of menu.submenus" class="tree-menu-sub">
                             <li *ngIf="menu.enable && submenu.enable" class="tree-body-li">
@@ -52,7 +51,6 @@
             </div>
         </div>
         
-
         <!--mat-nav-list>
             <a
                 mat-list-item
@@ -75,18 +73,104 @@
 
     <mat-sidenav-content>
         <mat-toolbar class="content" color="primary" > <!--*ngIf="(isHandset$ | async)"-->
-            <button
-                type="button"
-                aria-label="Toggle sidenav"
-                mat-icon-button
-                style="color:#757575;"
-                (click)="drawer.toggle()">
-                <!--*ngIf="(isHandset$ | async)" > -->
-                <mat-icon aria-label="Side nav toggle icon">
-                    menu
-                </mat-icon>
-            </button>
-            <span></span>
+
+            <div class="navbar-item">
+                <button
+                    type="button"
+                    aria-label="Toggle sidenav"
+                    mat-icon-button
+                    class="mat-icon-button"
+                    (click)="drawer.toggle()">
+                    <!--*ngIf="(isHandset$ | async)" > -->
+                    <mat-icon aria-label="Side nav toggle icon">
+                        menu
+                    </mat-icon>
+                </button>
+                <span></span>
+            </div>
+
+            <div class="navbar-item">
+                <ul class="navbar-ul">
+                    <li class="navbar-li">
+                        <button mat-button [matMenuTriggerFor]="menu" class="navbar-btn">
+                            <div class="navbar-add">
+                                <div>
+                                    <i class="fas fa-paste"></i>
+                                    Adicionar
+                                </div>
+                            </div>
+                            <div class="navbar-dropdown">
+                                <i class="fas fa-sort-down navbar-dropdown-icon"></i>
+                            </div>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <button mat-menu-item>Item 1</button>
+                            <button mat-menu-item>Item 2</button>
+                        </mat-menu>
+                    </li>
+                    <li>
+
+                    </li>
+                </ul>
+                
+
+
+
+                <!--ul class="navbar navbar-toolbar navbar-right">
+                    <li class="dropdown toggle-normal">
+                        <a href="#">
+                            <div class="navbar-add">
+                                <div>
+                                    <i class="fas fa-paste"></i>
+                                    Adicionar
+                                </div>
+                            </div>
+                            <div class="navbar-dropdown">
+                                <i class="fas fa-sort-down navbar-dropdown-icon"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="dropdown toggle-normal">
+                        <a href="#">
+                            <i class="fas fa-bell"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown toggle-normal">
+                        <a href="#">
+                            <i class="fas fa-bullhorn"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown toggle-normal">
+                        <a href="#">
+                            <i class="fas fa-cog"></i>
+                        </a>
+                    </li>
+                    <li class="dropdown toggle-normal">
+                        <a href="#">
+                            <div class="navbar-add">
+                                <div class="navbar-username">
+                                    jean eficilog
+                                </div>
+                            </div>
+                            <div class="navbar-dropdown">
+                                <i class="fas fa-sort-down navbar-dropdown-icon"></i>
+                            </div>
+                        </a>
+                    </li>
+                    <li class="dropdown toggle-response">
+                        <a href="#">
+                            <div class="navbar-add">
+                                <div class="navbar-username">
+                                    jean eficilog
+                                </div>
+                            </div>
+                            <div class="navbar-dropdown icon-response">
+                                <i class="fas fa-sort-down navbar-dropdown-icon"></i>
+                            </div>
+                        </a>
+                    </li>
+                </ul-->
+            </div>
             
         </mat-toolbar>
 

@@ -16,8 +16,9 @@
                 <button
                     mat-raised-button
                     (click)="adicionarProduto()"
+                    matTooltip="Adicionar Produto"
                     class="button-return">
-                    <fa-icon icon="plus" size="fa-sm"></fa-icon>
+                    <i class="fas fa-plus fa-sm"></i>
                     Adicionar
                 </button>
                 <div
@@ -26,9 +27,9 @@
                     <a mat-button color="warn" 
                         href="http://homologacao.eficilog.com:4545/catalogo-produtos/extrato?cnpj={{filter.importers[0]}}"
                         style="text-decoration:none;"
+                        matTooltip="Exportar"
                         target="_blank">
-                        <fa-icon icon="file-csv" size="fa-sm" class="file-csv"></fa-icon>
-                        Exportar
+                        <i class="fas fa-file-csv" style="font-size:2em;"></i>
                     </a>
                 </div>                
             </div>

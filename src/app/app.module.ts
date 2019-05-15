@@ -6,14 +6,6 @@ import { initializer } from './utilitarios/app-init';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule, PreloadAllModules } from '@angular/router';
 
-// Add these
-//import { faAdobe } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas, faChevronDown, faComment, faCommentAlt } from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
-library.add(fas, far, faChevronDown, faComment, faCommentAlt);
-
 import { AppComponent } from './app.component';
 import { NavegacaoComponent } from './shared/navegacao/navegacao.component';
 import { MaterialModule } from './utilitarios/material.module';
@@ -42,7 +34,6 @@ import { ImportersListComponent } from './shared/filter/importers-list/importers
     imports: [
         BrowserModule,
         MaterialModule,
-        FontAwesomeModule,
         BrowserAnimationsModule,
         KeycloakAngularModule,
         HttpClientModule,

@@ -8,14 +8,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MaterialModule } from '../../utilitarios/material.module';
 import { NgxMaskModule } from 'ngx-mask';
 
-// Add these
-//import { faAdobe } from '@fortawesome/free-brands-svg-icons';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas, faChevronDown, faFileMedical, faInfoCircle, faComment, faCommentAlt } from '@fortawesome/free-solid-svg-icons';
-import { far } from '@fortawesome/free-regular-svg-icons';
-library.add(fas, far, faChevronDown, faFileMedical, faInfoCircle, faComment, faCommentAlt);
-
 import { CLASSIFICACAO_ROUTES } from './classificacao.routes';
 
 import { ClassificacaoComponent } from './classificacao.component';
@@ -35,7 +27,6 @@ import { ComentariosEditComponent } from './comentarios/comentarios-edit/comenta
         FormsModule,
         ReactiveFormsModule,
         MaterialModule,
-        FontAwesomeModule,
         ObserversModule,
         NgbModule.forRoot(),
         RouterModule.forChild(CLASSIFICACAO_ROUTES),

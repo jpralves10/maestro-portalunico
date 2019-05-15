@@ -223,7 +223,7 @@
                                 <th mat-header-cell *matHeaderCellDef></th>
                                 <td mat-cell *matCellDef="let row">
                                     <button mat-button (click)="removeRowAtributo(row)" title="Remover">
-                                        <fa-icon icon="minus-square" size="lg"></fa-icon>
+                                        <i class="fas fa-minus-square lg"></i>
                                     </button>
                                 </td>
                             </ng-container>
@@ -283,7 +283,7 @@
                                 <th mat-header-cell *matHeaderCellDef></th>
                                 <td mat-cell *matCellDef="let row">
                                     <button mat-button (click)="removeRowCodigoInterno(row)" title="Remover">
-                                        <fa-icon icon="minus-square" size="lg"></fa-icon>
+                                        <i class="fas fa-minus-square lg"></i>
                                     </button>
                                 </td>
                             </ng-container>
@@ -311,20 +311,14 @@
                 (click)="voltarEtapa()"
                 class="step-button-return"
                 style="margin: 0 8px;">
-                <fa-icon
-                    icon="angle-double-left"
-                    size="fa-sm">
-                </fa-icon>
+                <i class="fas fa-angle-double-left fa-sm"></i>
                 Voltar Etapa
             </button>
             <button
                 mat-raised-button
                 (click)="finalizarPreenchimento()"
                 class="step-button-finish">
-                <fa-icon
-                    icon="check"
-                    size="fa-sm">
-                </fa-icon>
+                <i class="fas fa-check fa-sm"></i>
                 Finalizar
             </button>
         </mat-card-actions>
