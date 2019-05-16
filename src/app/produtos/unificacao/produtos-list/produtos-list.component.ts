@@ -37,7 +37,7 @@ export class ProdutosListComponent implements OnInit {
 
     dataSource: ProdutosListDataSource;
     selection = new SelectionModel<Produto>(true, []);
-    displayedColumns = ['descricaoBruta', 'ncm', 'canal', 'declaracoes'];
+    displayedColumns = ['descricaoBruta', 'ncm', 'quantidade', 'canal'];
 
     public filtroValue: ResultItem;
     public currentFilter: Result;

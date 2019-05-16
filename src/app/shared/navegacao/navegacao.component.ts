@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { KeycloakService } from 'keycloak-angular';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -17,10 +18,22 @@ export class NavegacaoComponent implements OnInit {
     .pipe(map(result => result.matches));
 
     listaMenus = this.getListaMenus();
+    userInfo:any = {};
 
     constructor(
-        private breakpointObserver: BreakpointObserver
-    ) { }
+        private breakpointObserver: BreakpointObserver,
+        private keycloakAngular: KeycloakService
+    ) {
+        this.keycloakAngular.loadUserProfile().then(profile => {
+            window.sessionStorage.setItem('userInfo', JSON.stringify(profile));
+            this.userInfo.name = profile.firstName + ' ' + profile.lastName;
+            this.userInfo.email = profile.email;
+        })
+        .catch( reason => {console.log( reason )});
+
+        /*this.userInfo = window.sessionStorage.getItem('userInfo');
+        console.log("App: " + this.userInfo)*/
+    }
 
     ngOnInit() { }
 
@@ -30,6 +43,10 @@ export class NavegacaoComponent implements OnInit {
 
     toggleMenu(menu: any){
         menu.toggle = !menu.toggle;
+    }
+
+    userLogout(){
+        this.keycloakAngular.logout();
     }
 
     getListaMenus(){

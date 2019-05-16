@@ -157,6 +157,8 @@ export class ProdutosListDataSource extends DataSource<Produto> {
                     return compare(a.descricaoBruta, b.descricaoBruta, isAsc);
                 case 'ncm':
                     return compare(a.ncm, b.ncm, isAsc);
+                case 'quantidade':
+                    return compare(a.quantidade, b.quantidade, isAsc);
                 case 'canal':
                     return compare(a.canalDominante, b.canalDominante, isAsc);
                 default:

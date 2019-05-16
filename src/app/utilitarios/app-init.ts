@@ -11,6 +11,7 @@ export function initializer(keycloak: KeycloakService): () => Promise<any> {
             clientId: 'front-local'
         },
         enableBearerInterceptor: true,
+        //loadUserProfileAtStartUp: true,
         bearerPrefix: 'Bearer',
         initOptions: {
             onLoad: 'login-required',

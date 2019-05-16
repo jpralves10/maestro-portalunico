@@ -188,9 +188,10 @@
 
 .navbar-add {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 2fr 1fr;
     grid-column-gap: 10px;
     line-height: 17px;
+    text-align: left;
 }
 
 .navbar-icon {
@@ -218,6 +219,12 @@
 .navbar-username {
     color: #4a5864;
     float: left;
+}
+
+.navbar-username-span {
+    color: #b0bec9;
+    font-size: 13px;
+    font-style: italic;
 }
 
 // Navbar Response

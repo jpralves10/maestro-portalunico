@@ -54,7 +54,7 @@ export class ProdutosTwoComponent implements OnInit {
         produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: '', operador: ''}
     };
 
-    displayedColumns = ['select', 'descricaoBruta', 'quantidade', 'similaridade', 'canal', 'operacoes'];
+    displayedColumns = ['select', 'descricaoBruta', 'ncm', 'quantidade', 'similaridade', 'canal'];
 
     public filtroValue: ResultItem;
     public currentFilter: Result;
@@ -195,19 +195,21 @@ export class ProdutosTwoComponent implements OnInit {
     }
 
     inativarProduto(row: Produto) {
-        this.produto.versoesProduto.splice(this.produto.versoesProduto.indexOf(row), 1);
-        this.dataSource.data = [...this.produto.versoesProduto];
-        this.dataSource.fullData = [...this.produto.versoesProduto];
-
-        row.status = 'Inativo';
-        this.inativos.push(row);
-
-        setTimeout(() => {
-            this.selection.toggle(row);
-            this.dataSource.getUpdatedData();
-            this.updateFiltro();
-            this.eventTable = 1;
-        }, 500);
+        if(this.selection.isSelected(row)){
+            this.produto.versoesProduto.splice(this.produto.versoesProduto.indexOf(row), 1);
+            this.dataSource.data = [...this.produto.versoesProduto];
+            this.dataSource.fullData = [...this.produto.versoesProduto];
+    
+            row.status = 'Inativo';
+            this.inativos.push(row);
+    
+            setTimeout(() => {
+                this.selection.toggle(row);
+                this.dataSource.getUpdatedData();
+                this.updateFiltro();
+                this.eventTable = 1;
+            }, 500);
+        }
     }
 
     proximaEtapa(){

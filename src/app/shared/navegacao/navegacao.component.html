@@ -93,7 +93,11 @@
                 <nav id="navbar-menu">
                     <ul class="toggle-normal">
                         <li>
-                            <button mat-button [matMenuTriggerFor]="menuAdd">
+                            <button 
+                                mat-button 
+                                [matMenuTriggerFor]="menuAdd" 
+                                matTooltip="Adicionar">
+
                                 <div class="navbar-add">
                                     <div class="navbar-adicionar">
                                         <i class="fas fa-paste"></i>
@@ -107,35 +111,42 @@
                             <mat-menu #menuAdd="matMenu">
                                 <button mat-menu-item>Agendar Tarefa</button>
                                 <button mat-menu-item>Adicionar Produto</button>
-                                <button mat-menu-item>Importar Produto</button>                                
+                                <button mat-menu-item>Importar Produtos</button>                                
                             </mat-menu>
                         </li>
                         <li>
-                            <button mat-button>
+                            <button mat-button matTooltip="Notificações">
                                 <div class="navbar-icon">
                                     <i class="fas fa-bell"></i>
                                 </div>
                             </button>
                         </li>
                         <li>
-                            <button mat-button>
+                            <button mat-button matTooltip="Suporte">
                                 <div class="navbar-icon">
                                     <i class="fas fa-bullhorn"></i>
                                 </div>
                             </button>
                         </li>
                         <li>
-                            <button mat-button>
+                            <button mat-button matTooltip="Configurações">
                                 <div class="navbar-icon">
                                     <i class="fas fa-cog"></i>
                                 </div>
                             </button>
                         </li>
                         <li>
-                            <button mat-button [matMenuTriggerFor]="menuUser">
+                            <button
+                                mat-button 
+                                [matMenuTriggerFor]="menuUser" 
+                                matTooltip="Opções de Usuário">
+
                                 <div class="navbar-add">
                                     <div class="navbar-username">
-                                        jean eficilog
+                                        {{ userInfo.name }} <br/>
+                                        <span class="navbar-username-span">
+                                            {{ userInfo.email }}
+                                        </span>
                                     </div>
                                     <div class="navbar-dropdown">
                                         <i class="fas fa-sort-down navbar-sort-down"></i>
@@ -144,26 +155,33 @@
                             </button>
                             <mat-menu #menuUser="matMenu">
                                 <button mat-menu-item>Gerenciar Perfil</button>
-                                <button mat-menu-item>Sair</button>
+                                <button mat-menu-item (click)="userLogout()">Sair</button>
                             </mat-menu>
                         </li>
                     </ul>
 
                     <ul class="toggle-response">
                         <li style="border:none;">
-                            <button mat-button [matMenuTriggerFor]="menuUser">
+                            <button
+                                mat-button 
+                                [matMenuTriggerFor]="menuUserResponse" 
+                                matTooltip="Opções de Usuário">
+
                                 <div class="navbar-add">
                                     <div class="navbar-username">
-                                        jean eficilog
+                                        {{ userInfo.name }} <br/>
+                                        <span class="navbar-username-span">
+                                            {{ userInfo.email }}
+                                        </span>
                                     </div>
                                     <div class="navbar-dropdown">
                                         <i class="fas fa-sort-down navbar-sort-down"></i>
                                     </div>
                                 </div>
                             </button>
-                            <mat-menu #menuUser="matMenu">
+                            <mat-menu #menuUserResponse="matMenu">
                                 <button mat-menu-item>Gerenciar Perfil</button>
-                                <button mat-menu-item>Sair</button>
+                                <button mat-menu-item (click)="userLogout()">Sair</button>
                             </mat-menu>
                         </li>
                     </ul>
