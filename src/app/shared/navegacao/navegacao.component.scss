@@ -161,91 +161,42 @@
 
 /** Options Navbar **/
 
-.navbar {
-    padding: 0;
-    margin-bottom: 0;
-    list-style: none;
-
-    float: right !important;
-    margin-right: -15px;
+#navbar-menu {
+    height: 92px;
 }
 
-.navbar > li {
-    position: relative;
+#navbar-menu ul {
+    padding:0px;
+    margin:0px;
+    list-style:none;
+    float: right;
 }
 
-.navbar > li > a {
-    overflow: hidden;
-}
-
-.navbar > li > a {
-    position: relative;
-    display: block;
-    padding: 10px 15px;
-}
-
-.navbar-toolbar > li {
-    float: left;
-}
-
-.navbar-default 
-.navbar-toolbar > li > a {
+#navbar-menu ul li {
+    height: 92px;
+    display: inline-block;
     color: #a1b1be;
-    padding: 34px;
-}
-
-.navbar-toolbar > li > a {
-    padding: 34px;
-    line-height: 22px;
-}
-
-.navbar-toolbar > li > a {
-    color: #a1b1be;
-    font-size: 16px;
-}
-
-.navbar-toolbar:before, 
-.navbar-toolbar:after{
-    display: table;
-    content: " ";
-}
-
-.navbar-toolbar > li:before, 
-.navbar-toolbar > li:after {
-    display: table;
-    content: " ";
-}
-
-.navbar-right > li {
     border-left: 1px solid #e5e7ec;
 }
 
-.navbar-right > li.toggle-response {
-    border: none;
-}
-
-.dropup, .dropdown {
-    position: relative;
-}
-
-.dropdown .dropdown-toggle i {
-    font-size: 16px !important;
-}
-
-.navbar-quick-add {
-    padding-top: 30px !important;
-    padding-bottom: 36px !important;
+#navbar-menu ul li button {
+    line-height: 0px;
+    height: 92px;
+    padding: 0 32px;
+    overflow: hidden;
 }
 
 .navbar-add {
-    float: left;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
     line-height: 17px;
 }
 
-.navbar-add i {
-    position: relative;
-    margin-right: 5px;
-    top: 3px;
+.navbar-icon {
+    float: none;
+    font-size: 16px;
+    margin-left: 0;
 }
 
 .navbar-dropdown {
@@ -254,50 +205,37 @@
     margin-left: 25px;
 }
 
-.navbar-dropdown-icon {
+.navbar-sort-down {
     position: relative;
     margin-right: 5px;
     top: -10px;
 }
 
-.icon-response{
-    color: #757575;
+.navbar-adicionar {
+    float: left;
 }
 
 .navbar-username {
     color: #4a5864;
-    font-size: 14px;
+    float: left;
 }
 
+// Navbar Response
+
 .toggle-response {
-    display: block;
+    display: flex;
 }
+
 .toggle-normal {
     display: none;
 }
 
-@media (min-width: 1095px){
+@media (min-width: 768px){
     .toggle-response {
         display: none;
         border: none;
     }
     .toggle-normal {
-        display: block;
+        display: flex;
     }
-}
-
-
-
-.navbar-ul {
-    padding: 0;
-    margin-bottom: 0;
-    list-style: none;
-}
-
-.navbar-li {
-    color: #a1b1be;
-}
-
-.navbar-btn {
-    padding: 34px;
 }

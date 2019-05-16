@@ -90,86 +90,84 @@
             </div>
 
             <div class="navbar-item">
-                <ul class="navbar-ul">
-                    <li class="navbar-li">
-                        <button mat-button [matMenuTriggerFor]="menu" class="navbar-btn">
-                            <div class="navbar-add">
-                                <div>
-                                    <i class="fas fa-paste"></i>
-                                    Adicionar
+                <nav id="navbar-menu">
+                    <ul class="toggle-normal">
+                        <li>
+                            <button mat-button [matMenuTriggerFor]="menuAdd">
+                                <div class="navbar-add">
+                                    <div class="navbar-adicionar">
+                                        <i class="fas fa-paste"></i>
+                                        Adicionar
+                                    </div>
+                                    <div class="navbar-dropdown">
+                                        <i class="fas fa-sort-down navbar-sort-down"></i>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="navbar-dropdown">
-                                <i class="fas fa-sort-down navbar-dropdown-icon"></i>
-                            </div>
-                        </button>
-                        <mat-menu #menu="matMenu">
-                            <button mat-menu-item>Item 1</button>
-                            <button mat-menu-item>Item 2</button>
-                        </mat-menu>
-                    </li>
-                    <li>
-
-                    </li>
-                </ul>
-                
-
-
-
-                <!--ul class="navbar navbar-toolbar navbar-right">
-                    <li class="dropdown toggle-normal">
-                        <a href="#">
-                            <div class="navbar-add">
-                                <div>
-                                    <i class="fas fa-paste"></i>
-                                    Adicionar
+                            </button>
+                            <mat-menu #menuAdd="matMenu">
+                                <button mat-menu-item>Agendar Tarefa</button>
+                                <button mat-menu-item>Adicionar Produto</button>
+                                <button mat-menu-item>Importar Produto</button>                                
+                            </mat-menu>
+                        </li>
+                        <li>
+                            <button mat-button>
+                                <div class="navbar-icon">
+                                    <i class="fas fa-bell"></i>
                                 </div>
-                            </div>
-                            <div class="navbar-dropdown">
-                                <i class="fas fa-sort-down navbar-dropdown-icon"></i>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="dropdown toggle-normal">
-                        <a href="#">
-                            <i class="fas fa-bell"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown toggle-normal">
-                        <a href="#">
-                            <i class="fas fa-bullhorn"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown toggle-normal">
-                        <a href="#">
-                            <i class="fas fa-cog"></i>
-                        </a>
-                    </li>
-                    <li class="dropdown toggle-normal">
-                        <a href="#">
-                            <div class="navbar-add">
-                                <div class="navbar-username">
-                                    jean eficilog
+                            </button>
+                        </li>
+                        <li>
+                            <button mat-button>
+                                <div class="navbar-icon">
+                                    <i class="fas fa-bullhorn"></i>
                                 </div>
-                            </div>
-                            <div class="navbar-dropdown">
-                                <i class="fas fa-sort-down navbar-dropdown-icon"></i>
-                            </div>
-                        </a>
-                    </li>
-                    <li class="dropdown toggle-response">
-                        <a href="#">
-                            <div class="navbar-add">
-                                <div class="navbar-username">
-                                    jean eficilog
+                            </button>
+                        </li>
+                        <li>
+                            <button mat-button>
+                                <div class="navbar-icon">
+                                    <i class="fas fa-cog"></i>
                                 </div>
-                            </div>
-                            <div class="navbar-dropdown icon-response">
-                                <i class="fas fa-sort-down navbar-dropdown-icon"></i>
-                            </div>
-                        </a>
-                    </li>
-                </ul-->
+                            </button>
+                        </li>
+                        <li>
+                            <button mat-button [matMenuTriggerFor]="menuUser">
+                                <div class="navbar-add">
+                                    <div class="navbar-username">
+                                        jean eficilog
+                                    </div>
+                                    <div class="navbar-dropdown">
+                                        <i class="fas fa-sort-down navbar-sort-down"></i>
+                                    </div>
+                                </div>
+                            </button>
+                            <mat-menu #menuUser="matMenu">
+                                <button mat-menu-item>Gerenciar Perfil</button>
+                                <button mat-menu-item>Sair</button>
+                            </mat-menu>
+                        </li>
+                    </ul>
+
+                    <ul class="toggle-response">
+                        <li style="border:none;">
+                            <button mat-button [matMenuTriggerFor]="menuUser">
+                                <div class="navbar-add">
+                                    <div class="navbar-username">
+                                        jean eficilog
+                                    </div>
+                                    <div class="navbar-dropdown">
+                                        <i class="fas fa-sort-down navbar-sort-down"></i>
+                                    </div>
+                                </div>
+                            </button>
+                            <mat-menu #menuUser="matMenu">
+                                <button mat-menu-item>Gerenciar Perfil</button>
+                                <button mat-menu-item>Sair</button>
+                            </mat-menu>
+                        </li>
+                    </ul>
+                </nav>
             </div>
             
         </mat-toolbar>
