@@ -5,7 +5,7 @@ import { map, filter } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, from } from 'rxjs';
 import { Produto } from '../../shared/models/produto.model';
 import { ResultItem } from '../../shared/models/unificacao.result.model';
-import { FilterResult } from '../../shared/models/unificacao.filter.model';
+import { FilterResult } from '../../../shared/filter/filter.model';
 import { ResultService } from '../../shared/services/unificacao.result.service';
 
 export class ProdutosListDataSource extends DataSource<Produto> {

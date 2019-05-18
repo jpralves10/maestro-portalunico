@@ -5,8 +5,8 @@ import { Importer } from '../../../produtos/shared/models/importer.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { ImportersListDataSource } from './importers-list-datasource';
-import { FilterItem } from '../../../produtos/shared/models/unificacao.filter.model';
-import { Filter } from '../../../produtos/shared/models/unificacao.filter.model';
+import { FilterItem } from '../filter.model';
+import { Filter } from '../filter.model';
 import { FilterService } from '../../../produtos/shared/services/unificacao.filter.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Filter, FilterResult } from '../shared/models/unificacao.filter.model';
+import { Filter, FilterResult } from '../../shared/filter/filter.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FilterComponent } from '../../shared/filter/filter.component';
 import { ProdutoService } from '../shared/services/produtos.service';

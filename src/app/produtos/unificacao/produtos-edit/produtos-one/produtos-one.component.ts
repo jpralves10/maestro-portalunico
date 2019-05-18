@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Produto } from '../../../shared/models/produto.model';
-import { FilterResult } from '../../../shared/models/unificacao.filter.model';
+import { FilterResult } from '../../../../shared/filter/filter.model';
 
 @Component({
     selector: 'app-produtos-one',

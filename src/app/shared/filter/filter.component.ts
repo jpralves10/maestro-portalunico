@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Route, CanLoad, CanActivate } from '@angular/router';
 import { NgbActiveModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { Filter, FilterItem, FilterResult } from '../../produtos/shared/models/unificacao.filter.model';
+import { Filter, FilterItem, FilterResult } from './filter.model';
 
 import { ProdutoService } from '../../produtos/shared/services/produtos.service';
 import { FilterService } from '../../produtos/shared/services/unificacao.filter.service';

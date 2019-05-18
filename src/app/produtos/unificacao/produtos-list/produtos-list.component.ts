@@ -11,7 +11,7 @@ import { ProdutosListDataSource } from './produtos-list-datasource';
 import { ResultItem } from '../../shared/models/unificacao.result.model';
 import { Result } from '../../shared/models/unificacao.result.model';
 import { ResultService } from '../../shared/services/unificacao.result.service';
-import { FilterResult } from '../../shared/models/unificacao.filter.model';
+import { FilterResult } from '../../../shared/filter/filter.model';
 import { ProdutosInfoDialog } from '../produtos-info/produtos-info.dialog'
 
 import { Chart } from 'chart.js';

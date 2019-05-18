@@ -4,6 +4,11 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { FilterResult } from '../filter/filter.model'
+import { FilterComponent } from '../../shared/filter/filter.component';
+
 @Component({
   selector: 'app-navegacao',
   templateUrl: './navegacao.component.html',
@@ -20,9 +25,12 @@ export class NavegacaoComponent implements OnInit {
     listaMenus = this.getListaMenus();
     userInfo:any = {};
 
+    filter: FilterResult = null;
+
     constructor(
         private breakpointObserver: BreakpointObserver,
-        private keycloakAngular: KeycloakService
+        private keycloakAngular: KeycloakService,
+        private modalService: NgbModal
     ) {
         this.keycloakAngular.loadUserProfile().then(profile => {
             window.sessionStorage.setItem('userInfo', JSON.stringify(profile));
@@ -33,6 +41,12 @@ export class NavegacaoComponent implements OnInit {
 
         /*this.userInfo = window.sessionStorage.getItem('userInfo');
         console.log("App: " + this.userInfo)*/
+
+        this.getFilterResult();
+
+        /*if(this.filter != null && this.filter.importers.length > 0){
+            this.setDadosInit();
+        }*/
     }
 
     ngOnInit() { }
@@ -75,5 +89,25 @@ export class NavegacaoComponent implements OnInit {
                 ]
             }
         ]
+    }
+
+    /*alterarImportador(){
+        this.getFilterResult();
+
+        if(this.filter != null && this.filter.importers.length > 0){
+            this.setDadosInit();
+        } else {
+            this.openDialogFilter();
+        }
+    }*/
+
+    openDialogFilter(): void {
+        this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
+            this.getFilterResult();
+        });
+    }
+
+    getFilterResult(){
+        this.filter = JSON.parse(window.sessionStorage.getItem('result'));
     }
 }

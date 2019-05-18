@@ -14,11 +14,18 @@
                 <ul *ngFor="let menu of listaMenus" class="ul-tree">
                     <li *ngIf="menu.enable" (click)="toggleMenu(menu)" class="li-one">
                         <div class="li-one-head">
-                            <i *ngIf="!menu.toggle" class="fas fa-angle-right fa-xs icon-toggle"></i>
-                            <i *ngIf="menu.toggle" class="fas fa-angle-down fa-xs icon-toggle"></i>
-                            <span style="font-weight: 500px">
-                                {{ menu.name }}
-                            </span>
+                            <div *ngIf="!menu.toggle">
+                                <i class="fas fa-angle-right icon-toggle"></i>
+                                <span style="font-weight: 500px">
+                                    {{ menu.name }}
+                                </span>
+                            </div>
+                            <div *ngIf="menu.toggle">
+                                <i class="fas fa-angle-down icon-toggle"></i>
+                                <span style="font-weight: 500px">
+                                    {{ menu.name }}
+                                </span>
+                            </div>
                         </div>                        
                     </li>
 
@@ -129,11 +136,20 @@
                             </button>
                         </li>
                         <li>
-                            <button mat-button matTooltip="Configurações">
+                            <button 
+                                mat-button 
+                                [matMenuTriggerFor]="menuConfig"
+                                matTooltip="Configurações">
+
                                 <div class="navbar-icon">
                                     <i class="fas fa-cog"></i>
                                 </div>
                             </button>
+                            <mat-menu #menuConfig="matMenu">
+                                <button mat-menu-item (click)="openDialogFilter()">
+                                    Alterar Importador/Exportador
+                                </button>                              
+                            </mat-menu>
                         </li>
                         <li>
                             <button

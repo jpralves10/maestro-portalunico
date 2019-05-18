@@ -4,7 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Produto } from '../../../shared/models/produto.model';
 import { Atributos } from '../../../shared/models/legendas.model';
 
-import { FilterResult } from '../../../shared/models/unificacao.filter.model';
+import { FilterResult } from '../../../../shared/filter/filter.model';
 import { ProdutoService } from '../../../shared/services/produtos.service';
 
 import paises from '../../../../utilitarios/pais-origem.model';

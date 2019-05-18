@@ -1,4 +1,4 @@
-import { Importer } from './importer.model';
+import { Importer } from '../../produtos/shared/models/importer.model';
 
 export interface Filter {
     importers: Importer[];

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FilterResult } from '../shared/models/unificacao.filter.model';
+import { FilterResult } from '../../shared/filter/filter.model';
 import { Produto } from '../shared/models/produto.model';
 import { Declaracao } from '../shared/models/legendas.model';
 import { Result, ResultItem, ResultClass } from '../shared/models/unificacao.result.model';

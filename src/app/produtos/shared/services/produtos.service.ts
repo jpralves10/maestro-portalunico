@@ -3,7 +3,7 @@ import { AuthService } from '../../../utilitarios/auth.service';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { Filter } from '../models/unificacao.filter.model';
+import { Filter } from '../../../shared/filter/filter.model';
 import { Produto } from '../models/produto.model';
 
 import { EFICILOG_API, EFICILOG_API_HOMOLOCACAO } from '../../../utilitarios/app.api';

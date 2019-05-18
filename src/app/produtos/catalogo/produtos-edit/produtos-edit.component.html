@@ -179,7 +179,7 @@
 
                             <mat-form-field>
                                 <mat-label>Atributos NCM</mat-label>
-                                <mat-select [(ngModel)]="attrSelect">
+                                <mat-select [(ngModel)]="attrSelect" (selectionChange)="adicionarAtributo()">
                                     <mat-option
                                         *ngFor="let attr of listaAtributos"
                                         [value]="attr"
@@ -189,13 +189,13 @@
                                 </mat-select>
                             </mat-form-field>
 
-                            <button
+                            <!--button
                                 mat-raised-button 
                                 class="atributo-button-add"
                                 [disabled]="listaAtributos.length == 0"
                                 (click)="adicionarAtributo()">
                                     Adicionar
-                            </button>
+                            </button-->
                         </div>
 
                         <table 
