@@ -7,7 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ImportersListDataSource } from './importers-list-datasource';
 import { FilterItem } from '../filter.model';
 import { Filter } from '../filter.model';
-import { FilterService } from '../../../produtos/shared/services/unificacao.filter.service';
+import { FilterSourceService } from '../../../produtos/shared/services/unificacao.filter.service';
 
 @Component({
     selector: 'app-importers-list',
@@ -31,14 +31,14 @@ export class ImportersListComponent implements OnInit {
     public currentFilter: Filter;
 
     constructor(
-        private filterService: FilterService
+        private filterSourceService: FilterSourceService
     ) {
-        filterService.filter.subscribe(f => (this.filtroValue = f));
+        filterSourceService.filter.subscribe(f => (this.filtroValue = f));
 
-        filterService.filterResult.subscribe(fr => (this.currentFilter = fr));
+        filterSourceService.filterResult.subscribe(fr => (this.currentFilter = fr));
 
         this.selection.changed.subscribe(() => {
-            filterService.changeFilterResult({
+            filterSourceService.changeFilterResult({
                 ...this.currentFilter,
                 importers: this.selection.selected
             });
@@ -49,14 +49,14 @@ export class ImportersListComponent implements OnInit {
         this.dataSource = new ImportersListDataSource(
             this.paginator,
             this.sort,
-            this.filterService,
+            this.filterSourceService,
             this.data
         );
     }
 
     ngAfterViewInit() {
-        this.filterService.whenUpdatedSource.next([
-            ...this.filterService.whenUpdated,
+        this.filterSourceService.whenUpdatedSource.next([
+            ...this.filterSourceService.whenUpdated,
             this.paginator
         ]);
     }

@@ -5,7 +5,7 @@ import { Observable, of as observableOf, merge } from 'rxjs';
 import { Importer } from '../../../produtos/shared/models/importer.model';
 import { Input } from '@angular/core';
 import { FilterItem } from '../filter.model';
-import { FilterService } from '../../../produtos/shared/services/unificacao.filter.service';
+import { FilterSourceService } from '../../../produtos/shared/services/unificacao.filter.service';
 
 export class ImportersListDataSource extends DataSource<Importer> {
     
@@ -19,7 +19,7 @@ export class ImportersListDataSource extends DataSource<Importer> {
     constructor(
         private paginator: MatPaginator,
         private sort: MatSort,
-        private filterService: FilterService,
+        private filterService: FilterSourceService,
         data: Importer[]
     ) {
         super();

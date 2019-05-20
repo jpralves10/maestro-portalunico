@@ -13,6 +13,10 @@ export interface Compatibilidade {
 export interface Declaracao {
     importadorNome: string;
     importadorNumero: string;
+
+    fornecedorNome: string;
+    fabricanteNome: string;
+
     numeroDI: string;
     dataRegistro: Date;
     numeroAdicao: string;

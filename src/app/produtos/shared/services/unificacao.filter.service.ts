@@ -6,7 +6,7 @@ import { Filter, FilterItem } from '../../../shared/filter/filter.model';
 @Injectable({
   providedIn: 'root'
 })
-export class FilterService {
+export class FilterSourceService {
 
     date = new Date();
     start_date = new Date(this.date.setMonth(this.date.getMonth() - 12));

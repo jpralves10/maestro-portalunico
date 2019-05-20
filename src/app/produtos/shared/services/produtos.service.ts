@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from '../../../utilitarios/auth.service';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-
 import { Observable } from 'rxjs';
-import { Filter } from '../../../shared/filter/filter.model';
-import { Produto } from '../models/produto.model';
 
-import { EFICILOG_API, EFICILOG_API_HOMOLOCACAO } from '../../../utilitarios/app.api';
+//import { AuthService } from '../../../utilitarios/auth.service';
+import { Produto } from '../models/produto.model';
+import { 
+    EFICILOG_API, 
+    EFICILOG_API_HOMOLOCACAO, 
+    UNIFICACAO_API 
+} from '../../../utilitarios/app.api';
 
 @Injectable({
     providedIn: 'root'
@@ -14,12 +16,6 @@ import { EFICILOG_API, EFICILOG_API_HOMOLOCACAO } from '../../../utilitarios/app
 export class ProdutoService {
 
     constructor(private httpClient: HttpClient){}
-
-    getDadosFiltro(): Observable<Filter> {
-        return this.httpClient.get<Filter>(
-            `${ EFICILOG_API }/relatorios/representacoes/filtros`
-        );
-    }
 
     getProdutosGenerico(filtro: any): Observable<Produto[]> {
         return this.httpClient.post<Produto[]>(
@@ -45,7 +41,7 @@ export class ProdutoService {
         );
     }
 
-    //Teste
+    // Teste
     serverGoogle(): Observable<any> {
         var headers = new HttpHeaders();
         headers = headers.append('Access-Control-Allow-Origin', '*');

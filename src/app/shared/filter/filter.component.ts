@@ -4,9 +4,9 @@ import { NgbActiveModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 
 import { Filter, FilterItem, FilterResult } from './filter.model';
 
-import { ProdutoService } from '../../produtos/shared/services/produtos.service';
-import { FilterService } from '../../produtos/shared/services/unificacao.filter.service';
-import { ImportersListComponent } from './importers-list/importers-list.component';
+import { FilterService } from '../service/filter.service';
+import { FilterSourceService } from '../../produtos/shared/services/unificacao.filter.service';
+//import { ImportersListComponent } from './importers-list/importers-list.component';
 import { Importer } from '../../produtos/shared/models/importer.model';
 
 @Component({
@@ -29,19 +29,19 @@ export class FilterComponent implements OnInit {
     filtro: Filter = { importers: [] };
 
     constructor(
-        private produtoService: ProdutoService,
         private filterService: FilterService,
+        private filterSourceService: FilterSourceService,
         private router: Router,
         private route: ActivatedRoute,
         public activeModal: NgbActiveModal
     ) {
-        filterService.filterResult.subscribe(f => {
+        filterSourceService.filterResult.subscribe(f => {
             this.filtro = f;
         });
     }
 
     ngOnInit() {
-        this.filterService.resetFilter();
+        this.filterSourceService.resetFilter();
 
         /* Mock */
         /*
@@ -50,7 +50,7 @@ export class FilterComponent implements OnInit {
 
         /* End Mock */
 
-        this.produtoService.getDadosFiltro().subscribe(
+        this.filterService.getDadosFiltro().subscribe(
             data => {
                 this.data = this.getDataTransformed(data);
                 this.loading = false;
@@ -58,7 +58,7 @@ export class FilterComponent implements OnInit {
             error => { this.errored = true; }
         );
 
-        this.filterService.clearFilter();
+        this.filterSourceService.clearFilter();
     }
 
     getDataTransformed(data: any): Filter {
@@ -77,11 +77,11 @@ export class FilterComponent implements OnInit {
     }
 
     updateFiltro() {
-        this.filterService.changeFilter(this.current_filtro);
+        this.filterSourceService.changeFilter(this.current_filtro);
     }
 
     updateFiltroFinal() {
-        this.filterService.changeFilterResult(this.filtro);
+        this.filterSourceService.changeFilterResult(this.filtro);
     }
 
     generateReport() {

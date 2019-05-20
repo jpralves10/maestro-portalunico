@@ -337,6 +337,8 @@ export class UnificacaoComponent implements OnInit {
             {
                 importadorNome: 'RENAULT DO BRASIL S.A',
                 importadorNumero: '00913443000173',
+                fornecedorNome: 'None',
+                fabricanteNome: 'None',
                 numeroDI: '12345678',
                 dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
@@ -345,6 +347,8 @@ export class UnificacaoComponent implements OnInit {
             {
                 importadorNome: 'RENAULT DO BRASIL S.A',
                 importadorNumero: '00913443000173',
+                fornecedorNome: 'None',
+                fabricanteNome: 'None',
                 numeroDI: '32145678',
                 dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
@@ -353,6 +357,8 @@ export class UnificacaoComponent implements OnInit {
             {
                 importadorNome: 'RENAULT DO BRASIL S.A',
                 importadorNumero: '00913443000173',
+                fornecedorNome: 'None',
+                fabricanteNome: 'None',
                 numeroDI: '87945678',
                 dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
@@ -361,6 +367,8 @@ export class UnificacaoComponent implements OnInit {
             {
                 importadorNome: 'RENAULT DO BRASIL S.A',
                 importadorNumero: '00913443000173',
+                fornecedorNome: 'None',
+                fabricanteNome: 'None',
                 numeroDI: '56445678',
                 dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
@@ -369,6 +377,8 @@ export class UnificacaoComponent implements OnInit {
             {
                 importadorNome: 'CHEVROLET DO BRASIL S.A',
                 importadorNumero: '33313443000173',
+                fornecedorNome: 'None',
+                fabricanteNome: 'None',
                 numeroDI: '87945678',
                 dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
@@ -377,6 +387,8 @@ export class UnificacaoComponent implements OnInit {
             {
                 importadorNome: 'CHEVROLET DO BRASIL S.A',
                 importadorNumero: '33313443000173',
+                fornecedorNome: 'None',
+                fabricanteNome: 'None',
                 numeroDI: '56445678',
                 dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
@@ -385,6 +397,8 @@ export class UnificacaoComponent implements OnInit {
             {
                 importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
                 importadorNumero: '44413443000173',
+                fornecedorNome: 'None',
+                fabricanteNome: 'None',
                 numeroDI: '87945678',
                 dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
@@ -393,6 +407,8 @@ export class UnificacaoComponent implements OnInit {
             {
                 importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
                 importadorNumero: '44413443000173',
+                fornecedorNome: 'None',
+                fabricanteNome: 'None',
                 numeroDI: '56445678',
                 dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
@@ -401,6 +417,8 @@ export class UnificacaoComponent implements OnInit {
             {
                 importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
                 importadorNumero: '44413443000173',
+                fornecedorNome: 'None',
+                fabricanteNome: 'None',
                 numeroDI: '87945678',
                 dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
@@ -409,6 +427,8 @@ export class UnificacaoComponent implements OnInit {
             {
                 importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
                 importadorNumero: '44413443000173',
+                fornecedorNome: 'None',
+                fabricanteNome: 'None',
                 numeroDI: '56445678',
                 dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
                 numeroAdicao: '001',
