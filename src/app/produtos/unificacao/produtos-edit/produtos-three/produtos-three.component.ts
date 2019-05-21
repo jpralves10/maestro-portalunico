@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { Produto } from '../../../shared/models/produto.model';
-import { Atributos } from '../../../shared/models/legendas.model';
+import { IAtributos } from '../../../shared/models/produto.legendas';
 
 import { FilterResult } from '../../../../shared/filter/filter.model';
 import { ProdutoService } from '../../../shared/services/produtos.service';
@@ -57,7 +57,7 @@ export class ProdutosThreeComponent implements OnInit {
     ];
 
     atributosColumns: string[] = ['codigo', 'dominio', 'descricao', 'operacao'];
-    atributo_form: Atributos = {atributo: '', valor: ''};
+    atributo_form: IAtributos = {atributo: '', valor: ''};
 
     codigoInternoColumns: string[] = ['valor', 'operacao'];
     codigointerno_form = '';
@@ -147,7 +147,7 @@ export class ProdutosThreeComponent implements OnInit {
     }
 
     removeRowAtributo(attr: any){
-        let attrProd: Atributos = {atributo: attr.codigo, valor: attr.dominio};
+        let attrProd: IAtributos = {atributo: attr.codigo, valor: attr.dominio};
 
         this.attrList.splice(this.attrList.indexOf(attr), 1);
         this.produto.atributos.splice(this.produto.atributos.indexOf(attrProd), 1);

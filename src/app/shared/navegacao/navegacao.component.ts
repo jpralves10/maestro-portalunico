@@ -52,7 +52,7 @@ export class NavegacaoComponent implements OnInit {
     ngOnInit() { }
 
     checkClose() {
-        return this.breakpointObserver.isMatched('(max-width: 600px)');
+        return this.breakpointObserver.isMatched('(max-width: 500px)');
     }
 
     toggleMenu(menu: any){

@@ -1,4 +1,4 @@
-export interface Importer {
+export interface IImporter {
     id: string;
     cpf_cnpj: string;
     name: string;

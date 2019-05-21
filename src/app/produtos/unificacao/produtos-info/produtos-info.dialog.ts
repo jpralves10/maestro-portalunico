@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
-import { DeclaracaoNode } from '../../shared/models/legendas.model';
+import { IDeclaracaoNode } from '../../shared/models/produto.legendas';
 import { Produto } from '../../shared/models/produto.model';
 
 import { Chart } from 'chart.js';
@@ -28,7 +28,7 @@ export class ProdutosInfoDialog {
         this.doughnut = new Chart(this.ctx, this.getChartDoughnut());
     }
 
-    toggleImporter(node: DeclaracaoNode){
+    toggleImporter(node: IDeclaracaoNode){
         node.toggle = !node.toggle;
     }
 

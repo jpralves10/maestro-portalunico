@@ -249,3 +249,10 @@
         display: flex;
     }
 }
+
+@media (max-width: 1082px){
+    #navbar-menu ul li.toggle-adicionar {
+        display: none;
+        border: none;
+    }
+}

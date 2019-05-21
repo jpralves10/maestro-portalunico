@@ -1,7 +1,7 @@
-import { Importer } from '../../produtos/shared/models/importer.model';
+import { IImporter } from '../models/importer.model';
 
 export interface Filter {
-    importers: Importer[];
+    importers: IImporter[];
     data_inicio?: Date;
     data_fim?: Date;
 }

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Produto, ProdutoClass } from '../../shared/models/produto.model';
+import { Produto } from '../../shared/models/produto.model';
 import $ from "jquery";
 
 @Component({

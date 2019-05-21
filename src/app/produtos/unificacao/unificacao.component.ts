@@ -2,9 +2,9 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterResult } from '../../shared/filter/filter.model';
 import { Produto } from '../shared/models/produto.model';
-import { Declaracao } from '../shared/models/legendas.model';
+import { IDeclaracao } from '../shared/models/produto.legendas';
 import { Result, ResultItem, ResultClass } from '../shared/models/unificacao.result.model';
-import { Resumo } from '../shared/models/legendas.model';
+import { IResumo } from '../shared/models/produto.legendas';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -40,7 +40,7 @@ export class UnificacaoComponent implements OnInit {
     date = new Date();
     start_date = new Date(this.date.setMonth(this.date.getMonth() - 12));
     
-    resumo: Resumo = {
+    resumo: IResumo = {
         periodoInicial: this.start_date, 
         periodoFinal: new Date(), 
         importadores: [{}], 
@@ -332,7 +332,7 @@ export class UnificacaoComponent implements OnInit {
 
     /** Mock Dados **/
 
-    getMockDeclaracoes(): Declaracao[]{
+    getMockDeclaracoes(): IDeclaracao[]{
         return [
             {
                 importadorNome: 'RENAULT DO BRASIL S.A',

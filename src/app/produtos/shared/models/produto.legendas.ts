@@ -1,5 +1,5 @@
 
-export interface Compatibilidade {
+export interface ICompatibilidade {
     similaridade: number;
     identicos: number;
     canalDominante: number;
@@ -10,7 +10,7 @@ export interface Compatibilidade {
     cinza: number;
 }
 
-export interface Declaracao {
+export interface IDeclaracao {
     importadorNome: string;
     importadorNumero: string;
 
@@ -23,19 +23,19 @@ export interface Declaracao {
     canal: string; //canalSelecaoParametrizada
 }
 
-export interface DeclaracaoNode {
+export interface IDeclaracaoNode {
     name: string;
     cnpj: string;
     toggle: boolean;
     declaracoes?: any[];
 }
 
-export interface Atributos {
+export interface IAtributos {
     atributo: string;
     valor: string;
 }
 
-export interface Resumo {
+export interface IResumo {
     periodoInicial: Date, 
     periodoFinal: Date, 
     importadores: [{}], 

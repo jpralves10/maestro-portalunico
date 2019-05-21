@@ -10,7 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { msg_produtos_two } from '../../../../utilitarios/mensagens.module';
 
 import { Produto } from '../../../shared/models/produto.model';
-import { Compatibilidade } from '../../../shared/models/legendas.model';
+import { ICompatibilidade } from '../../../shared/models/produto.legendas';
 import { ProdutosTwoDataSource } from './produtos-two-datasource';
 import { ResultItem } from '../../../shared/models/unificacao.result.model';
 import { Result } from '../../../shared/models/unificacao.result.model';
@@ -432,7 +432,7 @@ export class ProdutosTwoComponent implements OnInit {
 
     public getMockDados(): Produto[]{
 
-        var compatibilidade: Compatibilidade = {
+        var compatibilidade: ICompatibilidade = {
             similaridade: 7,
             identicos: 4,
             canalDominante: 0,

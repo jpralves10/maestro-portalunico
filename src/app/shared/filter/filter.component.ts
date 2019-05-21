@@ -5,9 +5,8 @@ import { NgbActiveModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 import { Filter, FilterItem, FilterResult } from './filter.model';
 
 import { FilterService } from '../service/filter.service';
-import { FilterSourceService } from '../../produtos/shared/services/unificacao.filter.service';
-//import { ImportersListComponent } from './importers-list/importers-list.component';
-import { Importer } from '../../produtos/shared/models/importer.model';
+import { FilterSourceService } from '../service/filter.source.service';
+import { IImporter } from '../models/importer.model';
 
 @Component({
     selector: 'app-filter',
@@ -136,7 +135,7 @@ export class FilterComponent implements OnInit {
 
     getMockDados(): Filter{
 
-        var importer: Importer = {
+        var importer: IImporter = {
             id: null,
             cpf_cnpj: '08532602000100',
             name: 'Importador Curitiba Ltda'
@@ -156,7 +155,7 @@ export class FilterComponent implements OnInit {
         var importer10 = {...importer};
         var importer11 = {...importer};
 
-        var importersList: Importer[] = [];
+        var importersList: IImporter[] = [];
         importersList.push(
             importer,
             importer2,

@@ -1,6 +1,11 @@
-import { Atributos, Compatibilidade, Declaracao, DeclaracaoNode } from './legendas.model';
+import { 
+    IAtributos, 
+    ICompatibilidade, 
+    IDeclaracao, 
+    IDeclaracaoNode 
+} from './produto.legendas';
 
-export interface Produto {
+export interface IProduto {
 
     /** Controle Interno **/
     _id: string;
@@ -11,15 +16,15 @@ export interface Produto {
     /** Informações Declaracao **/
     numeroDI: string, 
     dataRegistro: Date, 
-    declaracoes: Declaracao[];
-    declaracaoNode: DeclaracaoNode[];
+    declaracoes: IDeclaracao[];
+    declaracaoNode: IDeclaracaoNode[];
     chartCanais: number[];
     canalDominante: number;
     quantidade:number;
 
     /** Versões Produto **/
-    versoesProduto: Produto[];
-    compatibilidade: Compatibilidade;
+    versoesProduto: IProduto[];
+    compatibilidade: ICompatibilidade;
 
     /** Dados Importador **/
     importadorNome: string;
@@ -50,11 +55,14 @@ export interface Produto {
     fabricanteConhecido: boolean;
     cpfCnpjFabricante: string;
     codigoOperadorEstrangeiro: string;
-    atributos: Atributos[];
+    atributos: {
+        atributo: string;
+        valor: string
+    }[];
     codigosInterno: string[];
 }
 
-export class ProdutoClass implements Produto{
+export class Produto implements IProduto{
 
     /** Controle Interno **/
     _id: string;
@@ -65,15 +73,15 @@ export class ProdutoClass implements Produto{
     /** Informações Declaracao **/
     numeroDI: string;
     dataRegistro: Date;
-    declaracoes: Declaracao[];
-    declaracaoNode: DeclaracaoNode[];
+    declaracoes: IDeclaracao[];
+    declaracaoNode: IDeclaracaoNode[];
     chartCanais: number[];
     canalDominante: number;
     quantidade:number;
 
     /** Versões Produto **/
-    versoesProduto: Produto[];
-    compatibilidade: Compatibilidade;
+    versoesProduto: IProduto[];
+    compatibilidade: ICompatibilidade;
 
     /** Dados Importador **/
     importadorNome: string;
@@ -104,11 +112,6 @@ export class ProdutoClass implements Produto{
     fabricanteConhecido: boolean;
     cpfCnpjFabricante: string;
     codigoOperadorEstrangeiro: string;
-    atributos: [
-        {
-            atributo: string;
-            valor: string
-        }
-    ];
+    atributos: IAtributos[] = [];
     codigosInterno: string[];
 }

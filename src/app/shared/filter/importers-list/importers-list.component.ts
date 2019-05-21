@@ -1,13 +1,13 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 
-import { Importer } from '../../../produtos/shared/models/importer.model';
+import { IImporter } from '../../models/importer.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { ImportersListDataSource } from './importers-list-datasource';
 import { FilterItem } from '../filter.model';
 import { Filter } from '../filter.model';
-import { FilterSourceService } from '../../../produtos/shared/services/unificacao.filter.service';
+import { FilterSourceService } from '../../service/filter.source.service';
 
 @Component({
     selector: 'app-importers-list',
@@ -18,13 +18,11 @@ export class ImportersListComponent implements OnInit {
 
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
-    
-    @Input() data: Importer[];
 
-    selection = new SelectionModel<Importer>(true, []);
+    @Input() data: IImporter[];
 
+    selection = new SelectionModel<IImporter>(true, []);
     dataSource: ImportersListDataSource;
-
     displayedColumns = ['select', 'name', 'cpf_cnpj'];
 
     public filtroValue: FilterItem;

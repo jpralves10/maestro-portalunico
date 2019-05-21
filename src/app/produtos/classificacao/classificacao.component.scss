@@ -54,9 +54,9 @@
     position: fixed;
     bottom: 0;
     z-index: 9;
-    cursor: pointer;
+    //cursor: pointer;
     right: 28px;
-    width: 280px;
+    width: 320px;
     margin-right: 10px;
 
     padding-top: 0;
@@ -76,13 +76,16 @@
 
 /* Add styles to the form container */
 .form-container {
-    max-width: 300px;
+    //max-width: 300px;
+    min-height: 377px;
     padding: 16px;
+    padding-bottom: 0px;
     background-color: white;
     position: relative;
 }
 
 .fields-textarea {
+    width: 100%;
     display: grid;
     //grid-template-columns: 2fr 2fr;
     grid-column-gap: 50px;
@@ -111,12 +114,29 @@
     opacity: 1;
 }
 
+.form-container .button-salvar:hover {
+    opacity: 1;
+}
+
 .button-add {
     color: #596679;
-    float: right;
+    height: 150px;
+    width: 100%;
+    background: #EBEDEF;
+    margin-bottom: 10px;
 }
 
 .button-add:hover {
+    color: warn;
+    background: #F2F4F4;
+}
+
+.button-salvar {
+    color: #596679;
+    background: #EBEDEF;
+}
+
+.button-salvar:hover {
     color: warn;
     background: #F2F4F4;
 }

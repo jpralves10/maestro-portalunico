@@ -2,17 +2,17 @@ import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
-import { Importer } from '../../../produtos/shared/models/importer.model';
+import { IImporter } from '../../models/importer.model';
 import { Input } from '@angular/core';
 import { FilterItem } from '../filter.model';
-import { FilterSourceService } from '../../../produtos/shared/services/unificacao.filter.service';
+import { FilterSourceService } from '../../service/filter.source.service';
 
-export class ImportersListDataSource extends DataSource<Importer> {
+export class ImportersListDataSource extends DataSource<IImporter> {
     
     @Input()
-    public data: Importer[];
-    public fullData: Importer[];
-    public filteredData: Importer[];
+    public data: IImporter[];
+    public fullData: IImporter[];
+    public filteredData: IImporter[];
 
     public filtro: FilterItem;
 
@@ -20,7 +20,7 @@ export class ImportersListDataSource extends DataSource<Importer> {
         private paginator: MatPaginator,
         private sort: MatSort,
         private filterService: FilterSourceService,
-        data: Importer[]
+        data: IImporter[]
     ) {
         super();
         this.data = [...data];
@@ -33,7 +33,7 @@ export class ImportersListDataSource extends DataSource<Importer> {
      * the returned stream emits new items.
      * @returns A stream of the items to be rendered.
      */
-    connect(): Observable<Importer[]> {
+    connect(): Observable<IImporter[]> {
         // Combine everything that affects the rendered data into one update
         // stream for the data-table to consume.
         const dataMutations = [
@@ -62,7 +62,7 @@ export class ImportersListDataSource extends DataSource<Importer> {
      */
     disconnect() {}
 
-    public getFilteredData(data: Importer[]): Importer[] {
+    public getFilteredData(data: IImporter[]): IImporter[] {
         const reReplace = /[/\/\-\.]/g;
 
         const { importer } = this.filtro;
@@ -87,7 +87,7 @@ export class ImportersListDataSource extends DataSource<Importer> {
      * Paginate the data (client-side). If you're using server-side pagination,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getPagedData(data: Importer[]) {
+    public getPagedData(data: IImporter[]) {
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         return data.splice(startIndex, this.paginator.pageSize);
     }
@@ -96,7 +96,7 @@ export class ImportersListDataSource extends DataSource<Importer> {
      * Sort the data (client-side). If you're using server-side sorting,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getSortedData(data: Importer[]) {
+    public getSortedData(data: IImporter[]) {
 
         if (!this.sort.active || this.sort.direction === '') {
             return data;

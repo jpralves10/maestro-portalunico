@@ -3,11 +3,11 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 //import { AuthService } from '../../../utilitarios/auth.service';
-import { Produto } from '../models/produto.model';
+import { IProduto } from '../models/produto.model';
 import { 
     EFICILOG_API, 
     EFICILOG_API_HOMOLOCACAO, 
-    UNIFICACAO_API 
+    PRODUTOS_API
 } from '../../../utilitarios/app.api';
 
 @Injectable({
@@ -17,27 +17,39 @@ export class ProdutoService {
 
     constructor(private httpClient: HttpClient){}
 
-    getProdutosGenerico(filtro: any): Observable<Produto[]> {
-        return this.httpClient.post<Produto[]>(
+    getProdutosGenerico(filtro: any): Observable<IProduto[]> {
+        return this.httpClient.post<IProduto[]>(
             `${ EFICILOG_API_HOMOLOCACAO }/catalogo-produtos/filtro`, filtro
         );
     }
 
-    setAlterarProdutos(produto: Produto): Observable<Produto> {
-        return this.httpClient.post<Produto>(
+    setAlterarProdutos(produto: IProduto): Observable<IProduto> {
+        return this.httpClient.post<IProduto>(
             `${ EFICILOG_API_HOMOLOCACAO }/catalogo-produtos/alterar`, produto
         );
     }
 
-    setProdutosInativos(inativos: Produto[]): Observable<Produto[]> {
-        return this.httpClient.post<Produto[]>(
+    setProdutosInativos(inativos: IProduto[]): Observable<IProduto[]> {
+        return this.httpClient.post<IProduto[]>(
             `${ EFICILOG_API }/produtos/unificacao/inativos`, inativos
         );
     }
 
-    setProdutosImportacao(importacao: any): Observable<Produto[]> {
-        return this.httpClient.post<Produto[]>(
+    setProdutosImportacao(importacao: any): Observable<IProduto[]> {
+        return this.httpClient.post<IProduto[]>(
             `${ EFICILOG_API_HOMOLOCACAO }/importacao-produtos/salvar`, importacao
+        );
+    }
+
+    getClassificacao(filtro: any): Observable<any[]> {
+        return this.httpClient.post<any>(
+            `${ PRODUTOS_API }/produtos/classificacao/find`, filtro
+        );
+    }
+
+    setComentarios(comentarios: any): Observable<any[]> {
+        return this.httpClient.post<any>(
+            `${ PRODUTOS_API }/produtos/comentario/save`, comentarios
         );
     }
 
@@ -65,8 +77,8 @@ export class ProdutoService {
     }
 
     //Teste
-    serverNode(): Observable<Produto> {
-        return this.httpClient.get<Produto>(
+    serverNode(): Observable<IProduto> {
+        return this.httpClient.get<IProduto>(
             `http://localhost:3443/teste`
         );
     }

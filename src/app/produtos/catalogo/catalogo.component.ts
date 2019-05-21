@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterResult } from '../../shared/filter/filter.model';
 import { ResultItem, Result, ResultClass } from '../shared/models/unificacao.result.model';
-import { Produto, ProdutoClass } from '../shared/models/produto.model';
+import { Produto } from '../shared/models/produto.model';
 import { ProdutoService } from '../shared/services/produtos.service';
 import { ResultService } from '../shared/services/unificacao.result.service';
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
@@ -132,7 +132,7 @@ export class CatalogoComponent implements OnInit {
     ngOnInit() { }
 
     adicionarProduto(){
-        let produto = new ProdutoClass();
+        let produto = new Produto();
         produto._id = null;
         produto.seq = "001";
         produto.codigo = null;

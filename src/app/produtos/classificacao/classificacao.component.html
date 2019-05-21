@@ -36,36 +36,91 @@
 
     <mat-card-content class="form-container">
 
-        <mat-card-title>
-        </mat-card-title>
+        <div *ngIf="!flComentar && !flVisualizar">
 
-        <mat-form-field style="width: 100%;">
-            <mat-label>Campo</mat-label>
-            <mat-select>
-                <mat-option>
-                    Aqui
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
+            <h5 style="font-size:16px;">
+                Escolha uma das opções abaixo:
+            </h5>
+            
+            <div class="navbar-itens">
+                <button
+                    mat-button
+                    class="button-add"
+                    (click)="inserirComentario()">
+                    Inserir Comentário
+                </button>
 
-        <div class="fields-textarea">
-            <mat-form-field>
-                <textarea
-                    matInput
-                    placeholder="Comentário"
-                    class="produto-descricao">
-                </textarea>
+                <button
+                    mat-button
+                    class="button-add"
+                    (click)="visualizarComentario()">
+                    Visualizar Comentário
+                </button>
+            </div>
+        </div>        
+
+        <div *ngIf="flComentar">
+
+            <mat-form-field style="width: 100%;">
+                <mat-label>Campos do Formulário</mat-label>
+                <mat-select [(ngModel)]="comentario.idColuna">
+                    <mat-option
+                        *ngFor="let coluna of colunas"
+                        [value]="coluna.idColuna">
+                        {{coluna.nmColuna}}
+                    </mat-option>
+                </mat-select>
             </mat-form-field>
+
+            <div class="fields-textarea">
+                <mat-form-field>
+                    <textarea
+                        matInput
+                        [(ngModel)]="comentario.descricao"
+                        placeholder="Comentário"
+                        class="produto-descricao"></textarea> <!-- !Important -->
+                </mat-form-field>
+
+                <button
+                    mat-button
+                    matTooltip="Salvar comentário"
+                    class="button-salvar"
+                    (click)="salvarComentario()">
+                    Salvar
+                </button>
+            </div>
         </div>
 
-        <button
-            mat-button
-            matTooltip="Inserir comentário"
-            class="button-add"
-            style="color: #596679; float: right;"
-            (click)="closeForm()">
-            Enviar
-        </button>
+        <div *ngIf="flVisualizar">
+
+            <mat-form-field style="width: 100%;">
+                <mat-label>Campos do Formulário</mat-label>
+                <mat-select [(ngModel)]="idColuna">
+                    <mat-option
+                        *ngFor="let coluna of colunas"
+                        [value]="coluna.idColuna">
+                        {{coluna.nmColuna}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <div class="fields-textarea">
+                <mat-form-field>
+                    <textarea
+                        matInput
+                        placeholder="Comentário"
+                        class="produto-descricao"></textarea> <!-- !Important -->
+                </mat-form-field>
+
+                <button
+                    mat-button
+                    matTooltip="Salvar comentário"
+                    class="button-salvar"
+                    (click)="closeForm()">
+                    Salvar
+                </button>
+            </div>
+        </div>
 
     </mat-card-content>
 </mat-card>
