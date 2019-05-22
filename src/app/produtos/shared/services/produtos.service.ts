@@ -9,6 +9,8 @@ import {
     EFICILOG_API_HOMOLOCACAO, 
     PRODUTOS_API
 } from '../../../utilitarios/app.api';
+import { IClassificacao } from '../models/classificacao.model';
+import { IComentario } from '../models/classificacao.legendas';
 
 @Injectable({
     providedIn: 'root'
@@ -41,15 +43,15 @@ export class ProdutoService {
         );
     }
 
-    getClassificacao(filtro: any): Observable<any[]> {
+    getClassificacao(classificacao: IClassificacao): Observable<IClassificacao> {
         return this.httpClient.post<any>(
-            `${ PRODUTOS_API }/produtos/classificacao/find`, filtro
+            `${ PRODUTOS_API }/produtos/classificacao/find`, classificacao
         );
     }
 
-    setComentarios(comentarios: any): Observable<any[]> {
+    setComentario(comentario: IComentario): Observable<IClassificacao> {
         return this.httpClient.post<any>(
-            `${ PRODUTOS_API }/produtos/comentario/save`, comentarios
+            `${ PRODUTOS_API }/produtos/comentario/save`, comentario
         );
     }
 

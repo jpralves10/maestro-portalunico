@@ -1,5 +1,6 @@
 export interface IColuna {
     idColuna: number,
+    sequencia: number,
     nmColuna: string 
 }
 
@@ -18,8 +19,11 @@ export interface IComentario {
     idResposta: string,
     idColuna: number,
     idUsuario: string,
+    nmUsuario: string,
     status: string,
     descricao: string,
     dataCriacao: Date,
-    dataAtualizacao: Date
+    dataAtualizacao: Date,
+    //Interno
+    side: string
 }

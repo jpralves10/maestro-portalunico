@@ -16,6 +16,7 @@ export class ClassificacaoComponent implements OnInit {
     classificacao: IClassificacao = new Classificacao();
     colunas: IColuna[] = [];
 
+    comentarios: IComentario[] = [];
     comentario = {} as IComentario;
 
     flComentar:boolean = false;
@@ -31,11 +32,10 @@ export class ClassificacaoComponent implements OnInit {
 
         this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'));
 
-        this.produtoService.getClassificacao(this.classificacao).subscribe(classificacoes => {
-            console.log(classificacoes);
-
-            if(classificacoes.length == 1){
-                this.classificacao = classificacoes[0];
+        this.produtoService.getClassificacao(this.classificacao).subscribe(classificacao => {
+            console.log(classificacao);
+            if(classificacao != undefined && classificacao != null){
+                this.classificacao = classificacao;
                 this.carregarColunas();
             }
         });
@@ -103,30 +103,48 @@ export class ClassificacaoComponent implements OnInit {
         this.flVisualizar = true;
     }
 
+    printComentarios(){
+        this.comentarios = [];
+
+        if(this.idColuna != -1 && this.classificacao.comentarios.length > 0){
+            this.classificacao.comentarios.forEach(comentario => {
+                if(comentario.idColuna == this.idColuna){
+                    comentario.idUsuario == this.userInfo.email ? 
+                    comentario.side = 'left' : comentario.side = 'right';
+
+                    comentario.dataCriacao = new Date(comentario.dataCriacao);
+
+                    this.comentarios.push(comentario);
+                }
+            })
+        }
+    }
+
     salvarComentario(){
-
-        /*export interface IComentario {
-            idSheet: number,
-            idComentario: number,
-            idResposta: string,
-            idColuna: number,
-            idUsuario: string,
-            status: string,
-            descricao: string,
-            dataCriacao: Date,
-            dataAtualizacao: Date
-        }*/
-
+        let nmUsuario = this.userInfo.firstName + ' ' + this.userInfo.lastName;
         this.comentario.idSheet = this.classificacao.idSheet;
         this.comentario.idComentario = null;
         this.comentario.idResposta = this.userInfo.email;
         this.comentario.idUsuario = this.userInfo.email;
+        this.comentario.nmUsuario = nmUsuario;
         this.comentario.status = 'Pendente';
         this.comentario.dataCriacao = new Date();
         this.comentario.dataAtualizacao = new Date();
+        this.comentario.side = undefined;
 
-        
+        this.produtoService.setComentario(this.comentario).subscribe(classificacao => {
+            console.log(classificacao);
 
+            this.comentario.idColuna = -1;
+            this.comentario.descricao = '';
+
+            this.classificacao = classificacao;
+        });
+    }
+
+    voltarTelaInicial(){
+        this.flComentar = false;
+        this.flVisualizar = false;
     }
 
     /* Mock Classificacao */

@@ -14,7 +14,7 @@
     position: fixed;
     bottom: 0;
     right: 28px;
-    width: 280px;
+    width: 320px;
     margin-right: 10px;
 
     background-color: rgb(103, 58, 183);
@@ -34,7 +34,7 @@
 
 .comment-content {
     display: grid;
-    grid-template-columns: 2fr 1fr;
+    grid-template-columns: 5fr 1fr;
     grid-column-gap: 10px;
 }
 
@@ -139,4 +139,93 @@
 .button-salvar:hover {
     color: warn;
     background: #F2F4F4;
+}
+
+.button-comentario {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 2fr;
+    grid-column-gap: 5px;
+}
+
+.content-comment {
+    background: #EAF2F8;
+    padding: 10px;
+    height: 258.44px; //268.44px;
+    margin-bottom: 10px;
+    overflow-y: auto;
+}
+
+.comment-card {
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    display: block;
+    position: relative;
+    padding: 16px;
+    border-radius: 4px;
+    background: #fff;
+
+    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2),
+                0 1px 1px 0 rgba(0,0,0,.14), 
+                0 1px 3px 0 rgba(0,0,0,.12);
+}
+
+.comment-head {
+    margin-bottom: 5px;
+    display: inline-block;
+    width: 100%;
+}
+
+.comment-item-left {
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 13px;
+    color: #4a5864;
+    width: 90%;
+}
+
+.comment-item-right {
+    margin-bottom: 10px;
+    padding: 8px;
+    font-size: 13px;
+    color: #4a5864;
+    width: 90%;
+    float: right;
+}
+
+.comment-user-left {
+    font-weight:500;
+}
+
+.comment-user-right {
+    font-weight:500;
+    float: right;
+} 
+
+.comment-date-left {
+    float: right;
+    font-size: 11px;
+}
+
+.comment-date-right {
+    float: left;
+    font-size: 11px;
+}
+
+.comment-icon-clock {
+    padding-right: 2px;
+    margin-right: 0px;
+}
+
+.content-msg {
+    display: table;
+    height: 100%;
+    text-align: center;
+    width: 100%;
+}
+
+.content-msg-item {
+    height: 100%;
+    color: #4a5864;
+    vertical-align: middle;
+    display: table-cell;
 }

@@ -13,7 +13,7 @@
 <div class="open-button">
     <div class="comment-content">
         <div class="comment-title">
-            Inserir Comentário
+            Comentários do Formulário
         </div>
         <div (click)="openForm()">
             <i class="fas fa-plus-square fa-sm comment-icon"></i>
@@ -26,7 +26,7 @@
     <div class="open-button-chat">
         <div class="comment-content">
             <div class="comment-title">
-                Inserir Comentário
+                Comentários do Formulário
             </div>
             <div (click)="closeForm()">
                 <i class="fas fa-minus-square fa-sm comment-icon"></i>
@@ -77,17 +77,23 @@
                     <textarea
                         matInput
                         [(ngModel)]="comentario.descricao"
-                        placeholder="Comentário"
-                        class="produto-descricao"></textarea> <!-- !Important -->
+                        placeholder="Comentário"></textarea> <!-- !Important -->
                 </mat-form-field>
 
-                <button
-                    mat-button
-                    matTooltip="Salvar comentário"
-                    class="button-salvar"
-                    (click)="salvarComentario()">
-                    Salvar
-                </button>
+                <div class="button-comentario">
+                    <button
+                        mat-button
+                        class="button-salvar"
+                        (click)="voltarTelaInicial()">
+                        Voltar
+                    </button>
+                    <button
+                        mat-button
+                        class="button-salvar"
+                        (click)="salvarComentario()">
+                        Salvar
+                    </button>
+                </div>                
             </div>
         </div>
 
@@ -95,7 +101,7 @@
 
             <mat-form-field style="width: 100%;">
                 <mat-label>Campos do Formulário</mat-label>
-                <mat-select [(ngModel)]="idColuna">
+                <mat-select [(ngModel)]="idColuna" (selectionChange)="printComentarios()">
                     <mat-option
                         *ngFor="let coluna of colunas"
                         [value]="coluna.idColuna">
@@ -105,19 +111,39 @@
             </mat-form-field>
 
             <div class="fields-textarea">
-                <mat-form-field>
-                    <textarea
-                        matInput
-                        placeholder="Comentário"
-                        class="produto-descricao"></textarea> <!-- !Important -->
-                </mat-form-field>
+
+                <div class="content-comment">
+                    <div
+                        *ngFor="let comentario of comentarios;"
+                        class="comment-card comment-item-{{comentario.side}}">
+                        <div class="comment-head">
+                            <span class="comment-user-{{comentario.side}}">
+                                {{comentario.nmUsuario}}
+                            </span>
+                            <span class="comment-date-{{comentario.side}}">
+                                <i class="fas fa-clock comment-icon-clock"></i>
+                                {{comentario.dataCriacao.toLocaleDateString()}}
+                                {{comentario.dataCriacao.toLocaleTimeString(
+                                    [], {hour: '2-digit', minute:'2-digit'}
+                                )}}
+                            </span>
+                        </div>
+                        {{comentario.descricao}}
+                    </div>
+                    <div class="content-msg">
+                        <div
+                            *ngIf="comentarios.length == 0"
+                            class="content-msg-item">
+                            Não há comentários!
+                        </div>
+                    </div>
+                </div>                
 
                 <button
                     mat-button
-                    matTooltip="Salvar comentário"
                     class="button-salvar"
-                    (click)="closeForm()">
-                    Salvar
+                    (click)="voltarTelaInicial()">
+                    Voltar
                 </button>
             </div>
         </div>
