@@ -1,6 +1,5 @@
 export interface IColuna {
     idColuna: number,
-    sequencia: number,
     nmColuna: string 
 }
 
