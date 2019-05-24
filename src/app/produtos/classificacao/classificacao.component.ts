@@ -19,26 +19,14 @@ export class ClassificacaoComponent implements OnInit {
     comentarios: IComentario[] = [];
     comentario = {} as IComentario;
 
-    flComentar:boolean = false;
-    flVisualizar:boolean = false;
-    idColuna: number = -1;
-
     userInfo:any = {};
 
     constructor(
         private produtoService: ProdutoService
     ) {
         this.classificacao.idSheet = 1997890537;
-
         this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'));
-
-        this.produtoService.getClassificacao(this.classificacao).subscribe(classificacao => {
-            console.log(classificacao);
-            if(classificacao != undefined && classificacao != null){
-                this.classificacao = classificacao;
-                this.carregarColunas();
-            }
-        });
+        this.obterClassificacao();
     }
 
     ngOnInit() { }
@@ -55,29 +43,37 @@ export class ClassificacaoComponent implements OnInit {
         }*/
     }
 
+    obterClassificacao(){
+        this.produtoService.getClassificacao(this.classificacao).subscribe(classificacao => {
+            console.log(classificacao);
+            if(classificacao != undefined && classificacao != null){
+                this.classificacao = classificacao;
+                this.carregarColunas();
+            }
+        });
+    }
+
     carregarColunas(){
-        if(this.classificacao.colunas.length > 0){
+        if(this.classificacao.colunas != undefined && this.classificacao.colunas.length > 0){
             this.classificacao.colunas.forEach(coluna => {
                 if(coluna.idColuna > 1){
+                    coluna.comentarios = 'disabled'
+                    coluna.selecionada = false
                     this.colunas.push(coluna)
                 }
+            });
+
+            this.classificacao.comentarios.forEach(comentario => {
+                this.colunas.forEach(coluna => {
+                    if(comentario.idColuna == coluna.idColuna){
+                        coluna.comentarios = 'enabled'
+                    }
+                })
             })
         }
     }
 
-    frameGoogle(event: any){
-        console.log(event)
-
-        var frame = event.target; //document.querySelector("#frameForms");
-        const doc = (frame as any).contentWindow.document;
-
-        var x = doc.querySelectorAll(".freebirdFormviewerViewItemsItemItemTitle");
-        x[0].innerHTML = "Hello World!";
-        alert(x);
-    }
-
     validaFormGoogle(){
-
         this.produtoService.serverGoogle().subscribe(teste => {
             console.log(teste)
         });
@@ -95,25 +91,46 @@ export class ClassificacaoComponent implements OnInit {
         document.getElementById("chatComment").style.display = "none";
     }
 
-    inserirComentario(){
-        this.flComentar = true;
-    }
+    printComentarios(idColuna:number){
 
-    visualizarComentario(){
-        this.flVisualizar = true;
-    }
+        this.comentario.idColuna = idColuna;
 
-    printComentarios(){
+        this.colunas.forEach(coluna => {
+            if(coluna.idColuna != idColuna){
+                coluna.selecionada = false
+            }else{
+                coluna.selecionada = true
+            }
+
+            //$( "#msg-" + coluna.idColuna ).css("display","table");
+
+            if(coluna.idColuna == idColuna && coluna.comentarios == 'enabled'){
+                var msg = document.querySelector('#msg-' + coluna.idColuna) as any;
+                msg.style.display = 'none';
+
+                //$( "#msg-" + coluna.idColuna ).css("display","none");
+            }else if(coluna.idColuna == idColuna && coluna.comentarios == 'disabled'){
+
+                var msg = document.querySelector('#msg-' + coluna.idColuna) as any;
+                msg.style.display = 'table';
+
+                //$( "#msg-" + coluna.idColuna ).css("display","table");
+            }
+        })
+
+        //$( "#"+idColuna ).css({"background":"#EAECEE", "color": "#808B96"});
+        $( ".content-campos" ).css("max-height","200px");
+        $( ".comment-fields" ).css("display","grid");
+
         this.comentarios = [];
 
-        if(this.idColuna != -1 && this.classificacao.comentarios.length > 0){
+        if(this.classificacao.comentarios.length > 0){
             this.classificacao.comentarios.forEach(comentario => {
-                if(comentario.idColuna == this.idColuna){
+                if(comentario.idColuna == idColuna){
                     comentario.idUsuario == this.userInfo.email ? 
-                    comentario.side = 'left' : comentario.side = 'right';
+                    comentario.side = 'right' : comentario.side = 'left';
 
-                    comentario.dataCriacao = new Date(comentario.dataCriacao);
-
+                    comentario.dataCriacao = new Date(comentario.dataCriacao); 
                     this.comentarios.push(comentario);
                 }
             })
@@ -121,33 +138,26 @@ export class ClassificacaoComponent implements OnInit {
     }
 
     salvarComentario(){
-        let nmUsuario = this.userInfo.firstName + ' ' + this.userInfo.lastName;
-        this.comentario.idSheet = this.classificacao.idSheet;
-        this.comentario.idComentario = null;
-        this.comentario.idResposta = this.userInfo.email;
-        this.comentario.idUsuario = this.userInfo.email;
-        this.comentario.nmUsuario = nmUsuario;
-        this.comentario.status = 'Pendente';
-        this.comentario.dataCriacao = new Date();
-        this.comentario.dataAtualizacao = new Date();
-        this.comentario.side = undefined;
+        if(this.comentario.descricao != undefined && this.comentario.descricao.length > 0){
+            let nmUsuario = this.userInfo.firstName + ' ' + this.userInfo.lastName;
+            this.comentario.idSheet = this.classificacao.idSheet;
+            this.comentario.idComentario = null;
+            this.comentario.idResposta = this.userInfo.email;
+            this.comentario.idUsuario = this.userInfo.email;
+            this.comentario.nmUsuario = nmUsuario;
+            this.comentario.status = 'Pendente';
+            this.comentario.dataCriacao = new Date();
+            this.comentario.dataAtualizacao = new Date();
+            this.comentario.side = undefined;
 
-        this.produtoService.setComentario(this.comentario).subscribe(classificacao => {
-            console.log(classificacao);
+            this.produtoService.setComentario(this.comentario).subscribe(classificacao => {
+                console.log(classificacao);
 
-            this.comentario.idColuna = -1;
-            this.comentario.descricao = '';
-
-            this.classificacao = classificacao;
-        });
+                this.classificacao = classificacao;
+                this.comentario.descricao = '';
+                this.carregarColunas();
+                this.printComentarios(this.comentario.idColuna);
+            });
+        }
     }
-
-    voltarTelaInicial(){
-        this.flComentar = false;
-        this.flVisualizar = false;
-    }
-
-    /* Mock Classificacao */
-
-
 }

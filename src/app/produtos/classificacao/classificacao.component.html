@@ -36,85 +36,37 @@
 
     <mat-card-content class="form-container">
 
-        <div *ngIf="!flComentar && !flVisualizar">
-
-            <h5 style="font-size:16px;">
-                Escolha uma das opções abaixo:
-            </h5>
-            
-            <div class="navbar-itens">
-                <button
-                    mat-button
-                    class="button-add"
-                    (click)="inserirComentario()">
-                    Inserir Comentário
-                </button>
-
-                <button
-                    mat-button
-                    class="button-add"
-                    (click)="visualizarComentario()">
-                    Visualizar Comentário
-                </button>
-            </div>
-        </div>        
-
-        <div *ngIf="flComentar">
-
-            <mat-form-field style="width: 100%;">
-                <mat-label>Campos do Formulário</mat-label>
-                <mat-select [(ngModel)]="comentario.idColuna">
-                    <mat-option
-                        *ngFor="let coluna of colunas"
-                        [value]="coluna.idColuna">
-                        {{coluna.nmColuna}}
-                    </mat-option>
-                </mat-select>
-            </mat-form-field>
-
-            <div class="fields-textarea">
-                <mat-form-field>
-                    <textarea
-                        matInput
-                        [(ngModel)]="comentario.descricao"
-                        placeholder="Comentário"></textarea> <!-- !Important -->
-                </mat-form-field>
-
-                <div class="button-comentario">
-                    <button
-                        mat-button
-                        class="button-salvar"
-                        (click)="voltarTelaInicial()">
-                        Voltar
-                    </button>
-                    <button
-                        mat-button
-                        class="button-salvar"
-                        (click)="salvarComentario()">
-                        Salvar
-                    </button>
-                </div>                
-            </div>
-        </div>
-
-        <div *ngIf="flVisualizar">
-
-            <mat-form-field style="width: 100%;">
+        <div>
+            <!--mat-form-field style="width: 100%;">
                 <mat-label>Campos do Formulário</mat-label>
                 <mat-select [(ngModel)]="idColuna" (selectionChange)="printComentarios()">
                     <mat-option
                         *ngFor="let coluna of colunas"
-                        [value]="coluna.idColuna">
+                        [value]="coluna.idColuna"
+                        class="option-campos">
                         {{coluna.nmColuna}}
                     </mat-option>
                 </mat-select>
-            </mat-form-field>
+            </mat-form-field-->
 
-            <div class="fields-textarea">
+            <div class="commen-inputs" style="min-height:180px;">
+                <div class="content-campos">
+                    <div
+                        *ngFor="let coluna of colunas"
+                        (click)="printComentarios(coluna.idColuna)"
+                        class="comment-card
+                               comment-item-{{coluna.comentarios}}
+                               {{coluna.selecionada == true ? 'comment-item-selected' : ''}}">
+                        {{coluna.nmColuna}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="comment-fields">
 
                 <div class="content-comment">
                     <div
-                        *ngFor="let comentario of comentarios;"
+                        *ngFor="let comentario of comentarios"
                         class="comment-card comment-item-{{comentario.side}}">
                         <div class="comment-head">
                             <span class="comment-user-{{comentario.side}}">
@@ -130,21 +82,27 @@
                         </div>
                         {{comentario.descricao}}
                     </div>
-                    <div class="content-msg">
+                    <div id="msg-{{comentario.idColuna}}" class="content-msg">
                         <div
                             *ngIf="comentarios.length == 0"
                             class="content-msg-item">
                             Não há comentários!
                         </div>
                     </div>
-                </div>                
+                </div>
 
-                <button
-                    mat-button
-                    class="button-salvar"
-                    (click)="voltarTelaInicial()">
-                    Voltar
-                </button>
+                <div class="comment-input">
+                    <input
+                        [(ngModel)]="comentario.descricao"
+                        placeholder="..." />
+
+                    <button
+                        mat-button
+                        class="button-salvar"
+                        (click)="salvarComentario()">
+                        Ok
+                    </button>
+                </div>
             </div>
         </div>
 

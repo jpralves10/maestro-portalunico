@@ -1,6 +1,8 @@
 export interface IColuna {
     idColuna: number,
-    nmColuna: string 
+    nmColuna: string,
+    comentarios: string,
+    selecionada: boolean
 }
 
 export interface IResposta {
