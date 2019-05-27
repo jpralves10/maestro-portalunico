@@ -27,10 +27,11 @@ import {
     MatChipsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatButtonToggleModule,
+    MatBadgeModule,
     NativeDateModule,
     MAT_DATE_FORMATS,
-    MAT_DATE_LOCALE,
-    MatButtonToggleModule
+    MAT_DATE_LOCALE    
 } from '@angular/material';
 
 const impExp = [
@@ -58,6 +59,7 @@ const impExp = [
     MatFormFieldModule,
     MatInputModule,
     MatChipsModule,
+    MatBadgeModule,
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonToggleModule

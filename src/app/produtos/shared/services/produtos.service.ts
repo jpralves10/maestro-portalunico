@@ -43,7 +43,7 @@ export class ProdutoService {
         );
     }
 
-    getClassificacao(classificacao: IClassificacao): Observable<IClassificacao> {
+    getClassificacao(classificacao: IClassificacao): Observable<IClassificacao[]> {
         return this.httpClient.post<any>(
             `${ PRODUTOS_API }/produtos/classificacao/find`, classificacao
         );

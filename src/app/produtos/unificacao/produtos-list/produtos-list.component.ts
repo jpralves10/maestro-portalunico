@@ -49,7 +49,6 @@ export class ProdutosListComponent implements OnInit {
         private modalService: NgbModal
     ) {
         resultService.filter.subscribe(f => (this.filtroValue = f));
-
         resultService.filterResult.subscribe(fr => (this.currentFilter = fr));
 
         this.selection.changed.subscribe(() => {

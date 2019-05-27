@@ -257,3 +257,33 @@ app-root {
 .mat-menu-item {
     color: #97a8b6;
 }
+
+/* Mat Badge */
+
+.mat-badge-content {
+    font-size: 10px;
+    background: #F9E79F;
+    color: #85929E;
+}
+
+.mat-badge-content-true {
+    display: inline-block;
+}
+
+.mat-badge-content-false {
+    display: none;
+}
+
+.mat-badge-medium .mat-badge-content {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+}
+
+.mat-badge-medium.mat-badge-overlap.mat-badge-after .mat-badge-content {
+    right: -5px;
+}
+
+.mat-badge-medium.mat-badge-above .mat-badge-content {
+    top: -2px;
+}

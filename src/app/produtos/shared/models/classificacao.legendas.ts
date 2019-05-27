@@ -1,8 +1,9 @@
 export interface IColuna {
     idColuna: number,
     nmColuna: string,
-    comentarios: string,
-    selecionada: boolean
+    comentarios: boolean,
+    selecionada: boolean,
+    pendentes: number
 }
 
 export interface IResposta {
@@ -16,6 +17,7 @@ export interface IResposta {
 
 export interface IComentario {
     idSheet: number,
+    sheetVersao: number,
     idComentario: number,
     idResposta: string,
     idColuna: number,

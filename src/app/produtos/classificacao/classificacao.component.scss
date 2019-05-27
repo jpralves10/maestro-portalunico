@@ -203,14 +203,14 @@
                 0 1px 3px 0 rgba(0,0,0,.12);
 }
 
-.comment-item-enabled{
+.comment-item-true{
     font-size: 0.8em;
     margin-bottom: 5px;
     padding: 8px;
     cursor: pointer;
 }
 
-.comment-item-disabled {
+.comment-item-false {
     color: #B2BABB;
     cursor: pointer;
     font-size: 0.8em;
@@ -278,6 +278,14 @@
     text-align: center;
     width: 100%;
     //display: table;
+}
+
+.content-msg-none {
+    display: none;
+}
+
+.content-msg-table {
+    display: table;
 }
 
 .content-msg-item {

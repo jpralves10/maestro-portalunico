@@ -123,6 +123,11 @@
                         [(ngModel)]="produto.codigoOperadorEstrangeiro"/>
                 </mat-form-field>
 
+                <mat-card>
+                    {{produto.fornecedorNome}} <br/>
+                    {{produto.fabricanteNome}}
+                </mat-card>
+
                 <mat-checkbox
                     [checked]="produto.status == 'Aprovado'"
                     (change)="setStatusProduto($event)">

@@ -74,7 +74,12 @@ export class UnificacaoComponent implements OnInit {
             this.setDadosInit();
         } else {
             this.openDialogFilter();
-        } 
+        }
+
+        /* Mock */
+        /*this.produtos = this.getMockDados();
+        this.status = ['Pendente', 'Completo', 'Aprovado', 'Integrado'];
+        this.setDadosResult();
 
         /*this.route.queryParamMap.subscribe(paramMap => {
             this.filter = JSON.parse(paramMap.get('filter'));
@@ -119,7 +124,7 @@ export class UnificacaoComponent implements OnInit {
         this.data.produtos = [];
 
         /* Mock */
-        
+
         /*this.produtos.forEach(produto => {
             if(this.status.includes(produto.status)){
                 produto.declaracoes = this.getMockDeclaracoes();
@@ -130,7 +135,6 @@ export class UnificacaoComponent implements OnInit {
         this.agruparDeclaracoes(this.data.produtos);
         this.produtos = this.data.produtos;
         this.setResumoCards();
-
         this.childUpdateDataSource();
 
         this.loading = false;*/
