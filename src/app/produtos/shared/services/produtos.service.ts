@@ -49,9 +49,9 @@ export class ProdutoService {
         );
     }
 
-    setComentario(comentario: IComentario): Observable<IClassificacao> {
+    setComentarios(comentarios: IComentario[]): Observable<string> {
         return this.httpClient.post<any>(
-            `${ PRODUTOS_API }/produtos/comentario/save`, comentario
+            `${ PRODUTOS_API }/produtos/comentario/save`, comentarios
         );
     }
 

@@ -47,19 +47,13 @@ export class ClassificacaoComponent implements OnInit {
     obterClassificacao(){
         this.produtoService.getClassificacao(this.classificacao).subscribe(classificacoes => {
 
-            setSortClassificacoes(classificacoes);
-            let classificacao = classificacoes[0];
-
-            console.log(classificacao);
-            if(classificacao != undefined && classificacao != null){
+            if(classificacoes.length > 0){
+                this.setSortClassificacoes(classificacoes);
+                let classificacao = classificacoes[0];
                 this.classificacao = classificacao;
                 this.carregarColunas();
             }
         });
-
-        const setSortClassificacoes = async (classificacoes:IClassificacao[]) => {
-            classificacoes.sort((a, b) => a.version > b.version ? 1 : -1 );
-        };
     }
 
     carregarColunas(){
@@ -103,10 +97,8 @@ export class ClassificacaoComponent implements OnInit {
     }
 
     teste(event:any){
-        console.log(event.srcElement)
-        /*event.srcElement.forEach(item => {
-            console.log(item)
-        })*/
+        //console.log(event.srcElement.children[0].id)
+        $( "#" + event.srcElement.children[0].id ).css("display","none");
     }
 
     printComentarios(idColuna:number){
@@ -125,8 +117,6 @@ export class ClassificacaoComponent implements OnInit {
         $( ".content-campos" ).css("max-height","200px");
         $( ".comment-fields" ).css("display","grid");
 
-        //$( ".mat-badge-content" ).css("display","none");
-
         this.comentarios = [];
 
         if(this.classificacao.comentarios.length > 0){
@@ -135,11 +125,23 @@ export class ClassificacaoComponent implements OnInit {
                     comentario.idUsuario == this.userInfo.email ? 
                     comentario.side = 'right' : comentario.side = 'left';
 
+                    comentario.idUsuario == this.userInfo.email ? 
+                    comentario.status = 'Pendente' :
+                    comentario.status = 'Visualizado';
+
                     comentario.dataCriacao = new Date(comentario.dataCriacao); 
                     this.comentarios.push(comentario);
                 }
             })
+            this.produtoService.setComentarios(this.comentarios).subscribe(status => {
+                //console.log(status);
+            });
         }
+
+        setTimeout(() => {
+            var objDiv = $( ".content-comment" )[0];     
+            objDiv.scrollTop = objDiv.scrollHeight;
+        }, 1);
     }
 
     salvarComentario(){
@@ -156,14 +158,19 @@ export class ClassificacaoComponent implements OnInit {
             this.comentario.dataAtualizacao = new Date();
             this.comentario.side = undefined;
 
-            this.produtoService.setComentario(this.comentario).subscribe(classificacao => {
-                console.log(classificacao);
+            this.produtoService.setComentarios([this.comentario]).subscribe(status => {
+                console.log(status);
 
-                this.classificacao = classificacao;
-                this.comentario.descricao = '';
-                this.carregarColunas();
-                this.printComentarios(this.comentario.idColuna);
+                if(status == '200'){
+                    this.obterClassificacao();
+                    this.comentario.descricao = '';
+                    this.printComentarios(this.comentario.idColuna);
+                }
             });
         }
     }
+
+    setSortClassificacoes = async (classificacoes:IClassificacao[]) => {
+        classificacoes.sort((a, b) => a.version > b.version ? 1 : -1 );
+    };
 }
