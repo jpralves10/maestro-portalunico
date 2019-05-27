@@ -54,7 +54,7 @@ gulp.task('git', async function(){
 })
 
 gulp.task('git-pull', async function(){
-    execSync('git pull', function (err, stdout, stderr) {
+    execSync('git pull origin master', function (err, stdout, stderr) {
         console.log(err);
     });
 })

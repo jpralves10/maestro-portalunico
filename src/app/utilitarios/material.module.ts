@@ -62,6 +62,7 @@ const impExp = [
     MatBadgeModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatBadgeModule,
     MatButtonToggleModule
 ];
 
