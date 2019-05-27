@@ -53,10 +53,15 @@
                 <div class="content-campos">
                     <div
                         *ngFor="let coluna of colunas"
-                        (click)="printComentarios(coluna.idColuna)"
+                        (click)="teste($event); printComentarios(coluna.idColuna);"
                         class="comment-card
                                comment-item-{{coluna.comentarios}}
-                               {{coluna.selecionada == true ? 'comment-item-selected' : ''}}">
+                               {{coluna.selecionada == true ? 'comment-item-selected' : ''}}"
+                        matBadge="{{coluna.pendentes}}" 
+                        matBadgePosition="after"
+                        matBadgeColor="accent"
+                        matBadgeSize="medium"
+                        [matBadgeHidden]="!coluna.comentarios && !coluna.selecionada">
                         {{coluna.nmColuna}}
                     </div>
                 </div>
@@ -82,7 +87,7 @@
                         </div>
                         {{comentario.descricao}}
                     </div>
-                    <div id="msg-{{comentario.idColuna}}" class="content-msg">
+                    <div class="content-msg content-msg-{{coluna.comentarios == true ? 'none' : 'table'}}">
                         <div
                             *ngIf="comentarios.length == 0"
                             class="content-msg-item">

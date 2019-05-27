@@ -15,6 +15,7 @@ export class ClassificacaoComponent implements OnInit {
     //classificacoes: IClassificacao[] = [];
     classificacao: IClassificacao = new Classificacao();
     colunas: IColuna[] = [];
+    coluna = {} as IColuna;
 
     comentarios: IComentario[] = [];
     comentario = {} as IComentario;
@@ -57,8 +58,9 @@ export class ClassificacaoComponent implements OnInit {
         if(this.classificacao.colunas != undefined && this.classificacao.colunas.length > 0){
             this.classificacao.colunas.forEach(coluna => {
                 if(coluna.idColuna > 1){
-                    coluna.comentarios = 'disabled'
+                    coluna.comentarios = false
                     coluna.selecionada = false
+                    coluna.pendentes = 0
                     this.colunas.push(coluna)
                 }
             });
@@ -66,7 +68,8 @@ export class ClassificacaoComponent implements OnInit {
             this.classificacao.comentarios.forEach(comentario => {
                 this.colunas.forEach(coluna => {
                     if(comentario.idColuna == coluna.idColuna){
-                        coluna.comentarios = 'enabled'
+                        coluna.comentarios = true
+                        coluna.pendentes = ++coluna.pendentes
                     }
                 })
             })
@@ -91,6 +94,13 @@ export class ClassificacaoComponent implements OnInit {
         document.getElementById("chatComment").style.display = "none";
     }
 
+    teste(event:any){
+        console.log(event.srcElement)
+        /*event.srcElement.forEach(item => {
+            console.log(item)
+        })*/
+    }
+
     printComentarios(idColuna:number){
 
         this.comentario.idColuna = idColuna;
@@ -100,27 +110,14 @@ export class ClassificacaoComponent implements OnInit {
                 coluna.selecionada = false
             }else{
                 coluna.selecionada = true
-            }
-
-            //$( "#msg-" + coluna.idColuna ).css("display","table");
-
-            if(coluna.idColuna == idColuna && coluna.comentarios == 'enabled'){
-                var msg = document.querySelector('#msg-' + coluna.idColuna) as any;
-                msg.style.display = 'none';
-
-                //$( "#msg-" + coluna.idColuna ).css("display","none");
-            }else if(coluna.idColuna == idColuna && coluna.comentarios == 'disabled'){
-
-                var msg = document.querySelector('#msg-' + coluna.idColuna) as any;
-                msg.style.display = 'table';
-
-                //$( "#msg-" + coluna.idColuna ).css("display","table");
+                this.coluna = coluna;
             }
         })
 
-        //$( "#"+idColuna ).css({"background":"#EAECEE", "color": "#808B96"});
         $( ".content-campos" ).css("max-height","200px");
         $( ".comment-fields" ).css("display","grid");
+
+        //$( ".mat-badge-content" ).css("display","none");
 
         this.comentarios = [];
 

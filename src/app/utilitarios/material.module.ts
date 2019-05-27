@@ -27,6 +27,7 @@ import {
     MatChipsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatBadgeModule,
     NativeDateModule,
     MAT_DATE_FORMATS,
     MAT_DATE_LOCALE,
@@ -60,6 +61,7 @@ const impExp = [
     MatChipsModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatBadgeModule,
     MatButtonToggleModule
 ];
 
