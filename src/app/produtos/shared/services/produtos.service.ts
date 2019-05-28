@@ -49,7 +49,7 @@ export class ProdutoService {
         );
     }
 
-    setComentarios(comentarios: IComentario[]): Observable<string> {
+    setComentarios(comentarios: IComentario[]): Observable<IClassificacao[]> {
         return this.httpClient.post<any>(
             `${ PRODUTOS_API }/produtos/comentario/save`, comentarios
         );

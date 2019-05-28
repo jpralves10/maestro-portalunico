@@ -97,7 +97,6 @@ export class ClassificacaoComponent implements OnInit {
     }
 
     teste(event:any){
-        //console.log(event.srcElement.children[0].id)
         $( "#" + event.srcElement.children[0].id ).css("display","none");
     }
 
@@ -129,17 +128,18 @@ export class ClassificacaoComponent implements OnInit {
                     comentario.status = 'Pendente' :
                     comentario.status = 'Visualizado';
 
-                    comentario.dataCriacao = new Date(comentario.dataCriacao); 
+                    comentario.dataCriacao = new Date(comentario.dataCriacao);
                     this.comentarios.push(comentario);
                 }
             })
-            this.produtoService.setComentarios(this.comentarios).subscribe(status => {
-                //console.log(status);
-            });
         }
 
         setTimeout(() => {
-            var objDiv = $( ".content-comment" )[0];     
+            this.produtoService.setComentarios(this.comentarios).subscribe(status => {
+                //console.log(status);
+            });
+
+            var objDiv = $( ".content-comment" )[0];
             objDiv.scrollTop = objDiv.scrollHeight;
         }, 1);
     }
@@ -158,11 +158,12 @@ export class ClassificacaoComponent implements OnInit {
             this.comentario.dataAtualizacao = new Date();
             this.comentario.side = undefined;
 
-            this.produtoService.setComentarios([this.comentario]).subscribe(status => {
-                console.log(status);
+            this.produtoService.setComentarios([this.comentario]).subscribe(classificacoes => {
+                if(classificacoes.length > 0){
+                    let classificacao = classificacoes[0];
+                    this.classificacao = classificacao;
+                    //this.carregarColunas();
 
-                if(status == '200'){
-                    this.obterClassificacao();
                     this.comentario.descricao = '';
                     this.printComentarios(this.comentario.idColuna);
                 }
