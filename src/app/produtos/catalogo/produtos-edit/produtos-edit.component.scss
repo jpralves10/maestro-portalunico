@@ -15,6 +15,7 @@
 
 .produto-fields {
     display: grid;
+    margin-bottom: 10px;
     grid-template-columns: 2fr 2fr;
     grid-column-gap: 50px;
     @media screen and (max-width: 750px) {
@@ -122,4 +123,13 @@
 
 .button-return {
     color:darkgrey;
+}
+
+.informativo {
+    font-size: 12px;
+    color: #596679;
+}
+
+.informativo span {
+    font-weight: 500;
 }

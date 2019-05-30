@@ -124,8 +124,10 @@
                 </mat-form-field>
 
                 <mat-card>
-                    {{produto.fornecedorNome}} <br/>
-                    {{produto.fabricanteNome}}
+                    <div class="informativo">
+                        <span>FORNECEDOR:</span> {{produto.fornecedorNome}} <br/>
+                        <span>FABRICANTE:</span> {{produto.fabricanteNome}}
+                    </div>
                 </mat-card>
 
                 <mat-checkbox
