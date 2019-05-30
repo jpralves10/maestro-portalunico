@@ -43,11 +43,11 @@ export class ProdutosOneComponent implements OnInit {
 
         this.codigoSelecionado = this.descricaoBruta.substring(selectionStart, selectionEnd);
 
-        if(this.produto.codigosInterno == null || this.produto.codigosInterno.length == 0){
+        if(this.produto.codigosInterno == undefined || this.produto.codigosInterno == null){
             this.produto.codigosInterno = [];
         }
-        
-        this.produto.codigosInterno.push(this.codigoSelecionado.trim());
+
+        this.produto.codigosInterno[0] = this.codigoSelecionado.trim();
     }
 
     public voltarEtapa(){
