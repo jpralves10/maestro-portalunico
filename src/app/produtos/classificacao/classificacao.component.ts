@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProdutoService } from '../shared/services/produtos.service';
 import $ from "jquery";
-import { IClassificacao, Classificacao } from '../shared/models/classificacao.model';
+import { IClassificacao } from '../shared/models/classificacao.model';
 import { IColuna, IResposta, IComentario } from '../shared/models/classificacao.legendas';
 
 @Component({
@@ -13,7 +13,7 @@ import { IColuna, IResposta, IComentario } from '../shared/models/classificacao.
 export class ClassificacaoComponent implements OnInit {
 
     //classificacoes: IClassificacao[] = [];
-    classificacao: IClassificacao = new Classificacao();
+    classificacao = {} as IClassificacao;
     colunas: IColuna[] = [];
     coluna = {} as IColuna;
 
@@ -25,7 +25,12 @@ export class ClassificacaoComponent implements OnInit {
     constructor(
         private produtoService: ProdutoService
     ) {
-        this.classificacao.idSheet = 1997890537;
+
+        this.classificacao = {
+            spreadsheetId: '1PZCLAymlsaBO1GLFPGxjZSONkYGwy-tYBeXyIDibjaQ',
+            idSheet: 1997890537
+        };
+
         this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'));
         this.obterClassificacao();
     }
@@ -165,6 +170,7 @@ export class ClassificacaoComponent implements OnInit {
                     //this.carregarColunas();
 
                     this.comentario.descricao = '';
+                    this.comentarios = [];
                     this.printComentarios(this.comentario.idColuna);
                 }
             });
