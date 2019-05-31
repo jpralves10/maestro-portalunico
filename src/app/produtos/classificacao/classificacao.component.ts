@@ -61,28 +61,6 @@ export class ClassificacaoComponent implements OnInit {
         });
     }
 
-    carregarColunas(){
-        if(this.classificacao.colunas != undefined && this.classificacao.colunas.length > 0){
-            this.classificacao.colunas.forEach(coluna => {
-                if(coluna.idColuna > 1){
-                    coluna.comentarios = false
-                    coluna.selecionada = false
-                    coluna.pendentes = 0
-                    this.colunas.push(coluna)
-                }
-            });
-
-            this.classificacao.comentarios.forEach(comentario => {
-                this.colunas.forEach(coluna => {
-                    if(comentario.idColuna == coluna.idColuna){
-                        coluna.comentarios = true
-                        coluna.pendentes = ++coluna.pendentes
-                    }
-                })
-            })
-        }
-    }
-
     validaFormGoogle(){
         this.produtoService.serverGoogle().subscribe(teste => {
             console.log(teste)
@@ -105,18 +83,46 @@ export class ClassificacaoComponent implements OnInit {
         $( "#" + event.srcElement.children[0].id ).css("display","none");
     }
 
+    carregarColunas(idColuna:number){
+
+        if(this.classificacao.colunas != undefined && this.classificacao.colunas.length > 0){
+
+            this.classificacao.colunas.forEach(coluna => {
+                if(coluna.idColuna > 1){
+                    coluna.comentarios = false
+                    coluna.selecionada = false
+                    coluna.pendentes = 0
+                    this.colunas.push(coluna)
+                }
+            });
+
+            this.classificacao.comentarios.forEach(comentario => {
+                this.colunas.forEach(coluna => {
+                    if(comentario.idColuna == coluna.idColuna){
+                        coluna.comentarios = true
+                        coluna.pendentes = ++coluna.pendentes
+                    }
+                })
+            })
+
+            /*this.colunas.forEach(coluna => {
+                if(coluna.idColuna != idColuna){
+                    coluna.selecionada = false
+                }else{
+                    coluna.selecionada = true
+                    coluna.comentarios = true
+                    coluna.pendentes = ++coluna.pendentes
+                    this.coluna = coluna;
+                }
+            })*/
+        }
+    }
+
     printComentarios(idColuna:number){
 
         this.comentario.idColuna = idColuna;
 
-        this.colunas.forEach(coluna => {
-            if(coluna.idColuna != idColuna){
-                coluna.selecionada = false
-            }else{
-                coluna.selecionada = true
-                this.coluna = coluna;
-            }
-        })
+        
 
         $( ".content-campos" ).css("max-height","200px");
         $( ".comment-fields" ).css("display","grid");
@@ -170,7 +176,6 @@ export class ClassificacaoComponent implements OnInit {
                     //this.carregarColunas();
 
                     this.comentario.descricao = '';
-                    this.comentarios = [];
                     this.printComentarios(this.comentario.idColuna);
                 }
             });
