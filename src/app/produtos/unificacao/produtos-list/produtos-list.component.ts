@@ -176,7 +176,8 @@ export class ProdutosListComponent implements OnInit {
                         "#6BD19E",
                         "#F9E79F",
                         "#F5B7B1",
-                        "#CCD1D1"
+                        "#CCD1D1",
+                        "#E8DAEF"
                     ]
                 }
             ]

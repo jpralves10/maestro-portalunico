@@ -4,6 +4,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
+import { Router, ActivatedRoute, Route, CanLoad, CanActivate } from '@angular/router';
+
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { FilterResult } from '../filter/filter.model'
@@ -30,7 +32,9 @@ export class NavegacaoComponent implements OnInit {
     constructor(
         private breakpointObserver: BreakpointObserver,
         private keycloakAngular: KeycloakService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private router: Router,
+        private route: ActivatedRoute,
     ) {
         this.keycloakAngular.loadUserProfile().then(profile => {
             window.sessionStorage.setItem('userInfo', JSON.stringify(profile));

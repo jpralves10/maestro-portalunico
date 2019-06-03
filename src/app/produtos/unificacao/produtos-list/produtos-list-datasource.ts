@@ -79,7 +79,7 @@ export class ProdutosListDataSource extends DataSource<Produto> {
 
         if (produto.numeroDI !== '') {
             newData = newData.filter(d =>
-                d.numeroDI.includes(produto.numeroDI)
+                d.numeroDI.includes(produto.numeroDI.replace(/[/\/\-\.]/g, ''))
             );
         }
         if (produto.descricaoBruta !== '') {

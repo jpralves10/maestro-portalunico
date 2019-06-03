@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 //import { KeycloakService } from 'keycloak-angular';
 
 @Component({
@@ -13,9 +14,15 @@ export class AppComponent {
 
     constructor(
         //private keycloakAngular: KeycloakService
+        private router: Router
     ) { }
 
-    ngOnInit(){ }
+    ngOnInit(){ 
+        let urlRouted = window.sessionStorage.getItem('reload')
 
-    
+        if(urlRouted != 'undefined'){
+            window.sessionStorage.setItem('reload', 'undefined');    
+            this.router.navigate([urlRouted]);
+        }       
+    }
 }

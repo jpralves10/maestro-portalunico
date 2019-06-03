@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Router, ActivatedRoute, Route, CanLoad, CanActivate } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
 import { Filter, FilterItem, FilterResult } from './filter.model';
@@ -85,6 +85,9 @@ export class FilterComponent implements OnInit {
 
     generateReport() {
         window.sessionStorage.setItem('result', this.getFilterAsString());
+        window.sessionStorage.setItem('reload', this.route.snapshot['_routerState'].url);
+
+        location.reload(); // !Important
 
         /*this.router.navigate([`./result`], {
             relativeTo: this.route,

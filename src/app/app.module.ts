@@ -21,6 +21,8 @@ import { ImportacaoComponent } from './produtos/importacao/importacao.component'
 import { FilterComponent } from './shared/filter/filter.component';
 import { ImportersListComponent } from './shared/filter/importers-list/importers-list.component';
 
+import { AppGuard } from './app.guard';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -39,9 +41,12 @@ import { ImportersListComponent } from './shared/filter/importers-list/importers
         HttpClientModule,
         FormsModule,
         NgbModule.forRoot(),
-        RouterModule.forRoot(ROUTES, {useHash: true})
+        RouterModule.forRoot(ROUTES, {
+            useHash: true
+        })
     ],
     providers: [
+        //AppGuard,
         {
             provide: APP_INITIALIZER,
             useFactory: initializer,

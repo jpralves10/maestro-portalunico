@@ -171,6 +171,7 @@ export class CatalogoComponent implements OnInit {
             this.canalAmarelo = 0
             this.canalVermelho = 0
             this.canalCinza = 0
+            this.canalBranco = 0
 
             produto.declaracaoNode = [];
             produto.chartCanais = [];
@@ -216,7 +217,8 @@ export class CatalogoComponent implements OnInit {
                     this.canalVerde,
                     this.canalAmarelo,
                     this.canalVermelho,
-                    this.canalCinza
+                    this.canalCinza,
+                    this.canalBranco
                 ]
 
                 this.getCanalDominante(produto);

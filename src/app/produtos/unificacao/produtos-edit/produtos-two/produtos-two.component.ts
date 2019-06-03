@@ -36,6 +36,7 @@ export class ProdutosTwoComponent implements OnInit {
     canalAmarelo: number = 0;
     canalVermelho: number = 0;
     canalCinza: number = 0;
+    canalBranco: number = 0;
 
     pageEvent:any = PageEvent;
 
@@ -306,6 +307,7 @@ export class ProdutosTwoComponent implements OnInit {
             this.canalAmarelo = 0
             this.canalVermelho = 0
             this.canalCinza = 0
+            this.canalBranco = 0
 
             produto.declaracaoNode = [];
             produto.chartCanais = [];
@@ -351,7 +353,8 @@ export class ProdutosTwoComponent implements OnInit {
                     this.canalVerde,
                     this.canalAmarelo,
                     this.canalVermelho,
-                    this.canalCinza
+                    this.canalCinza,
+                    this.canalBranco
                 ]
 
                 this.getCanalDominante(produto);
@@ -373,7 +376,8 @@ export class ProdutosTwoComponent implements OnInit {
         canal == 1 ? this.canalVerde++ : 
         canal == 2 ? this.canalAmarelo++ :
         canal == 3 ? this.canalVermelho++ :
-        this.canalCinza++
+        canal == 4 ? this.canalCinza++ :
+        this.canalBranco++
     }
 
     getChartDoughnut(produto: Produto){
