@@ -87,8 +87,6 @@ export class FilterComponent implements OnInit {
         window.sessionStorage.setItem('result', this.getFilterAsString());
         window.sessionStorage.setItem('reload', this.route.snapshot['_routerState'].url);
 
-        location.reload(); // !Important
-
         /*this.router.navigate([`./result`], {
             relativeTo: this.route,
             replaceUrl: true,

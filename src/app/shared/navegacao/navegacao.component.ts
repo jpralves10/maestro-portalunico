@@ -95,19 +95,10 @@ export class NavegacaoComponent implements OnInit {
         ]
     }
 
-    /*alterarImportador(){
-        this.getFilterResult();
-
-        if(this.filter != null && this.filter.importers.length > 0){
-            this.setDadosInit();
-        } else {
-            this.openDialogFilter();
-        }
-    }*/
-
     openDialogFilter(): void {
         this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
             this.getFilterResult();
+            location.reload(); // !Important
         });
     }
 
