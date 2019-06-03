@@ -7,7 +7,7 @@ import { IProduto } from '../models/produto.model';
 import { 
     EFICILOG_API, 
     EFICILOG_API_HOMOLOCACAO, 
-    PRODUTOS_API
+    GOOGLE_FORMS_API
 } from '../../../utilitarios/app.api';
 import { IClassificacao } from '../models/classificacao.model';
 import { IComentario } from '../models/classificacao.legendas';
@@ -45,13 +45,13 @@ export class ProdutoService {
 
     getClassificacao(classificacao: IClassificacao): Observable<IClassificacao[]> {
         return this.httpClient.post<any>(
-            `${ PRODUTOS_API }/produtos/classificacao/find`, classificacao
+            `${ GOOGLE_FORMS_API }/produtos/classificacao/find`, classificacao
         );
     }
 
     setComentarios(comentarios: IComentario[]): Observable<IClassificacao[]> {
         return this.httpClient.post<any>(
-            `${ PRODUTOS_API }/produtos/comentario/save`, comentarios
+            `${ GOOGLE_FORMS_API }/produtos/comentario/save`, comentarios
         );
     }
 
