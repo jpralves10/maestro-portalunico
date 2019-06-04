@@ -4,7 +4,7 @@ import { Input } from '@angular/core';
 import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { Produto } from '../../../shared/models/produto.model';
-import { ResultItem } from '../../../shared/models/unificacao.result.model';
+import { IResultItem } from '../../../shared/models/unificacao.result.model';
 import { ResultService } from '../../../shared/services/unificacao.result.service';
 
 export class ProdutosTwoDataSource extends DataSource<Produto> {
@@ -14,7 +14,7 @@ export class ProdutosTwoDataSource extends DataSource<Produto> {
     public fullData: Produto[];
     public filteredData: Produto[];
 
-    public filtro: ResultItem;
+    public filtro: IResultItem;
 
     constructor(
         private paginator: MatPaginator,

@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FilterResult } from '../../shared/filter/filter.model';
 import { Produto } from '../shared/models/produto.model';
 import { IDeclaracao } from '../shared/models/produto.legendas';
-import { Result, ResultItem, ResultClass } from '../shared/models/unificacao.result.model';
+import { IResult, IResultItem, ResultClass } from '../shared/models/unificacao.result.model';
 import { IResumo } from '../shared/models/produto.legendas';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -28,7 +28,7 @@ export class UnificacaoComponent implements OnInit {
     errored = false;
 
     produtos: Produto[];
-    data: Result = null;
+    data: IResult = null;
     status: string[] = [];
     importers: any = [];
 
@@ -50,7 +50,7 @@ export class UnificacaoComponent implements OnInit {
         qtdItensCadastrados: 0
     };
 
-    @Input() current_filtro: ResultItem = {
+    @Input() current_filtro: IResultItem = {
         produto: {
             numeroDI: '', 
             descricaoBruta: '', 

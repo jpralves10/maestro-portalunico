@@ -1,0 +1,81 @@
+<div *ngIf="loading" fxAlign="center" class="loading">
+    <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+    <p>Carregando dados da consulta...</p>
+</div>
+
+<div *ngIf="!loading" class="filter-container">
+    <h3>Modelos de Formulários</h3>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+            <div class="table-head clearfix">
+                <span class="table-title">
+                    Produtos
+                </span>
+                <button
+                    mat-raised-button
+                    (click)="adicionarProduto()"
+                    matTooltip="Adicionar Modelo"
+                    class="button-return">
+                    <i class="fas fa-plus fa-sm"></i>
+                    Adicionar
+                </button>
+            </div>
+
+            <mat-accordion>
+                <mat-expansion-panel style="margin-bottom: 20px;">
+                    <mat-expansion-panel-header style="height: 48px;">
+                        <mat-panel-title style="color:#596679;">
+                            Filtrar Itens
+                        </mat-panel-title>
+                    </mat-expansion-panel-header>
+    
+                    <div class="filtro-panel-content">
+                        <div class="filtro-fields-one">
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Descrição do Formulário"
+                                    [(ngModel)]="current_filtro.formulario.descricao"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Número da Planilha"
+                                    [(ngModel)]="current_filtro.formulario.spreadsheetId"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Número da Folha"
+                                    [(ngModel)]="current_filtro.formulario.idSheet"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field>
+                            <mat-form-field>
+                                <input
+                                    matInput
+                                    placeholder="Status"
+                                    [(ngModel)]="current_filtro.formulario.status"
+                                    (ngModelChange)="updateFiltro()" />
+                            </mat-form-field>
+                        </div>
+
+                        <div class="filtro-fields-two">
+                            
+                        </div>
+                    </div>
+                </mat-expansion-panel>
+            </mat-accordion>
+
+            <app-modelos-list
+                *ngIf="data !== null"
+                [data]="data.formularios">
+            </app-modelos-list>
+
+        </mat-card-content>
+    </mat-card>
+
+</div>

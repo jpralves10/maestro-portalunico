@@ -124,7 +124,7 @@
     padding: 3px 0;
     margin: 0;
     font-size: 12px;
-    border-left: 4px solid #EAECEE;
+    //border-left: 4px solid #EAECEE;
     list-style: none;
 }
 
@@ -159,6 +159,11 @@
     font-size: 1em;
     font-weight: 500;
     padding: 0 30px;
+    color: #596679;
+}
+
+.item-two a {
+    text-decoration: none;
     color: #596679;
 }
 

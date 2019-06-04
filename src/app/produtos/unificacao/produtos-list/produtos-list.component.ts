@@ -8,8 +8,8 @@ import { PageEvent } from '@angular/material';
 
 import { Produto } from '../../shared/models/produto.model';
 import { ProdutosListDataSource } from './produtos-list-datasource';
-import { ResultItem } from '../../shared/models/unificacao.result.model';
-import { Result } from '../../shared/models/unificacao.result.model';
+import { IResultItem } from '../../shared/models/unificacao.result.model';
+import { IResult } from '../../shared/models/unificacao.result.model';
 import { ResultService } from '../../shared/services/unificacao.result.service';
 import { FilterResult } from '../../../shared/filter/filter.model';
 import { ProdutosInfoDialog } from '../produtos-info/produtos-info.dialog'
@@ -39,8 +39,8 @@ export class ProdutosListComponent implements OnInit {
     selection = new SelectionModel<Produto>(true, []);
     displayedColumns = ['descricaoBruta', 'ncm', 'quantidade', 'canal'];
 
-    public filtroValue: ResultItem;
-    public currentFilter: Result;
+    public filtroValue: IResultItem;
+    public currentFilter: IResult;
 
     constructor(
         private router: Router,

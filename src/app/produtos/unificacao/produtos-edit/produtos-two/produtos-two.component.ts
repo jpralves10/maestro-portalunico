@@ -12,8 +12,8 @@ import { msg_produtos_two } from '../../../../utilitarios/mensagens.module';
 import { Produto } from '../../../shared/models/produto.model';
 import { ICompatibilidade } from '../../../shared/models/produto.legendas';
 import { ProdutosTwoDataSource } from './produtos-two-datasource';
-import { ResultItem } from '../../../shared/models/unificacao.result.model';
-import { Result } from '../../../shared/models/unificacao.result.model';
+import { IResultItem } from '../../../shared/models/unificacao.result.model';
+import { IResult } from '../../../shared/models/unificacao.result.model';
 
 import { ProdutoService } from '../../../shared/services/produtos.service';
 import { ResultService } from '../../../shared/services/unificacao.result.service';
@@ -39,7 +39,6 @@ export class ProdutosTwoComponent implements OnInit {
     canalBranco: number = 0;
 
     pageEvent:any = PageEvent;
-
     inativos: Produto[] = [];
 
     data: Produto[];
@@ -51,14 +50,14 @@ export class ProdutosTwoComponent implements OnInit {
     selection = new SelectionModel<Produto>(true, []);
     dataSource: ProdutosTwoDataSource;
 
-    current_filtro: ResultItem = {
+    current_filtro: IResultItem = {
         produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: '', operador: ''}
     };
 
     displayedColumns = ['select', 'descricaoBruta', 'ncm', 'quantidade', 'similaridade', 'canal'];
 
-    public filtroValue: ResultItem;
-    public currentFilter: Result;
+    public filtroValue: IResultItem;
+    public currentFilter: IResult;
 
     constructor(
         private produtoService: ProdutoService,

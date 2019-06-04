@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FilterResult } from '../../shared/filter/filter.model';
-import { ResultItem, Result, ResultClass } from '../shared/models/unificacao.result.model';
+import { IResultItem, IResult, ResultClass } from '../shared/models/unificacao.result.model';
 import { Produto } from '../shared/models/produto.model';
 import { ProdutoService } from '../shared/services/produtos.service';
 import { ResultService } from '../shared/services/unificacao.result.service';
@@ -26,11 +26,11 @@ export class CatalogoComponent implements OnInit {
     importers: [{}] = [{}];
 
     produtos: Produto[];
-    data: Result = null;
+    data: IResult = null;
     status: string[] = ['Pendente', 'Completo', 'Aprovado', 'Integrado'];
     //importers: any = [];
 
-    @Input() current_filtro: ResultItem = {
+    @Input() current_filtro: IResultItem = {
         produto: {
             numeroDI: '',
             descricaoBruta: '',

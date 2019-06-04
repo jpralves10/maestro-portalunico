@@ -9,6 +9,8 @@ export const ROUTES: Routes = [
     { path: 'importacao', component: ImportacaoComponent },
     { path: 'catalogo', loadChildren: './produtos/catalogo/catalogo.module#CatalogoModule' },
     { path: 'unificacao', loadChildren: './produtos/unificacao/unificacao.module#UnificacaoModule' },
-    { path: 'classificacao', loadChildren: './produtos/classificacao/classificacao.module#ClassificacaoModule' },
+    //{ path: 'classificacao', loadChildren: './produtos/classificacao/classificacao.module#ClassificacaoModule'},
+    { path: 'classificacaoModelos', loadChildren: './produtos/classificacao/modelos/modelos.module#ModelosModule'},
+    { path: 'classificacaoPreencher', loadChildren: './produtos/classificacao/preencher/preencher.module#PreencherModule'},
     { path: '**', redirectTo: '' }
 ]

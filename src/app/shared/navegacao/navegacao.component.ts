@@ -70,26 +70,29 @@ export class NavegacaoComponent implements OnInit {
     getListaMenus(){
         return [
             {
-                id: 1, 
+                id: '1', 
                 name: 'Dashboard',
                 enable: false,
                 toggle: false,
                 submenus: [
-                    {id: 1.1, name: 'Indicadores', enable: true, routerLink: '/indicadores', routerLinkActive: 'active', toggle: false, submenus: []},
-                    {id: 1.2, name: 'Eventos Agendados', enable: false, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
-                    {id: 1.3, name: 'Pendências Existentes', enable: false, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []}
+                    {id: '1.1', name: 'Indicadores', enable: true, routerLink: '/indicadores', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: '1.2', name: 'Eventos Agendados', enable: false, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: '1.3', name: 'Pendências Existentes', enable: false, routerLink: '/home', routerLinkActive: 'active', toggle: false, submenus: []}
                 ]
             },
             {
-                id: 2, 
+                id: '2', 
                 name: 'Produtos',
                 enable: true,
                 toggle: true,
                 submenus: [
-                    {id: 2.1, name: 'Unificar Produtos', enable: true, routerLink: '/unificacao', routerLinkActive: 'active', toggle: false, submenus: []},
-                    {id: 2.2, name: 'Importar Arquivo', enable: true, routerLink: '/importacao', routerLinkActive: 'active', toggle: false, submenus: []},
-                    {id: 2.3, name: 'Catálogo de Produtos', enable: true, routerLink: '/catalogo', routerLinkActive: 'active', toggle: false, submenus: []},
-                    {id: 2.4, name: 'Classificação Fiscal', enable: true, routerLink: '/classificacao', routerLinkActive: 'active', toggle: false, submenus: []}
+                    {id: '2.1', name: 'Unificar Produtos', enable: true, routerLink: '/unificacao', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: '2.2', name: 'Importar Arquivo', enable: true, routerLink: '/importacao', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: '2.3', name: 'Catálogo de Produtos', enable: true, routerLink: '/catalogo', routerLinkActive: 'active', toggle: false, submenus: []},
+                    {id: '2.4', name: 'Classificação Fiscal', enable: true, routerLink: '#', routerLinkActive: '', toggle: true, submenus: [
+                        {id: '2.4.1', name: 'Criar Modelos', enable: true, routerLink: '/classificacaoModelos', routerLinkActive: 'active', toggle: false, submenus: []},
+                        {id: '2.4.2', name: 'Classificar Produtos', enable: true, routerLink: '/classificacaoPreencher', routerLinkActive: 'active', toggle: false, submenus: []}
+                    ]}
                 ]
             }
         ]

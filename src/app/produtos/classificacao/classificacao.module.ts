@@ -14,13 +14,25 @@ import { ClassificacaoComponent } from './classificacao.component';
 import { ComentariosComponent } from './comentarios/comentarios.component';
 import { ComentariosListComponent } from './comentarios/comentarios-list/comentarios-list.component';
 import { ComentariosEditComponent } from './comentarios/comentarios-edit/comentarios-edit.component';
+import { ModelosComponent } from './modelos/modelos.component';
+import { PreencherComponent } from './preencher/preencher.component';
+import { ModelosListComponent } from './modelos/modelos-list/modelos-list.component';
+import { ModelosEditComponent } from './modelos/modelos-edit/modelos-edit.component';
+import { PreencherListComponent } from './preencher/preencher-list/preencher-list.component';
+import { PreencherEditComponent } from './preencher/preencher-edit/preencher-edit.component';
 
 @NgModule({
     declarations: [
         ClassificacaoComponent,
         ComentariosComponent,
         ComentariosListComponent,
-        ComentariosEditComponent
+        ComentariosEditComponent,
+        ModelosComponent,
+        PreencherComponent,
+        ModelosListComponent,
+        ModelosEditComponent,
+        PreencherListComponent,
+        PreencherEditComponent
     ],
     imports: [
         CommonModule,

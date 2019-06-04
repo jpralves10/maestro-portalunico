@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material';
-import { IResult, IResultItem } from '../models/unificacao.result.model';
+import { IResult, IResultItem } from '../models/formulario.result.model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ResultService {
 
@@ -18,7 +18,7 @@ export class ResultService {
     /** Default Filter **/
 
     private defaultFilter: IResultItem = {
-        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: '', operador: ''}
+        formulario: {spreadsheetId: '', idSheet: null, descricao: '', status: ''}
     };
 
     public filterSource:
@@ -41,10 +41,10 @@ export class ResultService {
         this.changeFilter(this.defaultFilter);
     }
 
-    /** Default Filter Result **/
+    /** Default Filter IResult **/
 
     private readonly defaultFilterResult: IResult = {
-        produtos: [],
+        formularios: [],
         data_inicio: this.start_date,
         data_fim: new Date()
     };
@@ -63,9 +63,3 @@ export class ResultService {
         this.filterResultSource.next(this.defaultFilterResult);
     }
 }
-
-const actualDateDecremented = (): Date => {
-    const actualDate = new Date();
-    actualDate.setMonth(actualDate.getMonth() - 12);
-    return actualDate;
-};

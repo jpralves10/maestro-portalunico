@@ -31,29 +31,50 @@
 
                     <li *ngIf="menu.toggle" class="li-two">
                         <ul *ngFor="let submenu of menu.submenus" class="ul-two-sub">
-                            <li *ngIf="menu.enable && submenu.enable" class="li-two-active">
-                                <a mat-list-item 
-                                    class="item-two"
-                                    routerLink={{submenu.routerLink}}
-                                    routerLinkActive={{submenu.routerLinkActive}}>
-                                    {{ submenu.name }}
-                                </a>
+                            <li 
+                                *ngIf="menu.enable && submenu.enable" 
+                                (click)="toggleMenu(submenu)" 
+                                class="li-two-active">
+
+                                <div *ngIf="submenu.submenus.length == 0" class="item-two">
+                                    <a mat-list-item
+                                        routerLink={{submenu.routerLink}}
+                                        routerLinkActive={{submenu.routerLinkActive}}>
+                                        {{ submenu.name }}
+                                    </a>
+                                </div>
+
+                                <div *ngIf="submenu.submenus.length > 0" class="item-two">
+                                    <div *ngIf="!submenu.toggle">
+                                        <i class="fas fa-angle-right icon-toggle"></i>
+                                        <span style="font-weight: 500px">
+                                            {{ submenu.name }}
+                                        </span>
+                                    </div>
+                                    <div *ngIf="submenu.toggle">
+                                        <i class="fas fa-angle-down icon-toggle"></i>
+                                        <span style="font-weight: 500px">
+                                            {{ submenu.name }}
+                                        </span>
+                                    </div>
+                                </div>
                             </li>
+
+                            <li *ngIf="submenu.toggle && submenu.submenus.length > 0" class="li-two">
+                                <ul *ngFor="let submenutree of submenu.submenus" class="ul-two-sub">
+                                    <li *ngIf="submenu.enable && submenutree.enable" class="li-two-active">
+                                        <a mat-list-item 
+                                            class="item-two"
+                                            routerLink={{submenutree.routerLink}}
+                                            routerLinkActive={{submenutree.routerLinkActive}}>
+                                            {{ submenutree.name }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
                         </ul>
                     </li>
-
-                    <!--li *ngIf="menu.toggle" class="sub-menu-tree">
-                        <ul *ngFor="let submenu of menu.submenus" class="tree-menu-sub">
-                            <li *ngIf="menu.enable && submenu.enable" class="tree-body-li">
-                                <a mat-list-item 
-                                    routerLink={{submenu.routerLink}}
-                                    routerLinkActive={{submenu.routerLinkActive}}
-                                    (click)="checkClose() && drawer.close()">
-                                    {{ submenu.name }}
-                                </a>
-                            </li>                
-                        </ul>
-                    </li-->        
                 </ul>
             </div>
         </div>

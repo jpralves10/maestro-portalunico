@@ -1,16 +1,16 @@
 import { Produto } from './produto.model';
 
-export interface Result {
+export interface IResult {
     produtos: Produto[];
     data_inicio?: Date;
     data_fim?: Date;
 }
 
-export class ResultClass implements Result{
+export class ResultClass implements IResult{
     produtos: Produto[];
 }
 
-export interface ResultItem {
+export interface IResultItem {
     produto: {
         numeroDI: string;
         descricaoBruta: string;
@@ -18,5 +18,5 @@ export interface ResultItem {
         status: string;
         cnpj: string;
         operador: string;
-    };
+    }
 }
