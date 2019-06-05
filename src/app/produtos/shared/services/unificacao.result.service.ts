@@ -4,7 +4,7 @@ import { MatPaginator } from '@angular/material';
 import { IResult, IResultItem } from '../models/unificacao.result.model';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ResultService {
 

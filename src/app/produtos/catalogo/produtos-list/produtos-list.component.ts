@@ -9,7 +9,7 @@ import { ProdutosListDataSource } from './produtos-list-datasource';
 import { IResultItem } from '../../shared/models/unificacao.result.model';
 import { IResult } from '../../shared/models/unificacao.result.model';
 import { ResultService } from '../../shared/services/unificacao.result.service';
-import { FilterResult } from '../../../shared/filter/filter.model';
+import { IFilterResult } from '../../../shared/filter/filter.model';
 
 @Component({
     selector: 'app-produtos-list',
@@ -23,7 +23,7 @@ export class ProdutosListComponent implements OnInit {
 
     @Input() data: Produto[];
     @Input() status: string[];
-    @Input() filter: FilterResult;
+    @Input() filter: IFilterResult;
 
     produtosAprovados: Produto[] = [];
     statusOld: string[];

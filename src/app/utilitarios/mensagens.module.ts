@@ -1,4 +1,4 @@
-export const msg_produtos_two = [
+export const msg_default_two = [
     {
         id: 0,
         tipo: 'message-alert-warning',
@@ -7,7 +7,7 @@ export const msg_produtos_two = [
     }
 ]
 
-export const msg_produtos_three = [
+export const msg_default_three = [
     {
         id: 0,
         tipo: 'message-alert-warning',

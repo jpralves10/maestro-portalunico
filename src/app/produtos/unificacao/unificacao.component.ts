@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FilterResult } from '../../shared/filter/filter.model';
+import { IFilterResult } from '../../shared/filter/filter.model';
 import { Produto } from '../shared/models/produto.model';
 import { IDeclaracao } from '../shared/models/produto.legendas';
 import { IResult, IResultItem, ResultClass } from '../shared/models/unificacao.result.model';
@@ -23,7 +23,7 @@ export class UnificacaoComponent implements OnInit {
     @ViewChild(ProdutosListComponent) 
     childProdutosList:ProdutosListComponent;
 
-    filter: FilterResult = null;
+    filter: IFilterResult = null;
     loading = true;
     errored = false;
 
@@ -36,7 +36,6 @@ export class UnificacaoComponent implements OnInit {
     canalAmarelo: number = 0;
     canalVermelho: number = 0;
     canalCinza: number = 0;
-    canalBranco: number = 0;
 
     date = new Date();
     start_date = new Date(this.date.setMonth(this.date.getMonth() - 12));
@@ -262,7 +261,6 @@ export class UnificacaoComponent implements OnInit {
             this.canalAmarelo = 0
             this.canalVermelho = 0
             this.canalCinza = 0
-            this.canalBranco = 0
 
             produto.declaracaoNode = [];
             produto.chartCanais = [];
@@ -308,8 +306,7 @@ export class UnificacaoComponent implements OnInit {
                     this.canalVerde,
                     this.canalAmarelo,
                     this.canalVermelho,
-                    this.canalCinza,
-                    this.canalBranco
+                    this.canalCinza
                 ]
 
                 this.getCanalDominante(produto);
@@ -331,8 +328,7 @@ export class UnificacaoComponent implements OnInit {
         canal == 1 ? this.canalVerde++ : 
         canal == 2 ? this.canalAmarelo++ :
         canal == 3 ? this.canalVermelho++ :
-        canal == 4 ? this.canalCinza++ :
-        this.canalBranco++
+        canal == 4 ? this.canalCinza++ : null;
     }
 
     //https://jtblin.github.io/angular-chart.js/

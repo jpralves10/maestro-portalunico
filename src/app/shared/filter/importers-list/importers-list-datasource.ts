@@ -4,7 +4,7 @@ import { map } from 'rxjs/operators';
 import { Observable, of as observableOf, merge } from 'rxjs';
 import { IImporter } from '../../models/importer.model';
 import { Input } from '@angular/core';
-import { FilterItem } from '../filter.model';
+import { IFilterItem } from '../filter.model';
 import { FilterSourceService } from '../../service/filter.source.service';
 
 export class ImportersListDataSource extends DataSource<IImporter> {
@@ -14,7 +14,7 @@ export class ImportersListDataSource extends DataSource<IImporter> {
     public fullData: IImporter[];
     public filteredData: IImporter[];
 
-    public filtro: FilterItem;
+    public filtro: IFilterItem;
 
     constructor(
         private paginator: MatPaginator,

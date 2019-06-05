@@ -269,7 +269,7 @@
 
                             <button 
                                 mat-raised-button 
-                                class="codigointerno-button-add" 
+                                class="codigointerno-button-add"
                                 (click)="adicionarCodigoInterno()">
                                     Adicionar
                             </button>
@@ -279,8 +279,8 @@
                             *ngIf="codigoInternoDataSource.data.length > 0"
                             mat-table 
                             [dataSource]="codigoInternoDataSource" 
-                            class="mat-elevation-z8 codigointerno-table">                        
-                            
+                            class="mat-elevation-z8 codigointerno-table">
+
                             <ng-container matColumnDef="valor">
                                 <th mat-header-cell *matHeaderCellDef></th>
                                 <td mat-cell *matCellDef="let row"> {{row}} </td>

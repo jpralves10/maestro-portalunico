@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Produto } from '../../../shared/models/produto.model';
-import { FilterResult } from '../../../../shared/filter/filter.model';
+import { IFilterResult } from '../../../../shared/filter/filter.model';
 
 @Component({
     selector: 'app-produtos-one',
@@ -68,7 +68,7 @@ export class ProdutosOneComponent implements OnInit {
             importers: [this.produto.cnpjRaiz],
             start_date: start_date,
             end_date: new Date()
-        } as FilterResult);
+        } as IFilterResult);
     }
 
     proximaEtapa(){

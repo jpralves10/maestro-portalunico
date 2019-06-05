@@ -11,6 +11,7 @@ import {
 } from '../../../utilitarios/app.api';
 import { IClassificacao } from '../models/classificacao.model';
 import { IComentario } from '../models/classificacao.legendas';
+import { IFormulario } from '../models/formulario.model';
 
 @Injectable({
     providedIn: 'root'
@@ -40,6 +41,12 @@ export class ProdutoService {
     setProdutosImportacao(importacao: any): Observable<IProduto[]> {
         return this.httpClient.post<IProduto[]>(
             `${ EFICILOG_API_HOMOLOCACAO }/importacao-produtos/salvar`, importacao
+        );
+    }
+
+    setFormularios(formularios: IFormulario[]): Observable<IFormulario[]> {
+        return this.httpClient.post<any>(
+            `${ GOOGLE_FORMS_API }/produtos/classificacao/formularios-save`, formularios
         );
     }
 

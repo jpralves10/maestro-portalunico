@@ -5,7 +5,7 @@ import { map, filter } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, from } from 'rxjs';
 import { Produto } from '../../shared/models/produto.model';
 import { IResultItem } from '../../shared/models/unificacao.result.model';
-import { FilterResult } from '../../../shared/filter/filter.model';
+import { IFilterResult } from '../../../shared/filter/filter.model';
 import { ResultService } from '../../shared/services/unificacao.result.service';
 
 export class ProdutosListDataSource extends DataSource<Produto> {
@@ -19,7 +19,7 @@ export class ProdutosListDataSource extends DataSource<Produto> {
     public dataObservable: Observable<any>;
 
     constructor(
-        private filter: FilterResult,
+        private filter: IFilterResult,
         private paginator: MatPaginator,
         private sort: MatSort,
         private resultService: ResultService,

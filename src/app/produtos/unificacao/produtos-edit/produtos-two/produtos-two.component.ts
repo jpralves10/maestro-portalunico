@@ -7,7 +7,7 @@ import { Chart } from 'chart.js';
 import { PageEvent } from '@angular/material';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { msg_produtos_two } from '../../../../utilitarios/mensagens.module';
+import { msg_default_two } from '../../../../utilitarios/mensagens.module';
 
 import { Produto } from '../../../shared/models/produto.model';
 import { ICompatibilidade } from '../../../shared/models/produto.legendas';
@@ -36,7 +36,6 @@ export class ProdutosTwoComponent implements OnInit {
     canalAmarelo: number = 0;
     canalVermelho: number = 0;
     canalCinza: number = 0;
-    canalBranco: number = 0;
 
     pageEvent:any = PageEvent;
     inativos: Produto[] = [];
@@ -236,7 +235,7 @@ export class ProdutosTwoComponent implements OnInit {
     }
 
     public setMensagem(tpMensagem: string){
-        for(let msg of msg_produtos_two) {
+        for(let msg of msg_default_two) {
             msg.tipo == tpMensagem ? this.mensagem = msg : this.mensagem = null;
         }
     }
@@ -306,7 +305,6 @@ export class ProdutosTwoComponent implements OnInit {
             this.canalAmarelo = 0
             this.canalVermelho = 0
             this.canalCinza = 0
-            this.canalBranco = 0
 
             produto.declaracaoNode = [];
             produto.chartCanais = [];
@@ -352,8 +350,7 @@ export class ProdutosTwoComponent implements OnInit {
                     this.canalVerde,
                     this.canalAmarelo,
                     this.canalVermelho,
-                    this.canalCinza,
-                    this.canalBranco
+                    this.canalCinza
                 ]
 
                 this.getCanalDominante(produto);
@@ -375,8 +372,7 @@ export class ProdutosTwoComponent implements OnInit {
         canal == 1 ? this.canalVerde++ : 
         canal == 2 ? this.canalAmarelo++ :
         canal == 3 ? this.canalVermelho++ :
-        canal == 4 ? this.canalCinza++ :
-        this.canalBranco++
+        canal == 4 ? this.canalCinza++ : null;
     }
 
     getChartDoughnut(produto: Produto){

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Filter, FilterResult } from '../../shared/filter/filter.model';
+import { IFilter, IFilterResult } from '../../shared/filter/filter.model';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FilterComponent } from '../../shared/filter/filter.component';
 import { ProdutoService } from '../shared/services/produtos.service';
@@ -15,7 +15,7 @@ import * as fs from 'fs';*/
 })
 export class ImportacaoComponent implements OnInit {
 
-    filter: FilterResult;
+    filter: IFilterResult;
     loading = true;
     errored = false;
 
@@ -24,7 +24,7 @@ export class ImportacaoComponent implements OnInit {
 
     importerSelected = true;
 
-    filtro: Filter = { importers: [] };
+    filtro: IFilter = { importers: [] };
 
     constructor(
         private produtoService: ProdutoService,

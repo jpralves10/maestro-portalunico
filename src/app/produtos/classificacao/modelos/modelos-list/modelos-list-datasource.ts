@@ -3,31 +3,27 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { Input } from '@angular/core';
 import { map, filter } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, from } from 'rxjs';
-import { Produto } from '../../shared/models/produto.model';
-import { IResultItem } from '../../shared/models/unificacao.result.model';
-import { ResultService } from '../../shared/services/unificacao.result.service';
-import { IFilterResult } from '../../../shared/filter/filter.model';
+import { IFormulario } from '../../../shared/models/formulario.model';
+import { IResultItem } from '../../../shared/models/formulario.result.model';
+import { ResultService } from '../../../shared/services/formularios.result.service';
 
-export class ProdutosListDataSource extends DataSource<Produto> {
+export class ModelosListDataSource extends DataSource<IFormulario> {
 
     @Input()
-    public data: Produto[];
-    public fullData: Produto[];
-    public filteredData: Produto[];
+    public data: IFormulario[];
+    public fullData: IFormulario[];
+    public filteredData: IFormulario[];
 
     public filtro: IResultItem;
-
     public dataObservable: Observable<any>;
 
     constructor(
-        private filter: IFilterResult,
         private paginator: MatPaginator,
         private sort: MatSort,
         private resultService: ResultService,
-        data: Produto[]
+        data: IFormulario[]
     ) {
         super();
-        this.filter = filter;
         this.data = [...data];
         this.fullData = [...data];
         this.resultService.filterSource.subscribe(filtro => (this.filtro = filtro));
@@ -38,7 +34,7 @@ export class ProdutosListDataSource extends DataSource<Produto> {
      * the returned stream emits new items.
      * @returns A stream of the items to be rendered.
      */
-    connect(): Observable<Produto[]> {
+    connect(): Observable<IFormulario[]> {
         // Combine everything that affects the rendered data into one update
         // stream for the data-table to consume.
         const dataMutations = [
@@ -58,11 +54,11 @@ export class ProdutosListDataSource extends DataSource<Produto> {
         this.filteredData = this.getFilteredData(this.fullData);
 
         this.paginator.length = this.filteredData.length;
-        var sortedProdutos = this.getPagedData(this.getSortedData(this.filteredData));
+        var sortedFormularios = this.getPagedData(this.getSortedData(this.filteredData));
 
-        //this.produtosList.setChartList(sortedProdutos);
+        //this.formulariosList.setChartList(sortedFormularios);
 
-        return sortedProdutos;
+        return sortedFormularios;
     }
 
     /**
@@ -71,41 +67,34 @@ export class ProdutosListDataSource extends DataSource<Produto> {
      */
     disconnect() {}
 
-    public getFilteredData(data: Produto[]): Produto[] {
+    public getFilteredData(data: IFormulario[]): IFormulario[] {
 
-        const { produto } = this.filtro;
+        const { formulario } = this.filtro;
 
         let newData = data;
 
-        if (produto.numeroDI !== '') {
+        if (formulario.spreadsheetId !== '') {
             newData = newData.filter(d =>
-                d.numeroDI.includes(produto.numeroDI.replace(/[/\/\-\.]/g, ''))
+                d.spreadsheetId.toUpperCase().includes(formulario.spreadsheetId.toUpperCase())
             );
         }
-        if (produto.descricaoBruta !== '') {
+        if (formulario.idSheet !== null) {
             newData = newData.filter(d =>
-                d.descricaoBruta.toUpperCase().includes(produto.descricaoBruta.toUpperCase())
+                d.idSheet == formulario.idSheet
             );
         }
-        if (produto.ncm !== '') {
+        if (formulario.titulo !== '') {
             newData = newData.filter(d =>
-                d.ncm.includes(produto.ncm)
+                d.titulo.toUpperCase().includes(formulario.titulo.toUpperCase())
             );
         }
-        /*if (produto.status !== '') {
+        if (formulario.status !== '') {
             newData = newData.filter(d =>
-                d.status.toUpperCase().includes(produto.status.toUpperCase())
-            );
-        }*/
-        if (produto.operador !== '') {
-            newData = newData.filter(d =>
-                (d.fabricanteNome.toUpperCase() + d.fornecedorNome.toUpperCase()).includes(
-                    produto.operador.toUpperCase()
-                )
+                d.status.toUpperCase().includes(formulario.status.toUpperCase())
             );
         }
 
-        if(this.filter.importadores.length > 0){
+        /*if(this.filter.importadores.length > 0){
 
             var newProd = [...newData];
 
@@ -124,7 +113,7 @@ export class ProdutosListDataSource extends DataSource<Produto> {
             })
         }else{
             newData = [];
-        }
+        }*/
 
         return [...newData];
     }
@@ -133,7 +122,7 @@ export class ProdutosListDataSource extends DataSource<Produto> {
      * Paginate the data (client-side). If you're using server-side pagination,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getPagedData(data: Produto[]) {
+    public getPagedData(data: IFormulario[]) {
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         return data.splice(startIndex, this.paginator.pageSize);
     }
@@ -142,7 +131,7 @@ export class ProdutosListDataSource extends DataSource<Produto> {
      * Sort the data (client-side). If you're using server-side sorting,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getSortedData(data: Produto[]) {
+    public getSortedData(data: IFormulario[]) {
 
         if (!this.sort.active || this.sort.direction === '') {
             return data;
@@ -151,16 +140,14 @@ export class ProdutosListDataSource extends DataSource<Produto> {
         return data.sort((a, b) => {
             const isAsc = this.sort.direction === 'asc';
             switch (this.sort.active) {
-                /*case 'numeroDI':
-                    return compare(a.numeroDI, b.numeroDI, isAsc);*/
-                case 'descricaoBruta':
-                    return compare(a.descricaoBruta, b.descricaoBruta, isAsc);
-                case 'ncm':
-                    return compare(a.ncm, b.ncm, isAsc);
-                case 'quantidade':
-                    return compare(a.quantidade, b.quantidade, isAsc);
-                case 'canal':
-                    return compare(a.canalDominante, b.canalDominante, isAsc);
+                /*case 'spreadsheetId':
+                    return compare(a.spreadsheetId, b.spreadsheetId, isAsc);*/
+                case 'titulo':
+                    return compare(a.titulo, b.titulo, isAsc);
+                case 'status':
+                    return compare(a.status, b.status, isAsc);
+                /*case 'status':
+                    return compare(a.status, b.status, isAsc);*/
                 default:
                     return 0;
             }

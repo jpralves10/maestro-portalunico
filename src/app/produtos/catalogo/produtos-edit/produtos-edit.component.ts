@@ -5,10 +5,11 @@ import { Produto } from '../../shared/models/produto.model';
 import { IAtributos } from '../../shared/models/produto.legendas';
 import { ProdutoService } from '../../shared/services/produtos.service';
 
-import { FilterResult } from '../../../shared/filter/filter.model';
+import { IFilterResult } from '../../../shared/filter/filter.model';
 import paises from '../../../utilitarios/pais-origem.model';
+import * as Util from '../../../utilitarios/utilitarios';
 import listaNcm from '../../../utilitarios/ncm.model';
-import { msg_produtos_three } from '../../../utilitarios/mensagens.module';
+import { msg_default_three } from '../../../utilitarios/mensagens.module';
 
 @Component({
     selector: 'app-produtos-edit',
@@ -182,7 +183,7 @@ export class ProdutosEditComponent implements OnInit {
             this.produto.codigosInterno.push(this.codigointerno_form);
             this.codigointerno_form = '';
             this.updateCodigoInterno();
-        }        
+        }
     }
 
     removeRowCodigoInterno(row: string){
@@ -266,27 +267,27 @@ export class ProdutosEditComponent implements OnInit {
 
             this.mensagem.lista = [];
 
-            if(this.isNullUndefined(this.produto.seq)){
+            if(Util.isNullUndefined(this.produto.seq)){
                 this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'Sequência\'.'});
             }else if(this.produto.seq.length <= 0 || this.produto.seq.length > 3){
                 this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Sequência\': de 1 a 3 caracteres.'});
             }
-            
-            if(this.isNullUndefined(this.produto.descricao)){
+
+            if(Util.isNullUndefined(this.produto.descricao)){
                 this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'Descrição do Produto\'.'});
             }else if(this.produto.descricao.length <= 0 || this.produto.descricao.length > 3700){
                 this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Descrição do Produto\': de 1 até 3700 caracteres.'});
             }
 
-            if(this.isNullUndefined(this.produto.situacao) || !this.inListObject(this.situacoes, this.produto.situacao)){
+            if(Util.isNullUndefined(this.produto.situacao) || !Util.inListObject(this.situacoes, this.produto.situacao)){
                 this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'Situação do Produto\'.'});
             }
 
-            if(this.isNullUndefined(this.produto.modalidade) || !this.inListObject(this.modalidades, this.produto.modalidade)){
+            if(Util.isNullUndefined(this.produto.modalidade) || !Util.inListObject(this.modalidades, this.produto.modalidade)){
                 this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'Modalidade do Produto\'.'})
             }
 
-            if(this.isNullUndefined(this.produto.ncm)){
+            if(Util.isNullUndefined(this.produto.ncm)){
                 this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'NCM do Produto\'.'})
             }else if(this.produto.ncm.length <= 0 || this.produto.ncm.length > 8){
                 this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'NCM do Produto\': de 1 a 8 caracteres.'})
@@ -308,26 +309,26 @@ export class ProdutosEditComponent implements OnInit {
                 this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código UNSPSC\': de 1 a 10 caracteres.'})
             }
 
-            if(this.isNullUndefined(this.produto.fabricanteConhecido) || !this.inListObject(this.fabricantes, this.produto.fabricanteConhecido)){
+            if(Util.isNullUndefined(this.produto.fabricanteConhecido) || !Util.inListObject(this.fabricantes, this.produto.fabricanteConhecido)){
                 this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'Fabricante Conhecido\'.'})
             }
 
-            if(this.isNullUndefined(this.produto.paisOrigem) || !this.inListObject(this.paises, this.produto.paisOrigem)){
+            if(Util.isNullUndefined(this.produto.paisOrigem) || !Util.inListObject(this.paises, this.produto.paisOrigem)){
                 this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'País de Origem\'.'})
             }
 
-            if((!this.isNullUndefined(this.produto.fabricanteConhecido) && this.produto.fabricanteConhecido) &&
-                (!this.isNullUndefined(this.produto.paisOrigem) && this.produto.paisOrigem == 'BR')){
-                if(this.isNullUndefined(this.produto.cpfCnpjFabricante)){
+            if((!Util.isNullUndefined(this.produto.fabricanteConhecido) && this.produto.fabricanteConhecido) &&
+                (!Util.isNullUndefined(this.produto.paisOrigem) && this.produto.paisOrigem == 'BR')){
+                if(Util.isNullUndefined(this.produto.cpfCnpjFabricante)){
                     this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'CPF/CNPJ do Fabricante\'.'})
                 }else if(this.produto.cpfCnpjFabricante.length <= 0 || this.produto.cpfCnpjFabricante.length > 14){
                     this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'CPF/CNPJ do Fabricante\': de 1 a 14 caracteres.'})
                 }
             }
 
-            if((!this.isNullUndefined(this.produto.fabricanteConhecido) && this.produto.fabricanteConhecido) &&
-                (!this.isNullUndefined(this.produto.paisOrigem) && this.produto.paisOrigem != 'BR')){
-                if(this.isNullUndefined(this.produto.codigoOperadorEstrangeiro)){
+            if((!Util.isNullUndefined(this.produto.fabricanteConhecido) && this.produto.fabricanteConhecido) &&
+                (!Util.isNullUndefined(this.produto.paisOrigem) && this.produto.paisOrigem != 'BR')){
+                if(Util.isNullUndefined(this.produto.codigoOperadorEstrangeiro)){
                     this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'Código Operador Estrangeiro\'.'})
                 }else if(this.produto.codigoOperadorEstrangeiro.length <= 0 || this.produto.codigoOperadorEstrangeiro.length > 35){
                     this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código Operador Estrangeiro\': de 1 a 35 caracteres.'})
@@ -348,24 +349,11 @@ export class ProdutosEditComponent implements OnInit {
 
     setMensagem(tpMensagem: string) {
         this.mensagem = null;
-        for(let msg of msg_produtos_three) {
+        for(let msg of msg_default_three) {
             if(msg.tipo == tpMensagem){
                 this.mensagem = msg;
             }
         }
-    }
-
-    isNullUndefined(objeto: any): boolean {
-        return objeto == null || objeto == undefined ? true : false;
-    }
-
-    inListObject(list: {value: any, viewValue: any}[], stringValue: any): boolean {
-        for(let item of list){
-            if(item.value == stringValue){
-                return true;
-            }
-        }
-        return false;
     }
 
     getFilterAsString(): string {
@@ -377,7 +365,7 @@ export class ProdutosEditComponent implements OnInit {
             importers: [this.produto.cnpjRaiz],
             start_date: start_date,
             end_date: new Date()
-        } as FilterResult);
+        } as IFilterResult);
     }
 
     public voltarEtapa(){

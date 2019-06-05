@@ -1,19 +1,19 @@
 import { IImporter } from '../models/importer.model';
 
-export interface Filter {
+export interface IFilter {
     importers: IImporter[];
     data_inicio?: Date;
     data_fim?: Date;
 }
 
-export interface FilterItem {
+export interface IFilterItem {
     importer: {
         cpf_cnpj: string;
         name: string;
     };
 }
 
-export interface FilterResult {
+export interface IFilterResult {
     importers: string[];
     importadores: [{
         name: string,

@@ -5,6 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFormulario } from '../../shared/models/formulario.model';
 import { ProdutoService } from '../../shared/services/produtos.service';
 import { ResultService } from '../../shared/services/unificacao.result.service';
+import { IResult } from '../../shared/models/formulario.result.model';
 
 @Component({
     selector: 'app-modelos',
@@ -15,6 +16,9 @@ export class ModelosComponent implements OnInit {
 
     loading = true;
     errored = false;
+
+    formularios: IFormulario[];
+    data: IResult = null;
 
     current_filtro: {} = {
         formulario: {
@@ -32,30 +36,34 @@ export class ModelosComponent implements OnInit {
         private produtoService: ProdutoService,
         private modalService: NgbModal
     ) {
-        
+        this.loading = false
     }
 
     ngOnInit() {}
+
+    setDadosResult(){
+        this.data = {} as IResult;
+        this.data.formularios = [];
+    }
 
     adicionarProduto(){
         let formulario = {} as IFormulario;
         formulario._id = null;
         formulario.spreadsheetId = null;
         formulario.idSheet = null;
-        formulario.descricao = '';
+        formulario.titulo = '';
         formulario.status = 'Novo';
-        formulario.categoria = null;
+        formulario.categoria = [];
 
         formulario.dataCriacao = new Date();
         formulario.dataAtualizacao = new Date();
 
-        this.router.navigate([`/modelos/modelos-edit`], {
+        this.router.navigate([`/classificacao-modelos/modelos-edit`], {
             relativeTo: this.route,
             replaceUrl: false,
             queryParams: {
-                filterCatalogo: JSON.stringify({...formulario})
+                filterFormulario: JSON.stringify({...formulario})
             }
         });
     }
-
 }

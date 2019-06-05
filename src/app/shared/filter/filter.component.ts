@@ -2,7 +2,7 @@ import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import { Filter, FilterItem, FilterResult } from './filter.model';
+import { IFilter, IFilterItem, IFilterResult } from './filter.model';
 
 import { FilterService } from '../service/filter.service';
 import { FilterSourceService } from '../service/filter.source.service';
@@ -15,17 +15,17 @@ import { IImporter } from '../models/importer.model';
 })
 export class FilterComponent implements OnInit {
 
-    data: Filter = null;
+    data: IFilter = null;
     loading = true;
     errored = false;
 
     closeResult: boolean = false;
 
-    @Input() current_filtro: FilterItem = {
+    @Input() current_filtro: IFilterItem = {
         importer: {cpf_cnpj: '', name: ''}
     };
 
-    filtro: Filter = { importers: [] };
+    filtro: IFilter = { importers: [] };
 
     constructor(
         private filterService: FilterService,
@@ -60,7 +60,7 @@ export class FilterComponent implements OnInit {
         this.filterSourceService.clearFilter();
     }
 
-    getDataTransformed(data: any): Filter {
+    getDataTransformed(data: any): IFilter {
         return {
             importers: Object.keys(data.importers)
                 .map(key => {
@@ -108,7 +108,7 @@ export class FilterComponent implements OnInit {
             status: ['Pendente'],
             start_date: this.filtro.data_inicio,
             end_date: this.filtro.data_fim
-        } as FilterResult);
+        } as IFilterResult);
     }
 
     listaCNPJ(cnpjRaiz: string[]): [{}]{
@@ -134,7 +134,7 @@ export class FilterComponent implements OnInit {
 
     /* Mock Dados */
 
-    getMockDados(): Filter{
+    getMockDados(): IFilter{
 
         var importer: IImporter = {
             id: null,
@@ -180,7 +180,7 @@ export class FilterComponent implements OnInit {
         let date = new Date();
         let start_date = new Date(date.setMonth(date.getMonth() - 12));
 
-        let filter: Filter = {
+        let filter: IFilter = {
             importers: importersList,
             data_inicio: start_date,
             data_fim: new Date()

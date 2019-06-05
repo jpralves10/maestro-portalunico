@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FilterResult } from '../../shared/filter/filter.model';
+import { IFilterResult } from '../../shared/filter/filter.model';
 import { IResultItem, IResult, ResultClass } from '../shared/models/unificacao.result.model';
 import { Produto } from '../shared/models/produto.model';
 import { ProdutoService } from '../shared/services/produtos.service';
@@ -19,7 +19,7 @@ export class CatalogoComponent implements OnInit {
     @ViewChild(ProdutosListComponent) 
     childProdutosList:ProdutosListComponent;
 
-    filter: FilterResult;
+    filter: IFilterResult;
     loading = true;
     errored = false;
 
@@ -171,7 +171,6 @@ export class CatalogoComponent implements OnInit {
             this.canalAmarelo = 0
             this.canalVermelho = 0
             this.canalCinza = 0
-            this.canalBranco = 0
 
             produto.declaracaoNode = [];
             produto.chartCanais = [];
@@ -217,8 +216,7 @@ export class CatalogoComponent implements OnInit {
                     this.canalVerde,
                     this.canalAmarelo,
                     this.canalVermelho,
-                    this.canalCinza,
-                    this.canalBranco
+                    this.canalCinza
                 ]
 
                 this.getCanalDominante(produto);

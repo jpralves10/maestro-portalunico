@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { MatPaginator } from '@angular/material';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Filter, FilterItem } from '../filter/filter.model';
+import { IFilter, IFilterItem } from '../filter/filter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +17,12 @@ export class FilterSourceService {
 
     /** Default Filter **/
 
-    private defaultFilter: FilterItem = {
+    private defaultFilter: IFilterItem = {
         importer: {cpf_cnpj: '', name: ''}
     };
 
     public filterSource: 
-        BehaviorSubject<FilterItem> = new BehaviorSubject<FilterItem>(this.defaultFilter);
+        BehaviorSubject<IFilterItem> = new BehaviorSubject<IFilterItem>(this.defaultFilter);
 
     public filter = this.filterSource.asObservable();
 
@@ -31,7 +31,7 @@ export class FilterSourceService {
 
     public whenUpdated: Array<MatPaginator> = [];
 
-    public changeFilter(filter: FilterItem): void {
+    public changeFilter(filter: IFilterItem): void {
         this.filterSource.next(filter);
         //console.log(this.whenUpdated);
         this.whenUpdated.forEach(f2 => f2.firstPage());
@@ -43,19 +43,19 @@ export class FilterSourceService {
 
     /** Default Filter Result **/
 
-    private readonly defaultFilterResult: Filter = {
+    private readonly defaultFilterResult: IFilter = {
         importers: [],
         data_inicio: this.start_date,
         data_fim: new Date()
     };
 
     public filterResultSource: 
-        BehaviorSubject<Filter> = new BehaviorSubject<Filter>(this.defaultFilterResult);
+        BehaviorSubject<IFilter> = new BehaviorSubject<IFilter>(this.defaultFilterResult);
 
     public filterResult: 
-        Observable<Filter> = this.filterResultSource.asObservable();
+        Observable<IFilter> = this.filterResultSource.asObservable();
 
-    public changeFilterResult(filter: Filter) {
+    public changeFilterResult(filter: IFilter) {
         this.filterResultSource.next(filter);
     }
 

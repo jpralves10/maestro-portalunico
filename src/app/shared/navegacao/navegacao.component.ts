@@ -8,7 +8,7 @@ import { Router, ActivatedRoute, Route, CanLoad, CanActivate } from '@angular/ro
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { FilterResult } from '../filter/filter.model'
+import { IFilterResult } from '../filter/filter.model'
 import { FilterComponent } from '../../shared/filter/filter.component';
 
 @Component({
@@ -27,7 +27,7 @@ export class NavegacaoComponent implements OnInit {
     listaMenus = this.getListaMenus();
     userInfo:any = {};
 
-    filter: FilterResult = null;
+    filter: IFilterResult = null;
 
     constructor(
         private breakpointObserver: BreakpointObserver,
@@ -64,6 +64,8 @@ export class NavegacaoComponent implements OnInit {
     }
 
     userLogout(){
+        window.sessionStorage.setItem('result', null)
+        this.filter = null;
         this.keycloakAngular.logout();
     }
 
@@ -90,8 +92,8 @@ export class NavegacaoComponent implements OnInit {
                     {id: '2.2', name: 'Importar Arquivo', enable: true, routerLink: '/importacao', routerLinkActive: 'active', toggle: false, submenus: []},
                     {id: '2.3', name: 'Catálogo de Produtos', enable: true, routerLink: '/catalogo', routerLinkActive: 'active', toggle: false, submenus: []},
                     {id: '2.4', name: 'Classificação Fiscal', enable: true, routerLink: '#', routerLinkActive: '', toggle: true, submenus: [
-                        {id: '2.4.1', name: 'Criar Modelos', enable: true, routerLink: '/classificacaoModelos', routerLinkActive: 'active', toggle: false, submenus: []},
-                        {id: '2.4.2', name: 'Classificar Produtos', enable: true, routerLink: '/classificacaoPreencher', routerLinkActive: 'active', toggle: false, submenus: []}
+                        {id: '2.4.1', name: 'Criar Modelos', enable: true, routerLink: '/classificacao-modelos', routerLinkActive: 'active', toggle: false, submenus: []},
+                        {id: '2.4.2', name: 'Classificar Produtos', enable: true, routerLink: '/classificacao-preencher', routerLinkActive: 'active', toggle: false, submenus: []}
                     ]}
                 ]
             }
@@ -107,5 +109,12 @@ export class NavegacaoComponent implements OnInit {
 
     getFilterResult(){
         this.filter = JSON.parse(window.sessionStorage.getItem('result'));
+    }
+
+    openDialogEmpresa(): void {
+        this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
+            this.getFilterResult();
+            location.reload(); // !Important
+        });
     }
 }

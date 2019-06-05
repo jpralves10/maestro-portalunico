@@ -10,8 +10,8 @@ export interface IResult {
 export interface IResultItem {
     formulario: {
         spreadsheetId: '',
-        idSheet: '',
-        descricao: '',
+        idSheet: null,
+        titulo: '',
         status: ''
     }
 }

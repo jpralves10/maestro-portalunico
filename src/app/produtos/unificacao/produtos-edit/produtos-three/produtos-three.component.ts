@@ -4,12 +4,12 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Produto } from '../../../shared/models/produto.model';
 import { IAtributos } from '../../../shared/models/produto.legendas';
 
-import { FilterResult } from '../../../../shared/filter/filter.model';
+import { IFilterResult } from '../../../../shared/filter/filter.model';
 import { ProdutoService } from '../../../shared/services/produtos.service';
 
 import paises from '../../../../utilitarios/pais-origem.model';
 import listaNcm from '../../../../utilitarios/ncm.model';
-import { msg_produtos_three } from '../../../../utilitarios/mensagens.module';
+import { msg_default_three } from '../../../../utilitarios/mensagens.module';
 
 @Component({
     selector: 'app-produtos-three',
@@ -342,7 +342,7 @@ export class ProdutosThreeComponent implements OnInit {
 
     setMensagem(tpMensagem: string) {
         this.mensagem = null;
-        for(let msg of msg_produtos_three) {
+        for(let msg of msg_default_three) {
             if(msg.tipo == tpMensagem){
                 this.mensagem = msg;
             }
@@ -363,7 +363,6 @@ export class ProdutosThreeComponent implements OnInit {
     }
 
     getFilterAsString(): string {
-        
         var date = new Date();
         var start_date = new Date(date.setMonth(date.getMonth() - 12));
 
@@ -371,7 +370,7 @@ export class ProdutosThreeComponent implements OnInit {
             importers: [this.produto.cnpjRaiz],
             start_date: start_date,
             end_date: new Date()
-        } as FilterResult);
+        } as IFilterResult);
     }
 
     voltarEtapa() {

@@ -4,10 +4,13 @@ export interface IFormulario {
     _id: string;
     spreadsheetId: string;
     idSheet: number;
-    descricao: string;
+    titulo: string;
     status: string;
 
-    categoria: number;
+    categoria: {
+        idCategoria: number,
+        descricao: string
+    }[];
 
     dataCriacao: Date;
     dataAtualizacao: Date;

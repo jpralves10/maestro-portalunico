@@ -5,8 +5,7 @@ import { IImporter } from '../../models/importer.model';
 import { SelectionModel } from '@angular/cdk/collections';
 
 import { ImportersListDataSource } from './importers-list-datasource';
-import { FilterItem } from '../filter.model';
-import { Filter } from '../filter.model';
+import { IFilter, IFilterItem } from '../filter.model';
 import { FilterSourceService } from '../../service/filter.source.service';
 
 @Component({
@@ -25,8 +24,8 @@ export class ImportersListComponent implements OnInit {
     dataSource: ImportersListDataSource;
     displayedColumns = ['select', 'name', 'cpf_cnpj'];
 
-    public filtroValue: FilterItem;
-    public currentFilter: Filter;
+    public filtroValue: IFilterItem;
+    public currentFilter: IFilter;
 
     constructor(
         private filterSourceService: FilterSourceService
