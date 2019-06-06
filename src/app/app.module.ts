@@ -21,6 +21,8 @@ import { ImportacaoComponent } from './produtos/importacao/importacao.component'
 import { FilterComponent } from './shared/filter/filter.component';
 import { ImportersListComponent } from './shared/filter/importers-list/importers-list.component';
 
+import { CategoriasComponent } from './produtos/classificacao/modelos/modelos-edit/categorias/categorias.component';
+
 import { AppGuard } from './app.guard';
 
 @NgModule({
@@ -31,7 +33,8 @@ import { AppGuard } from './app.guard';
         FilterComponent,
         ImportersListComponent,
         IndicadoresComponent,
-        ImportacaoComponent
+        ImportacaoComponent,
+        CategoriasComponent
     ],
     imports: [
         BrowserModule,
@@ -55,7 +58,8 @@ import { AppGuard } from './app.guard';
         }
     ],
     entryComponents: [
-        FilterComponent
+        FilterComponent,
+        CategoriasComponent
     ],
     bootstrap: [AppComponent]
 })

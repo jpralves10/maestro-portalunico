@@ -34,7 +34,6 @@ export class ModelosListComponent implements OnInit {
         private produtoService: ProdutoService
     ) {
         resultService.filter.subscribe(f => (this.filtroValue = f));
-
         resultService.filterResult.subscribe(fr => (this.currentFilter = fr));
 
         this.selection.changed.subscribe(() => {

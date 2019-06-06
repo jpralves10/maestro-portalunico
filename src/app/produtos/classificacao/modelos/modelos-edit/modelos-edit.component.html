@@ -4,7 +4,7 @@
 </div>
 
 <div *ngIf="!loading && !finish" class="produtos-container">
-    <h3>Modelos</h3>
+    <h3>Editar Modelos</h3>
 
     <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
         <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
@@ -49,7 +49,6 @@
             </div>
 
             <div class="produto-fields">
-
                 <mat-form-field>
                     <input
                         matInput
@@ -72,30 +71,27 @@
                 </mat-checkbox>
             </div>
 
-            <!--div class="codigointerno-panel-content">        
+            <div class="codigointerno-panel-content">
                 <div class="produto-codigointerno-fields">
-                    <mat-form-field>
-                        <input
-                            matInput
-                            placeholder="Código"
-                            [(ngModel)]="codigointerno_form"/>
-                    </mat-form-field>
-
-                    <button 
-                        mat-raised-button 
-                        class="codigointerno-button-add" 
-                        (click)="adicionarCodigoInterno()">
-                            Adicionar
-                    </button>
+                    Categorias:
+                    <a (click)="openDialogCategorias()" class="codigointerno-button-add">
+                        <i class="fas fa-plus-square"></i>
+                        Adicionar
+                    </a>
                 </div>
 
                 <table 
-                    *ngIf="codigoInternoDataSource.data.length > 0"
+                    *ngIf="categoriasDataSource.data.length > 0"
                     mat-table 
-                    [dataSource]="codigoInternoDataSource" 
-                    class="mat-elevation-z8 codigointerno-table">                        
+                    [dataSource]="categoriasDataSource" 
+                    class="mat-elevation-z8 codigointerno-table">  
+                    
+                    <ng-container matColumnDef="codigo">
+                        <th mat-header-cell *matHeaderCellDef></th>
+                        <td mat-cell *matCellDef="let row">{{row}}</td>
+                    </ng-container>
 
-                    <ng-container matColumnDef="valor">
+                    <ng-container matColumnDef="descricao">
                         <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let row">{{row}}</td>
                     </ng-container>
@@ -103,16 +99,16 @@
                     <ng-container matColumnDef="operacao">
                         <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let row">
-                            <button mat-button (click)="removeRowCodigoInterno(row)" title="Remover">
+                            <button mat-button (click)="removeRowCategoria(row)" title="Remover">
                                 <i class="fas fa-minus-square lg"></i>
                             </button>
                         </td>
                     </ng-container>
 
-                    <tr mat-header-row *matHeaderRowDef="codigoInternoColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: codigoInternoColumns;"></tr>
+                    <tr mat-header-row *matHeaderRowDef="categoriasColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: categoriasColumns;"></tr>
                 </table>
-            </div-->
+            </div>
 
         </mat-card-content>
     </mat-card>
@@ -128,7 +124,7 @@
                 (click)="voltarEtapa()"
                 class="button-return"
                 style="margin: 0 8px;">
-                <i class="fas fa-angle-double-left fa-sm"></i>
+                <!--i class="fas fa-angle-double-left fa-sm"></i-->
                 Voltar
             </button>
             <button

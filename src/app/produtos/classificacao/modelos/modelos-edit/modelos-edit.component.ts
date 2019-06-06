@@ -5,6 +5,10 @@ import { ProdutoService } from 'src/app/produtos/shared/services/produtos.servic
 
 import * as Util from '../../../../utilitarios/utilitarios';
 import { msg_default_three } from 'src/app/utilitarios/mensagens.module';
+import { MatTableDataSource } from '@angular/material';
+import { CategoriasComponent } from './categorias/categorias.component';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
     selector: 'app-modelos-edit',
@@ -22,9 +26,17 @@ export class ModelosEditComponent implements OnInit {
 
     mensagem: any = {id: 0, tipo: '', class: '', lista: []};
 
+    categoriasDataSource = new MatTableDataSource<
+        { codigo: number; descricao: string; }
+    >();
+
+    categoriasColumns: string[] = ['codigo', 'descricao', 'operacao'];
+    categorias_form = {} as { codigo: number, descricao: string };
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
+        private modalService: NgbModal,
         private produtoService: ProdutoService
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
@@ -42,6 +54,41 @@ export class ModelosEditComponent implements OnInit {
 
     setStatusFormulario(event:any){
         console.log('Status: ', event)
+    }
+
+    openDialogCategorias(): void {
+        this.modalService.open(CategoriasComponent).result.then((result) => {
+            console.log('Result', result)
+        }, (reason) => {
+            console.log('Reason', reason)
+
+            //this.getFilterResult();
+
+            //if(this.categorias_form.length > 0){
+                this.formulario.categoria.push(this.categorias_form);
+                this.categorias_form = {} as { codigo: number, descricao: string };
+                this.updateCategoria();
+            //}
+        });
+    }
+
+    /*adicionarCategoria(){
+        console.log(this.categorias_form)
+
+        //if(this.categorias_form.length > 0){
+            this.formulario.categoria.push(this.categorias_form);
+            this.categorias_form = {} as { codigo: number, descricao: string };
+            this.updateCategoria();
+        //}
+    }*/
+
+    removeRowCategoria(row: { codigo: number, descricao: string }){
+        this.formulario.categoria.splice(this.formulario.categoria.indexOf(row), 1);
+        this.updateCategoria();
+    }
+
+    updateCategoria(){
+        this.categoriasDataSource.data = [...this.formulario.categoria];
     }
 
     finalizarPreenchimento(){
@@ -144,4 +191,14 @@ export class ModelosEditComponent implements OnInit {
             end_date: new Date()
         } as IFilterResult);
     }*/
+
+    public voltarEtapa(){
+        this.router.navigate([`/classificacao-modelos`], {
+            relativeTo: this.route,
+            replaceUrl: true,
+            /*queryParams: {
+                filter: this.getFilterAsString()
+            }*/
+        });
+    }
 }

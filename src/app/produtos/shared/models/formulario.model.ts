@@ -8,7 +8,7 @@ export interface IFormulario {
     status: string;
 
     categoria: {
-        idCategoria: number,
+        codigo: number,
         descricao: string
     }[];
 
