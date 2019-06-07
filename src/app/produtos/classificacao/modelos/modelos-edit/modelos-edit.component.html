@@ -80,12 +80,12 @@
                     </a>
                 </div>
 
-                <table 
+                <table
                     *ngIf="categoriasDataSource.data.length > 0"
                     mat-table 
                     [dataSource]="categoriasDataSource" 
                     class="mat-elevation-z8 codigointerno-table">  
-                    
+
                     <ng-container matColumnDef="codigo">
                         <th mat-header-cell *matHeaderCellDef></th>
                         <td mat-cell *matCellDef="let row">{{row}}</td>

@@ -6,6 +6,7 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
+
 <div class="modal-body">
 
     <div *ngIf="loading" fxAlign="center" class="loading">
@@ -13,28 +14,23 @@
         <p>Carregando os dados para filtro...</p>
     </div>
 
-    <div *ngIf="!loading" class="filter-container">
-
-        <mat-card class="mat-elevation-z5 filtro-card">
-            <mat-card-content class="form-container">
-
-                <div class="comment-input">
-                    <textarea
-                        matInput
-                        placeholder="Descrição da Categoria"
-                        [(ngModel)]="categoria.descricao"
-                        class="produto-descricao"></textarea>
-
-                    <button
-                        mat-raised-button
-                        class="filter-button"
-                        (click)="salvarCategoria()">
-                        Salvar
-                    </button>
-                </div>
-
-            </mat-card-content>
-        </mat-card>
-
+    <div *ngIf="!loading" class="produto-fields-textarea">
+        <mat-form-field>
+            <textarea
+                matInput
+                placeholder="Descrição da Categoria"
+                [(ngModel)]="categoria.descricao"
+                class="produto-descricao">
+            </textarea>
+        </mat-form-field>
     </div>
+</div>
+
+<div class="modal-footer">
+    <button
+        mat-raised-button
+        class="filter-button"
+        (click)="salvarCategoria()">
+        Salvar
+    </button>
 </div>

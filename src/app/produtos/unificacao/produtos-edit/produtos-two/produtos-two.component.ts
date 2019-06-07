@@ -248,7 +248,7 @@ export class ProdutosTwoComponent implements OnInit {
     /** Chart Doughnut **/
 
     openDialogDeclaracoes(row: Produto): void {
-        var modalRef = this.modalService.open(ProdutosInfoDialog);
+        var modalRef = this.modalService.open(ProdutosInfoDialog, {size: '900', centered: true});
         modalRef.componentInstance.produto = row;
     }
 

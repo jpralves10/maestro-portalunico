@@ -13,6 +13,8 @@ import { ResultService } from '../shared/services/unificacao.result.service';
 import { ProdutosListComponent } from './produtos-list/produtos-list.component';
 import { FilterComponent } from '../../shared/filter/filter.component';
 
+import $ from "jquery";
+
 @Component({
     selector: 'app-unificacao',
     templateUrl: './unificacao.component.html',
@@ -100,7 +102,7 @@ export class UnificacaoComponent implements OnInit {
     ngAfterViewInit() { }
 
     openDialogFilter(): void {
-        this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
+        this.modalService.open(FilterComponent, {size: '900', centered: true}).result.then((result) => {}, (reason) => {
             this.getFilterResult();
             this.setDadosInit();
         });

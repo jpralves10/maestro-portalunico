@@ -9,6 +9,7 @@ import { MatTableDataSource } from '@angular/material';
 import { CategoriasComponent } from './categorias/categorias.component';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ICategoriasForm } from 'src/app/produtos/shared/models/classificacao.legendas';
 
 @Component({
     selector: 'app-modelos-edit',
@@ -26,12 +27,11 @@ export class ModelosEditComponent implements OnInit {
 
     mensagem: any = {id: 0, tipo: '', class: '', lista: []};
 
-    categoriasDataSource = new MatTableDataSource<
-        { codigo: number; descricao: string; }
-    >();
-
+    categoriasDataSource = new MatTableDataSource<ICategoriasForm>();
     categoriasColumns: string[] = ['codigo', 'descricao', 'operacao'];
     categorias_form = {} as { codigo: number, descricao: string };
+
+    categoriasForm: ICategoriasForm[] = [];
 
     constructor(
         private router: Router,
@@ -46,7 +46,15 @@ export class ModelosEditComponent implements OnInit {
                 this.formulario.categoria = [];
             }
 
-            this.loading = false;           
+            this.produtoService.getCategoriasForm(null).subscribe(categorias => {
+                console.log('Cat: ', categorias)
+                if(categorias){
+                    this.categoriasDataSource.data = [...categorias];
+                    //this.categoriasForm = [...categorias];
+                }
+            });
+
+            this.loading = false;
         });
     }
 
@@ -57,22 +65,16 @@ export class ModelosEditComponent implements OnInit {
     }
 
     openDialogCategorias(): void {
+        this.modalService.open(CategoriasComponent, {size: 'sm', centered: true}).result.then((categoria) => {
+            console.log('Result', categoria)
 
-        
+            this.produtoService.setCategoriasForm(categoria).subscribe(categorias => {});
 
-        this.modalService.open(CategoriasComponent, {size: 'sm', centered: true}).result.then((result) => {
-            console.log('Result', result)
-        }, (reason) => {
-            console.log('Reason', reason)
+            /*this.formulario.categoria.push(this.categorias_form);
+            this.categorias_form = {} as { codigo: number, descricao: string };
+            this.updateCategoria();*/
 
-            //this.getFilterResult();
-
-            //if(this.categorias_form.length > 0){
-                this.formulario.categoria.push(this.categorias_form);
-                this.categorias_form = {} as { codigo: number, descricao: string };
-                this.updateCategoria();
-            //}
-        });
+        }, (reason) => {});
     }
 
     /*adicionarCategoria(){

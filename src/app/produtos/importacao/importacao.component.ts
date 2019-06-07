@@ -49,7 +49,7 @@ export class ImportacaoComponent implements OnInit {
     ngOnInit() { }
 
     openDialogFilter(): void {
-        this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
+        this.modalService.open(FilterComponent, {size: '900', centered: true}).result.then((result) => {}, (reason) => {
             this.getFilterResult();
             setTimeout(() => {
                 this.loading = false;

@@ -10,7 +10,7 @@ import {
     GOOGLE_FORMS_API
 } from '../../../utilitarios/app.api';
 import { IClassificacao } from '../models/classificacao.model';
-import { IComentario } from '../models/classificacao.legendas';
+import { IComentario, ICategoriasForm } from '../models/classificacao.legendas';
 import { IFormulario } from '../models/formulario.model';
 
 @Injectable({
@@ -59,6 +59,18 @@ export class ProdutoService {
     setComentarios(comentarios: IComentario[]): Observable<IClassificacao[]> {
         return this.httpClient.post<any>(
             `${ GOOGLE_FORMS_API }/produtos/comentario/save`, comentarios
+        );
+    }
+
+    getCategoriasForm(categoria: ICategoriasForm): Observable<ICategoriasForm[]> {
+        return this.httpClient.post<any>(
+            `${ GOOGLE_FORMS_API }/produtos/categoriasForm/find`, categoria
+        );
+    }
+
+    setCategoriasForm(categoria: ICategoriasForm): Observable<ICategoriasForm[]> {
+        return this.httpClient.post<any>(
+            `${ GOOGLE_FORMS_API }/produtos/categoriasForm/save`, categoria
         );
     }
 

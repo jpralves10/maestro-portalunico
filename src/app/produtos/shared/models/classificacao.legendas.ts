@@ -30,3 +30,9 @@ export interface IComentario {
     //Interno
     side: string
 }
+
+export interface ICategoriasForm {
+    id?:any,
+    codigo:number,
+    descricao:string
+}

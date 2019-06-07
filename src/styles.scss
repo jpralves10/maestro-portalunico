@@ -157,16 +157,12 @@ td.mat-cell {
     }
 }
 
-@media (min-width: 576px){
+/*@media (min-width: 576px){
     .modal-dialog {
         max-width: 900px;
         margin: 1.75rem auto;
     }
-    .modal-categoria {
-        max-width: 300px;
-        margin: 1.75rem auto;
-    }
-}
+}*/
 
 /* Correção de bug do Google Charts (tooltip)
   https://stackoverflow.com/questions/37902708/google-charts-tooltip-flickering

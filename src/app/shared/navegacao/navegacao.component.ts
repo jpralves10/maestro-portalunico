@@ -12,9 +12,9 @@ import { IFilterResult } from '../filter/filter.model'
 import { FilterComponent } from '../../shared/filter/filter.component';
 
 @Component({
-  selector: 'app-navegacao',
-  templateUrl: './navegacao.component.html',
-  styleUrls: ['./navegacao.component.scss']
+    selector: 'app-navegacao',
+    templateUrl: './navegacao.component.html',
+    styleUrls: ['./navegacao.component.scss']
 })
 export class NavegacaoComponent implements OnInit {
 
@@ -101,7 +101,7 @@ export class NavegacaoComponent implements OnInit {
     }
 
     openDialogFilter(): void {
-        this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
+        this.modalService.open(FilterComponent, {size: '900', centered: true}).result.then((result) => {}, (reason) => {
             this.getFilterResult();
             location.reload(); // !Important
         });

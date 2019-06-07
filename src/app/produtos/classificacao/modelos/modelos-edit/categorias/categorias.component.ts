@@ -3,8 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
 
-import $ from "jquery";
-
 @Component({
     selector: 'app-categorias',
     templateUrl: './categorias.component.html',
@@ -33,7 +31,5 @@ export class CategoriasComponent implements OnInit {
 
     ngOnInit() {}
 
-    ngAfterViewInit() {
-        $( ".modal-dialog" ).addClass( "modal-categoria" );
-    }
+    ngAfterViewInit() {}
 }

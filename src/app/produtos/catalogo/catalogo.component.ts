@@ -59,7 +59,7 @@ export class CatalogoComponent implements OnInit {
     }
 
     openDialogFilter(): void {
-        this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
+        this.modalService.open(FilterComponent, {size: '900', centered: true}).result.then((result) => {}, (reason) => {
             this.getFilterResult();
             if(this.filter != null){
                 this.setDadosResult();
