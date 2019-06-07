@@ -57,7 +57,10 @@ export class ModelosEditComponent implements OnInit {
     }
 
     openDialogCategorias(): void {
-        this.modalService.open(CategoriasComponent).result.then((result) => {
+
+        
+
+        this.modalService.open(CategoriasComponent, {size: 'sm', centered: true}).result.then((result) => {
             console.log('Result', result)
         }, (reason) => {
             console.log('Reason', reason)
