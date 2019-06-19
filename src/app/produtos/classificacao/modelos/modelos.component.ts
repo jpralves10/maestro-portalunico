@@ -17,6 +17,7 @@ export class ModelosComponent implements OnInit {
     loading = true;
     errored = false;
 
+    formulario = {} as IFormulario;
     formularios: IFormulario[];
     data: IResult = null;
 
@@ -37,6 +38,12 @@ export class ModelosComponent implements OnInit {
         private modalService: NgbModal
     ) {
         this.loading = false
+
+        this.produtoService.getCategoriasForm(null).subscribe(categorias => {
+            if(categorias){
+                this.formulario.categorias = [...categorias]
+            }
+        });
     }
 
     ngOnInit() {}
@@ -47,22 +54,22 @@ export class ModelosComponent implements OnInit {
     }
 
     adicionarProduto(){
-        let formulario = {} as IFormulario;
-        formulario._id = null;
-        formulario.spreadsheetId = null;
-        formulario.idSheet = null;
-        formulario.titulo = '';
-        formulario.status = 'Novo';
-        formulario.categoria = [];
+        //let formulario = {} as IFormulario;
+        this.formulario._id = null;
+        this.formulario.spreadsheetId = null;
+        this.formulario.idSheet = null;
+        this.formulario.titulo = '';
+        this.formulario.status = 'Novo';
+        this.formulario.categoria = [];
 
-        formulario.dataCriacao = new Date();
-        formulario.dataAtualizacao = new Date();
+        this.formulario.dataCriacao = new Date();
+        this.formulario.dataAtualizacao = new Date();
 
         this.router.navigate([`/classificacao-modelos/modelos-edit`], {
             relativeTo: this.route,
             replaceUrl: false,
             queryParams: {
-                filterFormulario: JSON.stringify({...formulario})
+                filterFormulario: JSON.stringify({...this.formulario})
             }
         });
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IFormulario } from 'src/app/produtos/shared/models/formulario.model';
 import { ProdutoService } from 'src/app/produtos/shared/services/produtos.service';
@@ -7,9 +7,16 @@ import * as Util from '../../../../utilitarios/utilitarios';
 import { msg_default_three } from 'src/app/utilitarios/mensagens.module';
 import { MatTableDataSource } from '@angular/material';
 import { CategoriasComponent } from './categorias/categorias.component';
+import { SelectionModel } from '@angular/cdk/collections';
+
+import { CategoriasEditDataSource } from './categorias-edit-datasource';
+import { MatPaginator, MatSort } from '@angular/material';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ICategoriasForm } from 'src/app/produtos/shared/models/classificacao.legendas';
+import { ResultServiceCategorias } from 'src/app/produtos/shared/services/categorias.result.service';
+
+import { IResultCategorias, IResultItemCategorias } from '../../../shared/models/formulario.result.model';
 
 @Component({
     selector: 'app-modelos-edit',
@@ -17,6 +24,13 @@ import { ICategoriasForm } from 'src/app/produtos/shared/models/classificacao.le
     styleUrls: ['./modelos-edit.component.scss']
 })
 export class ModelosEditComponent implements OnInit {
+
+    @ViewChild(MatPaginator) paginator: MatPaginator;
+    @ViewChild(MatSort) sort: MatSort;
+
+    data: ICategoriasForm[];
+    status: string[];
+    //filter: IResultCategorias;
 
     formulario = {} as IFormulario;
 
@@ -27,9 +41,13 @@ export class ModelosEditComponent implements OnInit {
 
     mensagem: any = {id: 0, tipo: '', class: '', lista: []};
 
-    categoriasDataSource = new MatTableDataSource<ICategoriasForm>();
+    categoriasDataSource: CategoriasEditDataSource;
+    selection = new SelectionModel<ICategoriasForm>(true, []);
     categoriasColumns: string[] = ['codigo', 'descricao', 'operacao'];
     categorias_form = {} as { codigo: number, descricao: string };
+
+    public filtroValue: IResultItemCategorias;
+    public currentFilter: IResultCategorias;
 
     categoriasForm: ICategoriasForm[] = [];
 
@@ -37,28 +55,64 @@ export class ModelosEditComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private modalService: NgbModal,
+        private resultService: ResultServiceCategorias,
         private produtoService: ProdutoService
     ) {
+        resultService.filter.subscribe(f => (this.filtroValue = f));
+        resultService.filterResult.subscribe(fr => (this.currentFilter = fr));
+
+        this.selection.changed.subscribe(() => {
+            resultService.changeFilterResult({
+                ...this.currentFilter,
+                categorias: this.selection.selected
+            });
+        });
+
+        this.loading = false;
+
         this.route.queryParamMap.subscribe(paramMap => {
             this.formulario = JSON.parse(paramMap.get('filterFormulario'));
-
-            if(this.formulario.categoria == undefined && this.formulario.categoria == null){
-                this.formulario.categoria = [];
-            }
-
-            this.produtoService.getCategoriasForm(null).subscribe(categorias => {
-                console.log('Cat: ', categorias)
-                if(categorias){
-                    this.categoriasDataSource.data = [...categorias];
-                    //this.categoriasForm = [...categorias];
-                }
-            });
-
-            this.loading = false;
         });
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.categoriasDataSource = new CategoriasEditDataSource(
+            this.paginator,
+            this.sort,
+            this.resultService,
+            [...this.formulario.categorias]
+        );
+    }
+
+    ngAfterViewInit() {
+        this.resultService.whenUpdatedSource.next([
+            ...this.resultService.whenUpdated,
+            this.paginator
+        ]);
+    }
+
+    getVisibleData() {
+        return this.categoriasDataSource.getUpdatedData();
+    }
+
+    isAllSelected() {
+        const visibleData = this.categoriasDataSource.getUpdatedData();
+        return !visibleData.some(
+            ds => !this.selection.selected.some(s => s.descricao === ds.descricao)
+        );
+    }
+
+    masterToggle() {
+        const visibleData = this.getVisibleData();
+        const allSelected = this.isAllSelected();
+
+        if (allSelected) {
+            this.selection.deselect(...visibleData);
+        } else {
+            this.selection.select(...visibleData);
+        }
+        return;
+    }
 
     setStatusFormulario(event:any){
         console.log('Status: ', event)
@@ -196,6 +250,19 @@ export class ModelosEditComponent implements OnInit {
             end_date: new Date()
         } as IFilterResult);
     }*/
+
+    aprovarTodos(){
+        const visibleData = this.getVisibleData();
+
+
+
+        /*visibleData.forEach(row =>{
+            if(row.status != 'Aprovado'){
+                this.aprovarProduto(row);
+            }
+        });
+        this.salvarAprovados();*/
+    }
 
     public voltarEtapa(){
         this.router.navigate([`/classificacao-modelos`], {

@@ -1,3 +1,6 @@
+import { IResult } from './formulario.result.model';
+import { ICategoriasForm } from './classificacao.legendas';
+
 export interface IFormulario {
 
     /** Controle Interno **/
@@ -6,6 +9,8 @@ export interface IFormulario {
     idSheet: number;
     titulo: string;
     status: string;
+
+    categorias: ICategoriasForm[];
 
     categoria: {
         codigo: number,

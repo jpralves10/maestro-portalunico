@@ -6,8 +6,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { Produto } from '../../shared/models/produto.model';
 import { ProdutoService } from '../../shared/services/produtos.service';
 import { ProdutosListDataSource } from './produtos-list-datasource';
-import { IResultItem } from '../../shared/models/unificacao.result.model';
-import { IResult } from '../../shared/models/unificacao.result.model';
+import { IResult, IResultItem } from '../../shared/models/unificacao.result.model';
 import { ResultService } from '../../shared/services/unificacao.result.service';
 import { IFilterResult } from '../../../shared/filter/filter.model';
 
@@ -43,7 +42,6 @@ export class ProdutosListComponent implements OnInit {
         private produtoService: ProdutoService
     ) { 
         resultService.filter.subscribe(f => (this.filtroValue = f));
-
         resultService.filterResult.subscribe(fr => (this.currentFilter = fr));
 
         this.selection.changed.subscribe(() => {
