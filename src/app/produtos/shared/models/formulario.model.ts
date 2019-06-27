@@ -12,11 +12,6 @@ export interface IFormulario {
 
     categorias: ICategoriasForm[];
 
-    categoria: {
-        codigo: number,
-        descricao: string
-    }[];
-
     dataCriacao: Date;
     dataAtualizacao: Date;
 }

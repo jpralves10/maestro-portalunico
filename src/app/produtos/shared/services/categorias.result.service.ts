@@ -18,7 +18,7 @@ export class ResultServiceCategorias {
     /** Default Filter **/
 
     private defaultFilter: IResultItemCategorias = {
-        categoria: {codigo: null, descricao: ''}
+        categoria: {_id: null, codigo: null, descricao: ''}
     };
 
     public filterSource:

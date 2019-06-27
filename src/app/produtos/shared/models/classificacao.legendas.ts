@@ -32,7 +32,8 @@ export interface IComentario {
 }
 
 export interface ICategoriasForm {
-    id?:any,
-    codigo:number,
-    descricao:string
+    _id?:any,
+    codigo?:number,
+    descricao:string,
+    disabled?:boolean
 }

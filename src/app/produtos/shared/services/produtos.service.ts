@@ -68,9 +68,15 @@ export class ProdutoService {
         );
     }
 
-    setCategoriasForm(categoria: ICategoriasForm): Observable<ICategoriasForm[]> {
+    setCategoriasForm(categoria: ICategoriasForm): Observable<string> {
         return this.httpClient.post<any>(
             `${ GOOGLE_FORMS_API }/produtos/categoriasForm/save`, categoria
+        );
+    }
+
+    delCategoriasForm(categoria: ICategoriasForm): Observable<string> {
+        return this.httpClient.post<any>(
+            `${ GOOGLE_FORMS_API }/produtos/categoriasForm/remove`, categoria
         );
     }
 

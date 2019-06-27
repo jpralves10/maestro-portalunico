@@ -5,18 +5,12 @@ import { ProdutoService } from 'src/app/produtos/shared/services/produtos.servic
 
 import * as Util from '../../../../utilitarios/utilitarios';
 import { msg_default_three } from 'src/app/utilitarios/mensagens.module';
-import { MatTableDataSource } from '@angular/material';
 import { CategoriasComponent } from './categorias/categorias.component';
-import { SelectionModel } from '@angular/cdk/collections';
-
-import { CategoriasEditDataSource } from './categorias-edit-datasource';
-import { MatPaginator, MatSort } from '@angular/material';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ICategoriasForm } from 'src/app/produtos/shared/models/classificacao.legendas';
-import { ResultServiceCategorias } from 'src/app/produtos/shared/services/categorias.result.service';
 
-import { IResultCategorias, IResultItemCategorias } from '../../../shared/models/formulario.result.model';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-modelos-edit',
@@ -25,10 +19,6 @@ import { IResultCategorias, IResultItemCategorias } from '../../../shared/models
 })
 export class ModelosEditComponent implements OnInit {
 
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
-
-    data: ICategoriasForm[];
     status: string[];
     //filter: IResultCategorias;
 
@@ -39,122 +29,65 @@ export class ModelosEditComponent implements OnInit {
     finish = false;
     spinner = false;
 
+    categorias:ICategoriasForm[] = []
     mensagem: any = {id: 0, tipo: '', class: '', lista: []};
-
-    categoriasDataSource: CategoriasEditDataSource;
-    selection = new SelectionModel<ICategoriasForm>(true, []);
-    categoriasColumns: string[] = ['codigo', 'descricao', 'operacao'];
-    categorias_form = {} as { codigo: number, descricao: string };
-
-    public filtroValue: IResultItemCategorias;
-    public currentFilter: IResultCategorias;
-
-    categoriasForm: ICategoriasForm[] = [];
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private modalService: NgbModal,
-        private resultService: ResultServiceCategorias,
-        private produtoService: ProdutoService
+        private produtoService: ProdutoService,
+        private _snackBar: MatSnackBar
     ) {
-        resultService.filter.subscribe(f => (this.filtroValue = f));
-        resultService.filterResult.subscribe(fr => (this.currentFilter = fr));
-
-        this.selection.changed.subscribe(() => {
-            resultService.changeFilterResult({
-                ...this.currentFilter,
-                categorias: this.selection.selected
-            });
-        });
-
-        this.loading = false;
-
         this.route.queryParamMap.subscribe(paramMap => {
             this.formulario = JSON.parse(paramMap.get('filterFormulario'));
         });
     }
 
-    ngOnInit() {
-        this.categoriasDataSource = new CategoriasEditDataSource(
-            this.paginator,
-            this.sort,
-            this.resultService,
-            [...this.formulario.categorias]
-        );
-    }
-
-    ngAfterViewInit() {
-        this.resultService.whenUpdatedSource.next([
-            ...this.resultService.whenUpdated,
-            this.paginator
-        ]);
-    }
-
-    getVisibleData() {
-        return this.categoriasDataSource.getUpdatedData();
-    }
-
-    isAllSelected() {
-        const visibleData = this.categoriasDataSource.getUpdatedData();
-        return !visibleData.some(
-            ds => !this.selection.selected.some(s => s.descricao === ds.descricao)
-        );
-    }
-
-    masterToggle() {
-        const visibleData = this.getVisibleData();
-        const allSelected = this.isAllSelected();
-
-        if (allSelected) {
-            this.selection.deselect(...visibleData);
-        } else {
-            this.selection.select(...visibleData);
-        }
-        return;
-    }
+    ngOnInit() {}
 
     setStatusFormulario(event:any){
         console.log('Status: ', event)
     }
 
     openDialogCategorias(): void {
-        this.modalService.open(CategoriasComponent, {size: 'sm', centered: true}).result.then((categoria) => {
-            console.log('Result', categoria)
+        if(this.formulario.categorias == undefined){
+            this.formulario.categorias = []
+        }
 
-            this.produtoService.setCategoriasForm(categoria).subscribe(categorias => {});
+        const modalCategoria = this.modalService.open(CategoriasComponent, {size: '900', centered: true});
+        modalCategoria.componentInstance.categoriasModelos = this.formulario.categorias;
 
-            /*this.formulario.categoria.push(this.categorias_form);
-            this.categorias_form = {} as { codigo: number, descricao: string };
-            this.updateCategoria();*/
+        modalCategoria.result.then((categorias) => {
+            let flCategoria = false
+            categorias.forEach(mdCategoria => {
+                this.formulario.categorias.forEach(categoria => {
+                    if(categoria.codigo == mdCategoria.codigo){
+                        flCategoria = true
+                    }
+                })
 
+                if(!flCategoria){
+                    this.formulario.categorias.push(mdCategoria)
+                }
+            })
+            this.formulario.categorias = categorias;
         }, (reason) => {});
     }
 
-    /*adicionarCategoria(){
-        console.log(this.categorias_form)
-
-        //if(this.categorias_form.length > 0){
-            this.formulario.categoria.push(this.categorias_form);
-            this.categorias_form = {} as { codigo: number, descricao: string };
-            this.updateCategoria();
-        //}
-    }*/
-
-    removeRowCategoria(row: { codigo: number, descricao: string }){
-        this.formulario.categoria.splice(this.formulario.categoria.indexOf(row), 1);
-        this.updateCategoria();
-    }
-
-    updateCategoria(){
-        this.categoriasDataSource.data = [...this.formulario.categoria];
+    removerCategoria(categoria: ICategoriasForm){
+        this.formulario.categorias.splice(this.formulario.categorias.indexOf(categoria), 1);
     }
 
     finalizarPreenchimento(){
 
         this.spinner = true;
 
-        setTimeout(() => {
+        this._snackBar.open('Formulário preenchido com sucesso!', 'Informação', {
+            duration: 2000,
+        });
+
+        /*setTimeout(() => {
             this.validarCampos();
             this.spinner = false;
 
@@ -181,10 +114,6 @@ export class ModelosEditComponent implements OnInit {
                         this.formulario.dataAtualizacao = new Date();
                         this.formulario.dataAtualizacao = new Date();
 
-                        if(this.formulario.categoria.length <= 0){
-                            this.formulario.categoria = undefined;
-                        }
-
                         this.produtoService
                             .setFormularios([this.formulario])
                             .subscribe(versoes => {}, error => { this.errored = true;});
@@ -194,13 +123,13 @@ export class ModelosEditComponent implements OnInit {
                             replaceUrl: true//,
                             /*queryParams: {
                                 filterModelos: this.getFilterAsString()
-                            }*/
+                            }*
                         });
 
                     }, 2000);
                 }
             }
-        }, 500);
+        }, 500);*/
     }
 
     validarCampos(){
@@ -225,8 +154,8 @@ export class ModelosEditComponent implements OnInit {
                 this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'Folha\'.'});
             }
 
-            if(this.formulario.categoria.length == 0){
-                this.mensagem.lista.push({chave: 0, valor: 'Escolher uma das \'Categorias\' listadas abaixo.'});
+            if(this.formulario.categorias.length == 0){
+                this.mensagem.lista.push({chave: 0, valor: 'Selecionar uma ou mais \'Categorias\'.'});
             }
         }
     }
@@ -250,19 +179,6 @@ export class ModelosEditComponent implements OnInit {
             end_date: new Date()
         } as IFilterResult);
     }*/
-
-    aprovarTodos(){
-        const visibleData = this.getVisibleData();
-
-
-
-        /*visibleData.forEach(row =>{
-            if(row.status != 'Aprovado'){
-                this.aprovarProduto(row);
-            }
-        });
-        this.salvarAprovados();*/
-    }
 
     public voltarEtapa(){
         this.router.navigate([`/classificacao-modelos`], {

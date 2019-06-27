@@ -23,7 +23,9 @@ export interface IResultCategorias {
 
 export interface IResultItemCategorias {
     categoria: {
-        codigo: number,
-        descricao: string
+        _id?:any
+        codigo?: number,
+        descricao: string,
+        disabled?:boolean
     }
 }

@@ -10,7 +10,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { msg_default_two } from '../../../../utilitarios/mensagens.module';
 
 import { Produto } from '../../../shared/models/produto.model';
-import { ICompatibilidade } from '../../../shared/models/produto.legendas';
 import { ProdutosTwoDataSource } from './produtos-two-datasource';
 import { IResultItem } from '../../../shared/models/unificacao.result.model';
 import { IResult } from '../../../shared/models/unificacao.result.model';
@@ -64,7 +63,6 @@ export class ProdutosTwoComponent implements OnInit {
         private modalService: NgbModal
     ) {
         resultService.filter.subscribe(f => (this.filtroValue = f));
-
         resultService.filterResult.subscribe(fr => (this.currentFilter = fr));
 
         this.selection.changed.subscribe(() => {
@@ -126,11 +124,6 @@ export class ProdutosTwoComponent implements OnInit {
             this.produto.versoesProduto = [];
             this.loading = false;
             this.setDataSource();
-
-            /*if(this.produto.versoesProduto != null || this.produto.versoesProduto != undefined){
-                this.produto.versoesProduto = this.getMockDados();
-                this.setDataSource();
-            }*/
         }
     }
 
@@ -405,7 +398,6 @@ export class ProdutosTwoComponent implements OnInit {
                 }
             ]
         };
-
         let options: {
             showTooltips: false,
             fullWidth: true,
@@ -419,105 +411,10 @@ export class ProdutosTwoComponent implements OnInit {
                 }]
             }
         }
-
         return {
             type: 'doughnut',
             data: data,
             options: options
         }
-    }
-
-    /* Mocks */
-
-    public getMockDados(): Produto[]{
-
-        var compatibilidade: ICompatibilidade = {
-            similaridade: 7,
-            identicos: 4,
-            canalDominante: 0,
-            verde: 5,
-            amarelo: 3,
-            vermelho: 2,
-            cinza: 1
-        }
-
-        var produto: Produto = {
-            _id: null,
-            seq: "001",
-            codigo: null,
-            numeroDI: "01234567891",
-            dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-            status: "Pendente",
-            etapaUnificacao: 0,
-            descricaoBruta: "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL",
-            descricao: "",
-            cnpjRaiz: "00913443000173",
-            situacao: null, //"ATIVADO",
-            modalidade: undefined, //"IMPORTACAO",
-            ncm: "77083999",
-            codigoNaladi: null,
-            codigoGPC: null,
-            codigoGPCBrick: null,
-            codigoUNSPSC: null,
-            paisOrigem: "FR",
-            fabricanteConhecido: false,
-            cpfCnpjFabricante: null,
-            codigoOperadorEstrangeiro: null,
-            atributos: null,
-            codigosInterno: null,
-            dataCriacao: null,
-            dataAtualizacao: null,
-            usuarioAtualizacao: null,
-            quantidade: 0,
-            declaracoes: [],
-            versoesProduto: [],
-            compatibilidade: compatibilidade,
-            declaracaoNode: [],
-            chartCanais: []  ,
-            canalDominante: 0,
-            importadorNome: '',
-            importadorNumero: '',
-            fornecedorNome: '',
-            fabricanteNome: ''
-        }
-        
-
-        var produto2 = {...produto};
-        produto2.numeroDI = "09999967891";
-        produto2.descricaoBruta = "410004800R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
-        produto2.ncm = "87083090";
-        produto2.status = "Pendente";
-        var produto3 = {...produto};
-        var produto4 = {...produto};
-        var produto5 = {...produto};
-        var produto6 = {...produto};
-        var produto7 = {...produto};
-        var produto8 = {...produto};
-        var produto9 = {...produto};
-        var produto10 = {...produto};
-        var produto11 = {...produto};
-
-        var produtosList: Produto[] = [];
-        produtosList.push(
-            produto,
-            produto2,
-            produto3,
-            produto4,
-            produto5,
-            produto6,
-            produto7,
-            produto8,
-            produto9,
-            produto10,
-            produto11
-        );
-
-        let codigo = 0;
-
-        produtosList.forEach(produto =>{
-            produto._id = ++codigo + '';
-        })
-
-        return produtosList;
     }
 }

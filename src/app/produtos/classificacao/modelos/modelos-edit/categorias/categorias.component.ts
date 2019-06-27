@@ -1,7 +1,13 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { NgbActiveModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap';
+
+import { ProdutoService } from 'src/app/produtos/shared/services/produtos.service';
+import { ResultServiceCategorias } from 'src/app/produtos/shared/services/categorias.result.service';
+import { ICategoriasForm } from 'src/app/produtos/shared/models/classificacao.legendas';
+import { IResultCategorias, IResultItemCategorias } from 'src/app/produtos/shared/models/formulario.result.model';
+import { CategoriasListComponent } from './categorias-list/categorias-list.component';
+import { SelectionModel } from '@angular/cdk/collections';
 
 @Component({
     selector: 'app-categorias',
@@ -10,26 +16,92 @@ import { NgbActiveModal, ModalDismissReasons } from '@ng-bootstrap/ng-bootstrap'
 })
 export class CategoriasComponent implements OnInit {
 
+    @ViewChild(CategoriasListComponent) 
+    childCategoriasList:CategoriasListComponent;
+
+    @Input() categoriasModelos: ICategoriasForm[];
+
+    data: ICategoriasForm[] = [];
     loading = true;
     errored = false;
 
     closeResult: boolean = false;
+    flAddCategoria = false;
+    flFindCategoria = false;
 
-    categoria = {codigo: null, descricao: ''};
+    filtroValue: IResultItemCategorias;
+    currentFilter: IResultCategorias;
+
+    categorias: ICategoriasForm[] = [];
+    categoria:ICategoriasForm = {} as ICategoriasForm;
 
     constructor(
-        private router: Router,
-        private route: ActivatedRoute,
-        public activeModal: NgbActiveModal
-    ) {
-        this.loading = false;
+        public activeModal: NgbActiveModal,
+        private resultService: ResultServiceCategorias,
+        private produtoService: ProdutoService
+    ) { }
+
+    ngOnInit() {
+        this.resultService.resetFilter();
+
+        this.produtoService.getCategoriasForm({codigo: undefined, descricao: ''}).subscribe(categorias => {
+            this.data = [...categorias]
+            this.data.forEach(categoria => { categoria.disabled = true })
+
+            this.loading = false;
+        })
+        this.resultService.clearFilter();
     }
 
-    salvarCategoria(){
-        this.activeModal.close(this.categoria);
+    addCategoria(){
+        this.flFindCategoria = false;
+        if(this.childCategoriasList != undefined){
+            this.childCategoriasList.filtroValue.categoria = {} as ICategoriasForm
+            this.childCategoriasList.filtroValue.categoria.disabled = true;
+            this.childCategoriasList.updateFiltro();
+        }
+        setTimeout(() => { this.flAddCategoria = true; }, 200)
     }
 
-    ngOnInit() {}
+    findCategoria(){
+        this.flAddCategoria = false;
+        if(this.childCategoriasList != undefined){
+            this.childCategoriasList.filtroValue.categoria = {} as ICategoriasForm
+            this.childCategoriasList.updateFiltro();
+        }
+        setTimeout(() => { this.flFindCategoria = true; }, 200)
+    }
 
-    ngAfterViewInit() {}
+    addCategoriaList(){
+        this.categoria.disabled = true;
+        this.data.push(this.categoria)
+        if(this.childCategoriasList != undefined){
+            this.childCategoriasList.dataSource.data = [...this.data]
+            this.childCategoriasList.dataSource.fullData = [...this.data]
+            this.childCategoriasList.updateFiltro();
+
+            this.produtoService.setCategoriasForm(this.categoria).subscribe(status => {})
+        }
+        this.categoria = {} as ICategoriasForm;
+    }
+
+    findCategoriaList(){
+        if(this.childCategoriasList != undefined){
+            this.childCategoriasList.filtroValue.categoria = this.categoria
+            this.childCategoriasList.updateFiltro();
+        }
+    }
+
+    selecionarCategoria(){
+        let categorias = []
+        if(this.childCategoriasList != undefined){
+            const visibleData = this.childCategoriasList.getVisibleData();
+            visibleData.forEach(row => {
+                if(this.childCategoriasList.selection.isSelected(row)){
+                    categorias.push(row)
+                }
+            })
+            this.activeModal.close(categorias)
+        }
+    }
 }

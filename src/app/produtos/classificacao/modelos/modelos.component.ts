@@ -38,12 +38,6 @@ export class ModelosComponent implements OnInit {
         private modalService: NgbModal
     ) {
         this.loading = false
-
-        this.produtoService.getCategoriasForm(null).subscribe(categorias => {
-            if(categorias){
-                this.formulario.categorias = [...categorias]
-            }
-        });
     }
 
     ngOnInit() {}
@@ -60,7 +54,6 @@ export class ModelosComponent implements OnInit {
         this.formulario.idSheet = null;
         this.formulario.titulo = '';
         this.formulario.status = 'Novo';
-        this.formulario.categoria = [];
 
         this.formulario.dataCriacao = new Date();
         this.formulario.dataAtualizacao = new Date();

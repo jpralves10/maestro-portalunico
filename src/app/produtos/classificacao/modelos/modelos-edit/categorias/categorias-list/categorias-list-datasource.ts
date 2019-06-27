@@ -1,32 +1,31 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
+import { map } from 'rxjs/operators';
+import { Observable, of as observableOf, merge } from 'rxjs';
 import { Input } from '@angular/core';
-import { map, filter } from 'rxjs/operators';
-import { Observable, of as observableOf, merge, from } from 'rxjs';
-import { ICategoriasForm } from '../../../shared/models/classificacao.legendas';
-import { IResultItemCategorias, IResultCategorias } from '../../../shared/models/formulario.result.model';
-import { ResultServiceCategorias } from '../../../shared/services/categorias.result.service';
+import { ResultServiceCategorias } from '../../../../../shared/services/categorias.result.service'
+import { ICategoriasForm } from 'src/app/produtos/shared/models/classificacao.legendas';
+import { IResultItemCategorias } from 'src/app/produtos/shared/models/formulario.result.model';
 
-export class CategoriasEditDataSource extends DataSource<ICategoriasForm> {
-
+export class CategoriasListDataSource extends DataSource<ICategoriasForm> {
+    
     @Input()
     public data: ICategoriasForm[];
     public fullData: ICategoriasForm[];
     public filteredData: ICategoriasForm[];
 
     public filtro: IResultItemCategorias;
-    public dataObservable: Observable<any>;
 
     constructor(
         private paginator: MatPaginator,
         private sort: MatSort,
-        private resultService: ResultServiceCategorias,
+        private filterService: ResultServiceCategorias,
         data: ICategoriasForm[]
     ) {
         super();
         this.data = [...data];
         this.fullData = [...data];
-        this.resultService.filterSource.subscribe(filtro => (this.filtro = filtro));
+        this.filterService.filterSource.subscribe(filtro => (this.filtro = filtro));
     }
 
     /**
@@ -39,7 +38,7 @@ export class CategoriasEditDataSource extends DataSource<ICategoriasForm> {
         // stream for the data-table to consume.
         const dataMutations = [
             observableOf(this.data),
-            this.resultService.filterSource,
+            this.filterService.filterSource,
             this.paginator.page,
             this.sort.sortChange
         ];
@@ -54,11 +53,7 @@ export class CategoriasEditDataSource extends DataSource<ICategoriasForm> {
         this.filteredData = this.getFilteredData(this.fullData);
 
         this.paginator.length = this.filteredData.length;
-        var sortedProdutos = this.getPagedData(this.getSortedData(this.filteredData));
-
-        //this.produtosList.setChartList(sortedProdutos);
-
-        return sortedProdutos;
+        return this.getPagedData(this.getSortedData(this.filteredData));
     }
 
     /**
@@ -68,7 +63,7 @@ export class CategoriasEditDataSource extends DataSource<ICategoriasForm> {
     disconnect() {}
 
     public getFilteredData(data: ICategoriasForm[]): ICategoriasForm[] {
-
+        
         const { categoria } = this.filtro;
 
         let newData = data;
@@ -78,7 +73,7 @@ export class CategoriasEditDataSource extends DataSource<ICategoriasForm> {
                 d.codigo == categoria.codigo
             );
         }
-        if (categoria.descricao !== '') {
+        if (categoria.descricao != undefined && categoria.descricao != '') {
             newData = newData.filter(d =>
                 d.descricao.toUpperCase().includes(categoria.descricao.toUpperCase())
             );
@@ -104,7 +99,7 @@ export class CategoriasEditDataSource extends DataSource<ICategoriasForm> {
         }else{
             newData = [];
         }*/
-
+        
         return [...newData];
     }
 

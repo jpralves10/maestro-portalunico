@@ -1,3 +1,4 @@
+
 <div class="modal-header">
     <span class="modal-title">
         Categorias de Formulário
@@ -14,15 +15,50 @@
         <p>Carregando os dados para filtro...</p>
     </div>
 
-    <div *ngIf="!loading" class="produto-fields-textarea">
-        <mat-form-field>
-            <textarea
-                matInput
-                placeholder="Descrição da Categoria"
-                [(ngModel)]="categoria.descricao"
-                class="produto-descricao">
-            </textarea>
-        </mat-form-field>
+    <div *ngIf="!loading" class="filter-container">
+
+        <div class="content-add-categoria table-list">
+            <div class="btn-categoria">
+                <a (click)="addCategoria()" class="btn-add-categoria">
+                    <i class="fas fa-plus-square"></i>
+                    Adicionar Categoria
+                </a> /
+                <a (click)="findCategoria()" class="btn-find-categoria">
+                    <i class="fas fa-filter"></i>
+                    Pesquisar Categoria
+                </a>
+            </div>
+            <mat-form-field
+                *ngIf="flAddCategoria"
+                class="input-categoria">
+                <input
+                    matInput
+                    placeholder="Descrição da Categoria"
+                    [(ngModel)]="categoria.descricao"
+                    (change)="addCategoriaList()"/>
+            </mat-form-field>
+            <mat-form-field
+                *ngIf="flFindCategoria"
+                class="input-categoria">
+                <input
+                    matInput
+                    placeholder="Descrição da Categoria"
+                    [(ngModel)]="categoria.descricao"
+                    (ngModelChange)="findCategoriaList()"/>
+            </mat-form-field>    
+        </div>
+
+        <h5>Listagem de Categorias:</h5>
+
+        <app-categorias-list
+            *ngIf="data.length > 0" 
+            [data]="data"
+            [categoriasModelos]="categoriasModelos">
+        </app-categorias-list>
+
+        <div *ngIf="data.length == 0" class="table-not-records" style="padding-left: 0;">
+            Nenhum registro encontrado!
+        </div>
     </div>
 </div>
 
@@ -30,7 +66,7 @@
     <button
         mat-raised-button
         class="filter-button"
-        (click)="salvarCategoria()">
-        Salvar
+        (click)="selecionarCategoria()">
+        Selecionar
     </button>
 </div>

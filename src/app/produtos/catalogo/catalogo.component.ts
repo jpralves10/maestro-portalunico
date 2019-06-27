@@ -75,25 +75,6 @@ export class CatalogoComponent implements OnInit {
         this.data = new ResultClass();
         this.data.produtos = [];
 
-        /* Mock */
-        
-        /*this.produtos.forEach(produto => {
-            if(this.status.includes(produto.status)){
-                produto.declaracoes = this.getMockDeclaracoes();
-                this.data.produtos.push(produto);
-            }
-        })
-        
-        this.agruparDeclaracoes(this.data.produtos);
-        this.produtos = this.data.produtos;
-        this.setResumoCards();
-
-        this.childUpdateDataSource();
-
-        this.loading = false;*/
-
-        /* End Mock */
-
         let date = new Date();
 
         this.produtoService.getProdutosGenerico(

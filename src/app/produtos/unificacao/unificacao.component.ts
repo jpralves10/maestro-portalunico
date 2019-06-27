@@ -41,7 +41,7 @@ export class UnificacaoComponent implements OnInit {
 
     date = new Date();
     start_date = new Date(this.date.setMonth(this.date.getMonth() - 12));
-    
+
     resumo: IResumo = {
         periodoInicial: this.start_date, 
         periodoFinal: new Date(), 
@@ -77,23 +77,6 @@ export class UnificacaoComponent implements OnInit {
         } else {
             this.openDialogFilter();
         }
-
-        /* Mock */
-        /*this.produtos = this.getMockDados();
-        this.status = ['Pendente', 'Completo', 'Aprovado', 'Integrado'];
-        this.setDadosResult();
-
-        /*this.route.queryParamMap.subscribe(paramMap => {
-            this.filter = JSON.parse(paramMap.get('filter'));
-            this.status = this.filter.status;
-
-            this.importers = [...this.filter.importadores];
-
-            //this.produtos = this.getMockDados();
-            this.loading = false;
-            this.setDadosResult();
-        });*/
-
         this.resultService.clearFilter();
     }
 
@@ -124,24 +107,6 @@ export class UnificacaoComponent implements OnInit {
     setDadosResult(){
         this.data = new ResultClass();
         this.data.produtos = [];
-
-        /* Mock */
-
-        /*this.produtos.forEach(produto => {
-            if(this.status.includes(produto.status)){
-                produto.declaracoes = this.getMockDeclaracoes();
-                this.data.produtos.push(produto);
-            }
-        })
-
-        this.agruparDeclaracoes(this.data.produtos);
-        this.produtos = this.data.produtos;
-        this.setResumoCards();
-        this.childUpdateDataSource();
-
-        this.loading = false;*/
-
-        /* End Mock */
 
         this.produtoService.getProdutosGenerico(
             {
@@ -335,201 +300,4 @@ export class UnificacaoComponent implements OnInit {
 
     //https://jtblin.github.io/angular-chart.js/
     //https://www.jqwidgets.com/angular/angular-chart/#https://www.jqwidgets.com/angular/angular-chart/angular-chart-donutlabels.htm
-
-    /** Mock Dados **/
-
-    getMockDeclaracoes(): IDeclaracao[]{
-        return [
-            {
-                importadorNome: 'RENAULT DO BRASIL S.A',
-                importadorNumero: '00913443000173',
-                fornecedorNome: 'None',
-                fabricanteNome: 'None',
-                numeroDI: '12345678',
-                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-                numeroAdicao: '001',
-                canal: '002'
-            },
-            {
-                importadorNome: 'RENAULT DO BRASIL S.A',
-                importadorNumero: '00913443000173',
-                fornecedorNome: 'None',
-                fabricanteNome: 'None',
-                numeroDI: '32145678',
-                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-                numeroAdicao: '001',
-                canal: '002'
-            },
-            {
-                importadorNome: 'RENAULT DO BRASIL S.A',
-                importadorNumero: '00913443000173',
-                fornecedorNome: 'None',
-                fabricanteNome: 'None',
-                numeroDI: '87945678',
-                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-                numeroAdicao: '001',
-                canal: '001'
-            },
-            {
-                importadorNome: 'RENAULT DO BRASIL S.A',
-                importadorNumero: '00913443000173',
-                fornecedorNome: 'None',
-                fabricanteNome: 'None',
-                numeroDI: '56445678',
-                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-                numeroAdicao: '001',
-                canal: '004'
-            },
-            {
-                importadorNome: 'CHEVROLET DO BRASIL S.A',
-                importadorNumero: '33313443000173',
-                fornecedorNome: 'None',
-                fabricanteNome: 'None',
-                numeroDI: '87945678',
-                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-                numeroAdicao: '001',
-                canal: '003'
-            },
-            {
-                importadorNome: 'CHEVROLET DO BRASIL S.A',
-                importadorNumero: '33313443000173',
-                fornecedorNome: 'None',
-                fabricanteNome: 'None',
-                numeroDI: '56445678',
-                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-                numeroAdicao: '001',
-                canal: '004'
-            },
-            {
-                importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
-                importadorNumero: '44413443000173',
-                fornecedorNome: 'None',
-                fabricanteNome: 'None',
-                numeroDI: '87945678',
-                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-                numeroAdicao: '001',
-                canal: '001'
-            },
-            {
-                importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
-                importadorNumero: '44413443000173',
-                fornecedorNome: 'None',
-                fabricanteNome: 'None',
-                numeroDI: '56445678',
-                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-                numeroAdicao: '001',
-                canal: '003'
-            },
-            {
-                importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
-                importadorNumero: '44413443000173',
-                fornecedorNome: 'None',
-                fabricanteNome: 'None',
-                numeroDI: '87945678',
-                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-                numeroAdicao: '001',
-                canal: '001'
-            },
-            {
-                importadorNome: 'WOLKSWAGEN DA ALEMANHA S.A',
-                importadorNumero: '44413443000173',
-                fornecedorNome: 'None',
-                fabricanteNome: 'None',
-                numeroDI: '56445678',
-                dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-                numeroAdicao: '001',
-                canal: '003'
-            }
-        ]
-    }
-
-    getMockDados(): Produto[]{
-
-        /*
-        Pendente
-        Completo
-        Inativo
-        Aprovado
-        Integrado
-        */
-
-        var produto: Produto = {
-            _id: null,
-            seq: "001",
-            codigo: null,
-            numeroDI: "01234567891",
-            dataRegistro: new Date("2019-04-03T00:00:00.000Z"),
-            status: "Pendente",
-            etapaUnificacao: 0,
-            descricaoBruta: "410102469R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL",
-            descricao: "",
-            cnpjRaiz: "00913443000173",
-            situacao: null, //"ATIVADO",
-            modalidade: undefined, //"IMPORTACAO",
-            ncm: "77083999",
-            codigoNaladi: null,
-            codigoGPC: null,
-            codigoGPCBrick: null,
-            codigoUNSPSC: null,
-            paisOrigem: "FR",
-            fabricanteConhecido: false,
-            cpfCnpjFabricante: null,
-            codigoOperadorEstrangeiro: null,
-            atributos: null,
-            codigosInterno: null,
-            dataCriacao: null,
-            dataAtualizacao: null,
-            usuarioAtualizacao: null,
-            quantidade: 0,
-            declaracoes: [],
-            versoesProduto: [],
-            compatibilidade: null,
-            declaracaoNode: [],
-            chartCanais: []  ,
-            canalDominante: 0,
-            importadorNome: '',
-            importadorNumero: '08532602000100',
-            fornecedorNome: '',
-            fabricanteNome: ''
-        }
-
-        var produto2 = {...produto};
-        produto2.numeroDI = "09999967891";
-        produto2.descricaoBruta = "410004800R PINCA DO FREIO DIANTEIRO PARA VEICULO AUTOMOVEL";
-        produto2.ncm = "87083090";
-        produto2.status = "Pendente";
-        produto2.importadorNumero = '321'
-        var produto3 = {...produto};
-        var produto4 = {...produto};
-        var produto5 = {...produto};
-        var produto6 = {...produto};
-        var produto7 = {...produto};
-        var produto8 = {...produto};
-        var produto9 = {...produto};
-        var produto10 = {...produto};
-        var produto11 = {...produto};
-
-        var produtosList: Produto[] = [];
-        produtosList.push(
-            produto,
-            produto2,
-            produto3,
-            produto4,
-            produto5,
-            produto6,
-            produto7,
-            produto8,
-            produto9,
-            produto10,
-            produto11
-        );
-
-        let codigo = 0;
-
-        produtosList.forEach(produto =>{
-            produto._id = ++codigo + '';
-        })
-
-        return produtosList;
-    }
 }
