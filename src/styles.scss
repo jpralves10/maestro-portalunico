@@ -179,8 +179,8 @@ app-root {
 
 .alert{
     position: relative;
-    padding: .75rem 1.25rem;
-    margin-bottom: 1rem;
+    padding: .40rem .80rem;
+    margin-bottom: 0.4rem;
     border: 1px solid transparent;
     border-radius: .25rem;
 }
@@ -241,7 +241,7 @@ app-root {
 .mat-card-content-div {
     display: flex;
     flex-direction: column;
-    font-size: 14px;
+    font-size: .75rem;
 }
 
 .mat-card-content-div:first-child {

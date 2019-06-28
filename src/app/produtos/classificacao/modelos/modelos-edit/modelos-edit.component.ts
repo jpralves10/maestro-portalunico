@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IFormulario } from 'src/app/produtos/shared/models/formulario.model';
 import { ProdutoService } from 'src/app/produtos/shared/services/produtos.service';
 
 import * as Util from '../../../../utilitarios/utilitarios';
@@ -11,6 +10,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ICategoriasForm } from 'src/app/produtos/shared/models/classificacao.legendas';
 
 import { MatSnackBar } from '@angular/material';
+import { IResult } from 'src/app/produtos/shared/models/formulario.result.model';
+import { IClassificacao } from 'src/app/produtos/shared/models/classificacao.model';
 
 @Component({
     selector: 'app-modelos-edit',
@@ -22,7 +23,7 @@ export class ModelosEditComponent implements OnInit {
     status: string[];
     //filter: IResultCategorias;
 
-    formulario = {} as IFormulario;
+    formulario = {} as IClassificacao;
 
     loading = true;
     errored = false;
@@ -41,6 +42,10 @@ export class ModelosEditComponent implements OnInit {
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
             this.formulario = JSON.parse(paramMap.get('filterFormulario'));
+
+            if(this.formulario.categorias == undefined){
+                this.formulario.categorias = []
+            }
         });
     }
 
@@ -51,10 +56,6 @@ export class ModelosEditComponent implements OnInit {
     }
 
     openDialogCategorias(): void {
-        if(this.formulario.categorias == undefined){
-            this.formulario.categorias = []
-        }
-
         const modalCategoria = this.modalService.open(CategoriasComponent, {size: '900', centered: true});
         modalCategoria.componentInstance.categoriasModelos = this.formulario.categorias;
 
@@ -83,11 +84,19 @@ export class ModelosEditComponent implements OnInit {
 
         this.spinner = true;
 
-        this._snackBar.open('Formulário preenchido com sucesso!', 'Informação', {
-            duration: 2000,
-        });
+        this.produtoService
+            .setClassificacao([this.formulario])
+            .subscribe(versoes => {}, error => {
+                this.errored = true;
 
-        /*setTimeout(() => {
+                if(error.error.text == 'Error: The caller does not have permission'){
+                    this._snackBar.open('Permissão de acesso foi negado!', 'Erro', {
+                        duration: 7000,
+                    });
+                }                    
+            });
+
+        setTimeout(() => {
             this.validarCampos();
             this.spinner = false;
 
@@ -99,7 +108,11 @@ export class ModelosEditComponent implements OnInit {
                 if(this.mensagem != null){
 
                     this.mensagem.lista = [];
-                    this.mensagem.lista.push({chave: 0, valor: 'Formulário cadastrado com sucesso!'});
+                    this.mensagem.lista.push({chave: 0, valor: 'Formulário preenchido e salvo!'});
+
+                    this._snackBar.open('Formulário preenchido e salvo!', 'Sucesso', {
+                        duration: 5000,
+                    });
 
                     this.finish = true;
 
@@ -114,22 +127,42 @@ export class ModelosEditComponent implements OnInit {
                         this.formulario.dataAtualizacao = new Date();
                         this.formulario.dataAtualizacao = new Date();
 
-                        this.produtoService
-                            .setFormularios([this.formulario])
-                            .subscribe(versoes => {}, error => { this.errored = true;});
+                        
 
                         this.router.navigate([`/classificacao-modelos`], {
                             relativeTo: this.route,
-                            replaceUrl: true//,
-                            /*queryParams: {
-                                filterModelos: this.getFilterAsString()
-                            }*
+                            replaceUrl: true,
+                            queryParams: {
+                                paramsFormulario: this.getFilterAsString()
+                            }
                         });
 
                     }, 2000);
                 }
             }
-        }, 500);*/
+            
+        }, 500);
+    }
+
+    getFilterAsString(): string {
+        var date = new Date();
+        var start_date = new Date(date.setMonth(date.getMonth() - 12));
+
+        return JSON.stringify({
+            formularios: [this.formulario],
+            start_date: start_date,
+            end_date: new Date()
+        } as IResult);
+    }
+
+    public voltarEtapa(){
+        this.router.navigate([`/classificacao-modelos`], {
+            relativeTo: this.route,
+            replaceUrl: true,
+            /*queryParams: {
+                filter: this.getFilterAsString()
+            }*/
+        });
     }
 
     validarCampos(){
@@ -167,26 +200,5 @@ export class ModelosEditComponent implements OnInit {
                 this.mensagem = msg;
             }
         }
-    }
-
-    /*getFilterAsString(): string {
-        var date = new Date();
-        var start_date = new Date(date.setMonth(date.getMonth() - 12));
-
-        return JSON.stringify({
-            formularios: [this.formulario],
-            start_date: start_date,
-            end_date: new Date()
-        } as IFilterResult);
-    }*/
-
-    public voltarEtapa(){
-        this.router.navigate([`/classificacao-modelos`], {
-            relativeTo: this.route,
-            replaceUrl: true,
-            /*queryParams: {
-                filter: this.getFilterAsString()
-            }*/
-        });
     }
 }

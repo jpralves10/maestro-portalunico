@@ -5,8 +5,12 @@ export interface IClassificacao {
     _id?: any,
     spreadsheetId: string,
     idSheet: number,
-    nmSheet?: string,
+    titulo?: string,
     version?: number,
+    status?: string;
+    dataCriacao?: Date,
+    dataAtualizacao?: Date,
+    categorias?:c.ICategoriasForm[],
     colunas?: c.IColuna[],
     respostas?: c.IResposta[],
     comentarios?: c.IComentario[]
@@ -17,7 +21,7 @@ export interface IClassificacao {
 
     _id?: any
     idSheet: number,
-    nmSheet: string,
+    titulo: string,
     colunas: {
         idColuna: number,
         nmColuna: string 

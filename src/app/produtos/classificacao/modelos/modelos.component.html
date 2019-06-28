@@ -71,8 +71,8 @@
             </mat-accordion>
 
             <app-modelos-list
-                *ngIf="data !== null"
-                [data]="data.formularios">
+                *ngIf="data.length > 0"
+                [data]="data">
             </app-modelos-list>
 
         </mat-card-content>

@@ -3,16 +3,16 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { Input } from '@angular/core';
 import { map, filter } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, from } from 'rxjs';
-import { IFormulario } from '../../../shared/models/formulario.model';
 import { IResultItem } from '../../../shared/models/formulario.result.model';
 import { ResultService } from '../../../shared/services/formularios.result.service';
+import { IClassificacao } from 'src/app/produtos/shared/models/classificacao.model';
 
-export class ModelosListDataSource extends DataSource<IFormulario> {
+export class ModelosListDataSource extends DataSource<IClassificacao> {
 
     @Input()
-    public data: IFormulario[];
-    public fullData: IFormulario[];
-    public filteredData: IFormulario[];
+    public data: IClassificacao[];
+    public fullData: IClassificacao[];
+    public filteredData: IClassificacao[];
 
     public filtro: IResultItem;
     public dataObservable: Observable<any>;
@@ -21,7 +21,7 @@ export class ModelosListDataSource extends DataSource<IFormulario> {
         private paginator: MatPaginator,
         private sort: MatSort,
         private resultService: ResultService,
-        data: IFormulario[]
+        data: IClassificacao[]
     ) {
         super();
         this.data = [...data];
@@ -34,7 +34,7 @@ export class ModelosListDataSource extends DataSource<IFormulario> {
      * the returned stream emits new items.
      * @returns A stream of the items to be rendered.
      */
-    connect(): Observable<IFormulario[]> {
+    connect(): Observable<IClassificacao[]> {
         // Combine everything that affects the rendered data into one update
         // stream for the data-table to consume.
         const dataMutations = [
@@ -67,7 +67,7 @@ export class ModelosListDataSource extends DataSource<IFormulario> {
      */
     disconnect() {}
 
-    public getFilteredData(data: IFormulario[]): IFormulario[] {
+    public getFilteredData(data: IClassificacao[]): IClassificacao[] {
 
         const { formulario } = this.filtro;
 
@@ -122,7 +122,7 @@ export class ModelosListDataSource extends DataSource<IFormulario> {
      * Paginate the data (client-side). If you're using server-side pagination,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getPagedData(data: IFormulario[]) {
+    public getPagedData(data: IClassificacao[]) {
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         return data.splice(startIndex, this.paginator.pageSize);
     }
@@ -131,7 +131,7 @@ export class ModelosListDataSource extends DataSource<IFormulario> {
      * Sort the data (client-side). If you're using server-side sorting,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getSortedData(data: IFormulario[]) {
+    public getSortedData(data: IClassificacao[]) {
 
         if (!this.sort.active || this.sort.direction === '') {
             return data;

@@ -1,9 +1,9 @@
 import { Produto } from './produto.model';
-import { IFormulario } from './formulario.model';
 import { ICategoriasForm } from './classificacao.legendas';
+import { IClassificacao } from './classificacao.model';
 
 export interface IResult {
-    formularios: IFormulario[];
+    formularios: IClassificacao[];
     data_inicio?: Date;
     data_fim?: Date;
 }

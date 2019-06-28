@@ -22,6 +22,7 @@ import { FilterComponent } from './shared/filter/filter.component';
 import { ImportersListComponent } from './shared/filter/importers-list/importers-list.component';
 
 import { CategoriasComponent } from './produtos/classificacao/modelos/modelos-edit/categorias/categorias.component';
+import { CategoriasListComponent } from './produtos/classificacao/modelos/modelos-edit/categorias/categorias-list/categorias-list.component';
 
 import { AppGuard } from './app.guard';
 
@@ -34,7 +35,8 @@ import { AppGuard } from './app.guard';
         ImportersListComponent,
         IndicadoresComponent,
         ImportacaoComponent,
-        CategoriasComponent
+        CategoriasComponent,
+        CategoriasListComponent
     ],
     imports: [
         BrowserModule,

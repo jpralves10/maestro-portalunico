@@ -6,8 +6,8 @@
 <div *ngIf="!loading && !finish" class="produtos-container">
     <h3>Editar Produto</h3>
 
-    <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
-        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
+    <div *ngIf="mensagem !== null">
+        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div {{mensagem.class}}">
             <span class="alert-text">{{msg.valor}}</span>
         </div>
     </div>
@@ -335,8 +335,8 @@
 
 <div *ngIf="!loading && finish" class="produtos-container" style="margin-top:20px;">
 
-    <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
-        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
+    <div *ngIf="mensagem !== null">
+        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div {{mensagem.class}}">
             <span class="alert-text">{{msg.valor}}</span>
         </div>
     </div>

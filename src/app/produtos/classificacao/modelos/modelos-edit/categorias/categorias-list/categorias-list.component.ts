@@ -95,6 +95,12 @@ export class CategoriasListComponent implements OnInit {
         }
     }
 
+    updateDataSource(data: ICategoriasForm[]){
+        this.dataSource.data = [...data];
+        this.dataSource.fullData = [...data];
+        this.updateFiltro();
+    }
+
     updateFiltro() {
         this.resultService.changeFilter(this.filtroValue);
     }

@@ -11,7 +11,6 @@ import {
 } from '../../../utilitarios/app.api';
 import { IClassificacao } from '../models/classificacao.model';
 import { IComentario, ICategoriasForm } from '../models/classificacao.legendas';
-import { IFormulario } from '../models/formulario.model';
 
 @Injectable({
     providedIn: 'root'
@@ -44,15 +43,21 @@ export class ProdutoService {
         );
     }
 
-    setFormularios(formularios: IFormulario[]): Observable<IFormulario[]> {
+    setClassificacao(classificacao: IClassificacao[]): Observable<IClassificacao[]> {
         return this.httpClient.post<any>(
-            `${ GOOGLE_FORMS_API }/produtos/classificacao/formularios-save`, formularios
+            `${ GOOGLE_FORMS_API }/produtos/classificacao/save`, classificacao
         );
     }
 
     getClassificacao(classificacao: IClassificacao): Observable<IClassificacao[]> {
         return this.httpClient.post<any>(
             `${ GOOGLE_FORMS_API }/produtos/classificacao/find`, classificacao
+        );
+    }
+
+    getClassificacaoAll(): Observable<IClassificacao[]> {
+        return this.httpClient.post<any>(
+            `${ GOOGLE_FORMS_API }/produtos/classificacao/findAll`, []
         );
     }
 

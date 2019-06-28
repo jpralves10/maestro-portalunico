@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-import { IFormulario } from '../../shared/models/formulario.model';
 import { ProdutoService } from '../../shared/services/produtos.service';
 import { ResultService } from '../../shared/services/unificacao.result.service';
 import { IResult } from '../../shared/models/formulario.result.model';
+import { IClassificacao } from '../../shared/models/classificacao.model';
+import { ModelosListComponent } from './modelos-list/modelos-list.component';
 
 @Component({
     selector: 'app-modelos',
@@ -14,18 +15,20 @@ import { IResult } from '../../shared/models/formulario.result.model';
 })
 export class ModelosComponent implements OnInit {
 
+    @ViewChild(ModelosListComponent) 
+    childModelosList:ModelosListComponent;
+
     loading = true;
     errored = false;
 
-    formulario = {} as IFormulario;
-    formularios: IFormulario[];
-    data: IResult = null;
+    formulario = {} as IClassificacao;
+    data: IClassificacao[] = [];
 
     current_filtro: {} = {
         formulario: {
             spreadsheetId: '',
             idSheet: '',
-            descricao: '',
+            titulo: '',
             status: ''
         }
     }
@@ -38,31 +41,47 @@ export class ModelosComponent implements OnInit {
         private modalService: NgbModal
     ) {
         this.loading = false
+
+        this.route.queryParamMap.subscribe(paramMap => {
+            if(this.childModelosList != undefined){
+                this.data.push(JSON.parse(paramMap.get('paramsFormulario')));
+                this.childModelosList.updateDataSource(this.data);
+            }            
+        });
+
+        this.produtoService.getClassificacaoAll().subscribe(classificacoes => {
+            this.data = [...classificacoes]
+
+            this.data.forEach(item => {
+                item.dataAtualizacao = new Date(item.dataAtualizacao)
+                item.dataCriacao = new Date(item.dataCriacao)
+            })
+            
+            if(this.childModelosList != undefined){
+                this.childModelosList.updateDataSource(this.data);
+            }
+            this.loading = false;
+        })
     }
 
     ngOnInit() {}
 
-    setDadosResult(){
-        this.data = {} as IResult;
-        this.data.formularios = [];
-    }
-
     adicionarProduto(){
-        //let formulario = {} as IFormulario;
-        this.formulario._id = null;
-        this.formulario.spreadsheetId = null;
-        this.formulario.idSheet = null;
-        this.formulario.titulo = '';
-        this.formulario.status = 'Novo';
+        let formulario = {} as IClassificacao;
+        formulario._id = null;
+        formulario.spreadsheetId = null;
+        formulario.idSheet = null;
+        formulario.titulo = '';
+        formulario.status = 'Novo';
 
-        this.formulario.dataCriacao = new Date();
-        this.formulario.dataAtualizacao = new Date();
+        formulario.dataCriacao = new Date();
+        formulario.dataAtualizacao = new Date();
 
         this.router.navigate([`/classificacao-modelos/modelos-edit`], {
             relativeTo: this.route,
             replaceUrl: false,
             queryParams: {
-                filterFormulario: JSON.stringify({...this.formulario})
+                filterFormulario: JSON.stringify({...formulario})
             }
         });
     }

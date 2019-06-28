@@ -16,6 +16,7 @@ export interface IResposta {
 }
 
 export interface IComentario {
+    spreadsheetId: string,
     idSheet: number,
     sheetVersao: number,
     idComentario: number,

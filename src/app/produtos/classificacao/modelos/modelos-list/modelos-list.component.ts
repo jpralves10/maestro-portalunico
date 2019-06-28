@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IFormulario } from 'src/app/produtos/shared/models/formulario.model';
 import { IResult, IResultItem } from 'src/app/produtos/shared/models/formulario.result.model';
 import { ModelosListDataSource } from './modelos-list-datasource';
 import { SelectionModel } from '@angular/cdk/collections';
 import { ResultService } from 'src/app/produtos/shared/services/formularios.result.service';
 import { ProdutoService } from 'src/app/produtos/shared/services/produtos.service';
+import { IClassificacao } from 'src/app/produtos/shared/models/classificacao.model';
 
 @Component({
     selector: 'app-modelos-list',
@@ -18,11 +18,11 @@ export class ModelosListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    @Input() data: IFormulario[];
+    @Input() data: IClassificacao[];
 
     dataSource: ModelosListDataSource;
-    selection = new SelectionModel<IFormulario>(true, []);
-    displayedColumns = ['select', 'descricaoBruta', 'ncm'];
+    selection = new SelectionModel<IClassificacao>(true, []);
+    displayedColumns = ['titulo', 'status', 'dataAtualizacao', 'operacao'];
 
     public filtroValue: IResultItem;
     public currentFilter: IResult;
@@ -66,10 +66,9 @@ export class ModelosListComponent implements OnInit {
         this.resultService.changeFilter(this.filtroValue);
     }
 
-    updateDataSource(data: IFormulario[]){
+    updateDataSource(data: IClassificacao[]){
         this.dataSource.data = [...data];
         this.dataSource.fullData = [...data];
         this.updateFiltro();
     }
-
 }

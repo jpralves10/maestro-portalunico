@@ -16,7 +16,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 })
 export class CategoriasComponent implements OnInit {
 
-    @ViewChild(CategoriasListComponent) 
+    @ViewChild(CategoriasListComponent)
     childCategoriasList:CategoriasListComponent;
 
     @Input() categoriasModelos: ICategoriasForm[];
@@ -76,11 +76,9 @@ export class CategoriasComponent implements OnInit {
         this.categoria.disabled = true;
         this.data.push(this.categoria)
         if(this.childCategoriasList != undefined){
-            this.childCategoriasList.dataSource.data = [...this.data]
-            this.childCategoriasList.dataSource.fullData = [...this.data]
-            this.childCategoriasList.updateFiltro();
-
-            this.produtoService.setCategoriasForm(this.categoria).subscribe(status => {})
+            this.childCategoriasList.updateDataSource(this.data);
+            
+            this.produtoService.setCategoriasForm(this.categoria).subscribe(status => {});
         }
         this.categoria = {} as ICategoriasForm;
     }

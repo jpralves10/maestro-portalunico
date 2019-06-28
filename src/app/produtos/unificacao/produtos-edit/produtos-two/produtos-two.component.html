@@ -6,9 +6,9 @@
 <div class="produtos-container">
     <h3>Verificar Versões do Produto</h3>
 
-    <div *ngIf="mensagem !== null" class="{{mensagem.class}}">
-        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div">
-            <span class="alert-text">{{msg}}</span>
+    <div *ngIf="mensagem !== null">
+        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div {{mensagem.class}}">
+            <span class="alert-text">{{msg.valor}}</span>
         </div>
     </div>
 
