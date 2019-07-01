@@ -10,6 +10,7 @@ import { ProdutoService } from '../../../shared/services/produtos.service';
 import paises from '../../../../utilitarios/pais-origem.model';
 import listaNcm from '../../../../utilitarios/ncm.model';
 import { msg_default_three } from '../../../../utilitarios/mensagens.module';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-produtos-three',
@@ -65,7 +66,8 @@ export class ProdutosThreeComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private produtoService: ProdutoService
+        private produtoService: ProdutoService,
+        private _snackBar: MatSnackBar
     ) { 
         this.paises = paises;
         this.listaNcm = listaNcm;
@@ -190,7 +192,7 @@ export class ProdutosThreeComponent implements OnInit {
         this.produto.status = event.checked === true ? 'Aprovado' : 'Pendente'
     }
 
-    finalizarPreenchimento(){
+    /*finalizarPreenchimento(){
 
         this.spinner = true;
 
@@ -250,6 +252,78 @@ export class ProdutosThreeComponent implements OnInit {
                 }
             }
         }, 500);
+    }*/
+
+    finalizarPreenchimento(){
+
+        this.spinner = true;
+        this.finish = false;
+
+        this.validarCampos();
+
+        setTimeout(() => {
+
+            if(this.produto.status == 'Pendente'){
+                this.produto.status = 'Completo';
+            }                        
+            
+            this.produto.dataAtualizacao = new Date();
+            this.produto.versoesProduto = undefined;
+            this.produto.compatibilidade = undefined;
+            this.produto.declaracaoNode = undefined;
+            this.produto.declaracoes = undefined;
+            this.produto.chartCanais = undefined;
+            this.produto.canalDominante = undefined;
+            this.produto.quantidade = undefined;
+
+            if(this.produto.atributos != undefined){
+                this.produto.atributos = undefined;
+            }
+
+            if(this.mensagem.lista.length == 0){
+
+                this.setMensagem('message-alert-success');
+
+                if(this.mensagem != null){
+                    this.mensagem.lista = [];
+                    this.mensagem.lista.push({chave: 0, valor: 'Produto cadastrado com sucesso!'});
+                }
+            }
+
+            this.produtoService
+                .setAlterarProdutos(this.produto)
+                .subscribe(versoes => {
+
+                    this._snackBar.open('Produto cadastrado e salvo!', 'Sucesso', {
+                        duration: 5000,
+                    });
+
+                    this.produto.etapaUnificacao = undefined;
+                    this.produtoAlterado.emit(this.produto);
+
+                    this.spinner = false;
+                    this.finish = true;
+
+                    this.router.navigate([`/unificacao`], {
+                        relativeTo: this.route,
+                        replaceUrl: true,
+                        queryParams: {
+                            filter: this.getFilterAsString()
+                        }
+                    });
+                    
+                }, error => {
+                     this.errored = true;
+
+                     this.spinner = false;
+                     this.finish = false;
+
+                     this._snackBar.open('Não foi possível salvar este produto!', 'Erro', {
+                        duration: 7000,
+                    });
+                });
+
+        }, 2000);
     }
 
     validarCampos(){

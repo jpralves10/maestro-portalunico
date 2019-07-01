@@ -18,7 +18,7 @@ export class ResultService {
     /** Default Filter **/
 
     private defaultFilter: IResultItem = {
-        formulario: {spreadsheetId: '', idSheet: null, titulo: '', status: ''}
+        formulario: {spreadsheetId: '', idSheet: '', titulo: '', status: '', dataAtualizacao: ''}
     };
 
     public filterSource:

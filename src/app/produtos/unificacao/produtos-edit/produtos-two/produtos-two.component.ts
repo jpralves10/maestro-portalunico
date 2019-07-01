@@ -238,6 +238,11 @@ export class ProdutosTwoComponent implements OnInit {
         this.produtoAlterado.emit(this.produto);
     }
 
+    getQtdProdutosTwoSelecionados(){
+        return this.selection.selected.length > 1 ? '' + this.selection.selected.length + ' ' + 'produtos selecionados' :
+               this.selection.selected.length > 0 ? '' + this.selection.selected.length + ' ' + 'produto selecionado' :  ''
+    }
+
     /** Chart Doughnut **/
 
     openDialogDeclaracoes(row: Produto): void {

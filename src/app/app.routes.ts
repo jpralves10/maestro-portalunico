@@ -11,6 +11,5 @@ export const ROUTES: Routes = [
     { path: 'unificacao', loadChildren: './produtos/unificacao/unificacao.module#UnificacaoModule' },
     //{ path: 'classificacao', loadChildren: './produtos/classificacao/classificacao.module#ClassificacaoModule'},
     { path: 'classificacao-modelos', loadChildren: './produtos/classificacao/modelos/modelos.module#ModelosModule'},
-    { path: 'classificacao-preencher', loadChildren: './produtos/classificacao/preencher/preencher.module#PreencherModule'},
     { path: '**', redirectTo: '' }
 ]

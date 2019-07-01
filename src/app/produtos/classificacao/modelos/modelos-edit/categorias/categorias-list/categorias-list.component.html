@@ -46,12 +46,7 @@
 
     <div class="container-footer">
         <div class="selected-itens">
-            {{ selection.selected.length }}
-            {{
-                selection.selected.length > 1 && selection.selected.length > 0
-                    ? 'categorias selecionadas'
-                    : 'categoria selecionada'
-            }}
+            {{ getQtdCategoriasSelecionados() }}
             <button
                 mat-button
                 color="warn"

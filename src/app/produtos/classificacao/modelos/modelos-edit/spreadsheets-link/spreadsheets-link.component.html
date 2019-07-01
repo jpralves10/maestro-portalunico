@@ -1,0 +1,50 @@
+
+<div class="modal-header">
+    <span class="modal-title">
+        Link da Spreadsheets
+    </span>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+
+    <div class="filter-container">
+
+        <h5>Insira o link da spreadsheets:</h5>
+
+        <div class="content-add-categoria table-list">
+            <mat-form-field class="input-categoria">
+                <input
+                    matInput
+                    placeholder="Link da Spreadsheets"
+                    [(ngModel)]="linkSpreadsheets"
+                    (change)="addLinkSpreadsheets()"/>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+
+    <img
+        *ngIf="spinner" 
+        src="assets/spinner.gif" 
+        style="height:30px;padding-right:10px;">
+
+    <button
+        mat-raised-button
+        class="button-return"
+        style="margin: 0 8px;"
+        (click)="selecionarLinkSpreadsheets()">
+        pular
+    </button>
+
+    <button
+        mat-raised-button
+        class="filter-button"
+        (click)="selecionarLinkSpreadsheets()">
+        Confirmar
+    </button>
+</div>

@@ -9,18 +9,11 @@ import { MaterialModule } from '../../utilitarios/material.module';
 import { NgxMaskModule } from 'ngx-mask';
 
 import { CLASSIFICACAO_ROUTES } from './classificacao.routes';
-
 import { ClassificacaoComponent } from './classificacao.component';
-import { ComentariosComponent } from './comentarios/comentarios.component';
-import { ComentariosListComponent } from './comentarios/comentarios-list/comentarios-list.component';
-import { ComentariosEditComponent } from './comentarios/comentarios-edit/comentarios-edit.component';
 
 @NgModule({
     declarations: [
-        ClassificacaoComponent,
-        ComentariosComponent,
-        ComentariosListComponent,
-        ComentariosEditComponent
+        ClassificacaoComponent
     ],
     imports: [
         CommonModule,

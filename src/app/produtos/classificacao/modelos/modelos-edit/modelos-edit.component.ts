@@ -52,7 +52,7 @@ export class ModelosEditComponent implements OnInit {
     ngOnInit() {}
 
     setStatusFormulario(event:any){
-        console.log('Status: ', event)
+        event.checked == true ? this.formulario.status = 'Inativo' : this.formulario.status = 'Ativo'
     }
 
     openDialogCategorias(): void {
@@ -83,65 +83,58 @@ export class ModelosEditComponent implements OnInit {
     finalizarPreenchimento(){
 
         this.spinner = true;
-
-        this.produtoService
-            .setClassificacao([this.formulario])
-            .subscribe(versoes => {}, error => {
-                this.errored = true;
-
-                if(error.error.text == 'Error: The caller does not have permission'){
-                    this._snackBar.open('Permissão de acesso foi negado!', 'Erro', {
-                        duration: 7000,
-                    });
-                }                    
-            });
+        this.validarCampos();
 
         setTimeout(() => {
-            this.validarCampos();
-            this.spinner = false;
+            this.finish = false;
 
-            if(this.mensagem.lista.length == 0){
+            if(this.formulario.status == 'Novo'){
+                this.formulario.status = 'Ativo';
+            }
 
-                this.mensagem = null;
-                this.setMensagem('message-alert-success');
+            this.formulario.dataAtualizacao = new Date();
+            this.formulario.dataAtualizacao = new Date();
 
-                if(this.mensagem != null){
+            this.produtoService
+                .setClassificacao([this.formulario])
+                .subscribe(versoes => {
 
-                    this.mensagem.lista = [];
-                    this.mensagem.lista.push({chave: 0, valor: 'Formulário preenchido e salvo!'});
+                    if(this.mensagem.lista.length == 0){
+
+                        this.setMensagem('message-alert-success');
+        
+                        if(this.mensagem != null){
+                            this.mensagem.lista = [];
+                            this.mensagem.lista.push({chave: 0, valor: 'Formulário preenchido e salvo!'});
+                        }
+                    }
 
                     this._snackBar.open('Formulário preenchido e salvo!', 'Sucesso', {
                         duration: 5000,
                     });
 
+                    this.spinner = false;
                     this.finish = true;
 
-                    setTimeout(() => {
-                        this.finish = false;
-                        this.mensagem = null;
-
-                        if(this.formulario.status == 'Novo'){
-                            this.formulario.status = 'Ativo';
+                    this.router.navigate([`/classificacao-modelos`], {
+                        relativeTo: this.route,
+                        replaceUrl: true,
+                        queryParams: {
+                            paramsFormulario: this.getFilterAsString()
                         }
+                    });
 
-                        this.formulario.dataAtualizacao = new Date();
-                        this.formulario.dataAtualizacao = new Date();
+                }, error => {
+                    this.errored = true;
 
-                        
-
-                        this.router.navigate([`/classificacao-modelos`], {
-                            relativeTo: this.route,
-                            replaceUrl: true,
-                            queryParams: {
-                                paramsFormulario: this.getFilterAsString()
-                            }
+                    if(error.error.text == 'Error: The caller does not have permission'){
+                        this._snackBar.open('Permissão de acesso foi negado!', 'Erro', {
+                            duration: 7000,
                         });
+                    }
+                });
 
-                    }, 2000);
-                }
-            }
-            
-        }, 500);
+        }, 2000);
     }
 
     getFilterAsString(): string {

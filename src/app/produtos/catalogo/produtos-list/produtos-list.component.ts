@@ -166,4 +166,9 @@ export class ProdutosListComponent implements OnInit {
         })
         this.produtosAprovados = [];
     }
+
+    getQtdProdutosListSelecionados(){
+        return this.selection.selected.length > 1 ? '' + this.selection.selected.length + ' ' + 'categorias selecionadas' :
+               this.selection.selected.length > 0 ? '' + this.selection.selected.length + ' ' + 'categoria selecionada' :  ''
+    }
 }

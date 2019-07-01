@@ -89,4 +89,9 @@ export class ImportersListComponent implements OnInit {
     clearCheckbox(row: any){
         this.selection.clear();
     }
+
+    getQtdImportersListSelecionados(){
+        return this.selection.selected.length > 1 ? '' + this.selection.selected.length + ' ' + 'importadores selecionados' :
+               this.selection.selected.length > 0 ? '' + this.selection.selected.length + ' ' + 'importador selecionado' :  ''
+    }
 }

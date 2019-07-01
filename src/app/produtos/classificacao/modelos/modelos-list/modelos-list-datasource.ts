@@ -73,24 +73,29 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
 
         let newData = data;
 
-        if (formulario.spreadsheetId !== '') {
-            newData = newData.filter(d =>
-                d.spreadsheetId.toUpperCase().includes(formulario.spreadsheetId.toUpperCase())
-            );
-        }
-        if (formulario.idSheet !== null) {
-            newData = newData.filter(d =>
-                d.idSheet == formulario.idSheet
-            );
-        }
         if (formulario.titulo !== '') {
             newData = newData.filter(d =>
                 d.titulo.toUpperCase().includes(formulario.titulo.toUpperCase())
             );
         }
+        if (formulario.spreadsheetId !== '') {
+            newData = newData.filter(d =>
+                d.spreadsheetId.toUpperCase().includes(formulario.spreadsheetId.toUpperCase())
+            );
+        }
+        if (formulario.idSheet !== '') {
+            newData = newData.filter(d =>
+                d.idSheet.toString().toUpperCase().includes(formulario.idSheet)
+            );
+        }
         if (formulario.status !== '') {
             newData = newData.filter(d =>
                 d.status.toUpperCase().includes(formulario.status.toUpperCase())
+            );
+        }
+        if (formulario.status !== '') {
+            newData = newData.filter(d =>
+                d.dataAtualizacao.toString().toUpperCase().includes(formulario.dataAtualizacao)
             );
         }
 
@@ -140,14 +145,16 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
         return data.sort((a, b) => {
             const isAsc = this.sort.direction === 'asc';
             switch (this.sort.active) {
-                /*case 'spreadsheetId':
-                    return compare(a.spreadsheetId, b.spreadsheetId, isAsc);*/
                 case 'titulo':
                     return compare(a.titulo, b.titulo, isAsc);
+                case 'spreadsheetId':
+                    return compare(a.spreadsheetId, b.spreadsheetId, isAsc);
+                case 'idSheet':
+                    return compare(a.idSheet, b.idSheet, isAsc);
                 case 'status':
                     return compare(a.status, b.status, isAsc);
-                /*case 'status':
-                    return compare(a.status, b.status, isAsc);*/
+                case 'dataAtualizacao':
+                    return compare(a.dataAtualizacao, b.dataAtualizacao, isAsc);
                 default:
                     return 0;
             }

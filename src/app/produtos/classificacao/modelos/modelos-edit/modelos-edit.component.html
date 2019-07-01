@@ -26,14 +26,16 @@
                     <input
                         matInput
                         placeholder="Número da Planilha"
-                        [(ngModel)]="formulario.spreadsheetId"/>
+                        [(ngModel)]="formulario.spreadsheetId"
+                        [disabled]="formulario.spreadsheetIdDisabled"/>
                 </mat-form-field>
 
                 <mat-form-field>
                     <input
                         matInput
                         placeholder="Número da Folha"
-                        [(ngModel)]="formulario.idSheet"/>
+                        [(ngModel)]="formulario.idSheet"
+                        [disabled]="formulario.idSheetDisabled"/>
                 </mat-form-field>
 
                 <mat-checkbox
@@ -69,7 +71,10 @@
         
         <mat-card-actions align="end" style="padding:0;margin:0;">
 
-            <img *ngIf="spinner" src="assets/spinner.gif" style="height:30px;padding-right:10px;">
+            <img 
+                *ngIf="spinner" 
+                src="assets/spinner.gif" 
+                style="height:30px;padding-right:10px;">
 
             <button
                 mat-raised-button
@@ -79,6 +84,7 @@
                 <!--i class="fas fa-angle-double-left fa-sm"></i-->
                 Voltar
             </button>
+
             <button
                 mat-raised-button
                 (click)="finalizarPreenchimento()"

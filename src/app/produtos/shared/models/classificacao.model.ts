@@ -14,6 +14,9 @@ export interface IClassificacao {
     colunas?: c.IColuna[],
     respostas?: c.IResposta[],
     comentarios?: c.IComentario[]
+
+    spreadsheetIdDisabled?: boolean,
+    idSheetDisabled?: boolean
 }
 
 /*

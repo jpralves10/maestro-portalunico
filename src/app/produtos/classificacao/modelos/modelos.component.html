@@ -30,14 +30,14 @@
                             Filtrar Itens
                         </mat-panel-title>
                     </mat-expansion-panel-header>
-    
+
                     <div class="filtro-panel-content">
                         <div class="filtro-fields-one">
                             <mat-form-field>
                                 <input
                                     matInput
                                     placeholder="Descrição do Formulário"
-                                    [(ngModel)]="current_filtro.formulario.descricao"
+                                    [(ngModel)]="current_filtro.formulario.titulo"
                                     (ngModelChange)="updateFiltro()" />
                             </mat-form-field>
                             <mat-form-field>

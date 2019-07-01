@@ -23,6 +23,7 @@ import { ImportersListComponent } from './shared/filter/importers-list/importers
 
 import { CategoriasComponent } from './produtos/classificacao/modelos/modelos-edit/categorias/categorias.component';
 import { CategoriasListComponent } from './produtos/classificacao/modelos/modelos-edit/categorias/categorias-list/categorias-list.component';
+import { SpreadsheetsLinkComponent } from './produtos/classificacao/modelos/modelos-edit/spreadsheets-link/spreadsheets-link.component';
 
 import { AppGuard } from './app.guard';
 
@@ -36,7 +37,8 @@ import { AppGuard } from './app.guard';
         IndicadoresComponent,
         ImportacaoComponent,
         CategoriasComponent,
-        CategoriasListComponent
+        CategoriasListComponent,
+        SpreadsheetsLinkComponent
     ],
     imports: [
         BrowserModule,
@@ -61,7 +63,8 @@ import { AppGuard } from './app.guard';
     ],
     entryComponents: [
         FilterComponent,
-        CategoriasComponent
+        CategoriasComponent,
+        SpreadsheetsLinkComponent
     ],
     bootstrap: [AppComponent]
 })

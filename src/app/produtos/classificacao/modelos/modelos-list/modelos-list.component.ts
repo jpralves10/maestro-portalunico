@@ -22,7 +22,7 @@ export class ModelosListComponent implements OnInit {
 
     dataSource: ModelosListDataSource;
     selection = new SelectionModel<IClassificacao>(true, []);
-    displayedColumns = ['titulo', 'status', 'dataAtualizacao', 'operacao'];
+    displayedColumns = ['titulo', 'spreadsheetId', 'idSheet', 'status', 'dataAtualizacao'];
 
     public filtroValue: IResultItem;
     public currentFilter: IResult;
@@ -70,5 +70,20 @@ export class ModelosListComponent implements OnInit {
         this.dataSource.data = [...data];
         this.dataSource.fullData = [...data];
         this.updateFiltro();
+    }
+
+    editModelo(row: IClassificacao){
+        this.router.navigate([`/classificacao-modelos/modelos-edit`], {
+            relativeTo: this.route,
+            replaceUrl: false,
+            queryParams: {
+                filterFormulario: JSON.stringify({...row})
+            }
+        });
+    }
+
+    getQtdModelosSelecionados(){
+        return this.selection.selected.length > 1 ? '' + this.selection.selected.length + ' ' + 'modelos selecionados' :
+               this.selection.selected.length > 0 ? '' + this.selection.selected.length + ' ' + 'modelos selecionado' :  ''
     }
 }
