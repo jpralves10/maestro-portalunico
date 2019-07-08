@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild, Output, EventEmitter } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 import $ from "jquery";
 
@@ -60,7 +60,8 @@ export class ProdutosTwoComponent implements OnInit {
     constructor(
         private produtoService: ProdutoService,
         private resultService: ResultService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private _snackBar: MatSnackBar
     ) {
         resultService.filter.subscribe(f => (this.filtroValue = f));
         resultService.filterResult.subscribe(fr => (this.currentFilter = fr));
@@ -241,6 +242,18 @@ export class ProdutosTwoComponent implements OnInit {
     getQtdProdutosTwoSelecionados(){
         return this.selection.selected.length > 1 ? '' + this.selection.selected.length + ' ' + 'produtos selecionados' :
                this.selection.selected.length > 0 ? '' + this.selection.selected.length + ' ' + 'produto selecionado' :  ''
+    }
+
+    classificarProduto(){
+        this.produtoService.setClassificarProduto(this.produto).subscribe(ret => {
+
+            this._snackBar.open('Produto enviado para classificação!', 'Sucesso', {
+                duration: 5000,
+            });
+        },
+        error => { this.errored = true; })
+
+        this.produto.etapaUnificacao = this.produto.etapaUnificacao
     }
 
     /** Chart Doughnut **/

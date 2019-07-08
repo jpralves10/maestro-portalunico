@@ -4,7 +4,20 @@
 </div>
 
 <div *ngIf="!loading && !finish" class="produtos-container">
-    <h3>Finalizar Preenchimento</h3>
+
+    <div style="padding-top: 5px;">
+        <h3 style="float:left">
+            Finalizar Preenchimento
+        </h3>
+
+        <button
+            mat-raised-button
+            (click)="classificarProduto()"
+            class="step-button-next"
+            style="float:right;background: #54c08a !important;color: #fff;">
+            Classificar
+        </button>
+    </div>
 
     <div *ngIf="mensagem !== null">
         <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div {{mensagem.class}}">

@@ -7,6 +7,7 @@
     width: 100%;
     padding: 0px 10px;
     margin-bottom: 10px;
+    padding-top: 10px;
 }
 
 .form-container-item {
@@ -15,6 +16,16 @@
 
 .mat-card.filtro-card {
     margin-bottom: 5px;
+}
+
+.head-fields {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 .descricao-fields {

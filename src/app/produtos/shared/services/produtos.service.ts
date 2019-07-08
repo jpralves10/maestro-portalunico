@@ -85,6 +85,12 @@ export class ProdutoService {
         );
     }
 
+    setClassificarProduto(produto: IProduto): Observable<IProduto[]> {
+        return this.httpClient.post<any>(
+            `${ GOOGLE_FORMS_API }/produtos/classificar/saveProduto`, produto
+        );
+    }
+
     // Teste
     serverGoogle(): Observable<any> {
         var headers = new HttpHeaders();

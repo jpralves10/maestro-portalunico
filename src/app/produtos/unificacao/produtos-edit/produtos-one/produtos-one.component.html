@@ -4,7 +4,20 @@
 </div>
 
 <div *ngIf="!loading" class="produtos-container">
-    <h3>Identificar Código / Expressão</h3>
+    
+    <div style="padding-top: 5px;">
+        <h3 style="float:left">
+            Identificar Código / Expressão
+        </h3>
+
+        <button
+            mat-raised-button
+            (click)="classificarProduto()"
+            class="step-button-next"
+            style="float:right;background: #54c08a !important;">
+            Classificar
+        </button>
+    </div>
 
     <!--mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">

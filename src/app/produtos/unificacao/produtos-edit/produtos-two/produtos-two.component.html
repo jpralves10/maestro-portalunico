@@ -4,7 +4,20 @@
 </div>
 
 <div class="produtos-container">
-    <h3>Verificar Versões do Produto</h3>
+
+    <div style="padding-top: 5px;">
+        <h3 style="float:left">
+            Verificar Versões do Produto
+        </h3>
+
+        <button 
+            mat-raised-button
+            (click)="classificarProduto()"
+            class="step-button-next"
+            style="float:right;background: #54c08a !important;">
+            Classificar
+        </button>
+    </div>
 
     <div *ngIf="mensagem !== null">
         <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div {{mensagem.class}}">

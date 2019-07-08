@@ -13,7 +13,8 @@ export class SpreadsheetsLinkComponent implements OnInit {
     errored = false;
     spinner = false;
 
-    @Input() linkSpreadsheets: string;
+    @Input() linkSpreadsheets: string = '';
+    @Input() linkIframe: string = '';
 
     constructor(
         public activeModal: NgbActiveModal,
@@ -24,13 +25,13 @@ export class SpreadsheetsLinkComponent implements OnInit {
         this.loading = false;
     }
 
-    addLinkSpreadsheets(){
+    /*addLinkSpreadsheets(){
         this.spinner = true;
         setTimeout(() => { this.activeModal.close(this.linkSpreadsheets), this.spinner = false; }, 2000);
-    }
+    }*/
 
     selecionarLinkSpreadsheets(){
         this.spinner = true;
-        setTimeout(() => { this.activeModal.close(this.linkSpreadsheets), this.spinner = false; }, 2000);
+        setTimeout(() => { this.activeModal.close([this.linkIframe, this.linkSpreadsheets]), this.spinner = false; }, 2000);
     }
 }

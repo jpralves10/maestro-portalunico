@@ -12,15 +12,25 @@
 
     <div class="filter-container">
 
-        <h5>Insira o link da spreadsheets:</h5>
+        <h5>Insira o link do Iframe:</h5>
+
+        <div class="content-add-categoria table-list">
+            <mat-form-field class="input-categoria">
+                <input
+                    matInput
+                    placeholder="Link do Iframe"
+                    [(ngModel)]="linkIframe"/>
+            </mat-form-field>
+        </div>
+
+        <h5>Insira o link da Spreadsheets:</h5>
 
         <div class="content-add-categoria table-list">
             <mat-form-field class="input-categoria">
                 <input
                     matInput
                     placeholder="Link da Spreadsheets"
-                    [(ngModel)]="linkSpreadsheets"
-                    (change)="addLinkSpreadsheets()"/>
+                    [(ngModel)]="linkSpreadsheets"/>
             </mat-form-field>
         </div>
     </div>

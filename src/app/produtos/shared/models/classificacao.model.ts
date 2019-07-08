@@ -5,6 +5,7 @@ export interface IClassificacao {
     _id?: any,
     spreadsheetId: string,
     idSheet: number,
+    iframe?: string,
     titulo?: string,
     version?: number,
     status?: string;

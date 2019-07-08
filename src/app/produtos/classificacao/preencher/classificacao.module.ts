@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ObserversModule } from '@angular/cdk/observers';
 //import { CdkTableModule } from '@angular/cdk/table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MaterialModule } from '../../utilitarios/material.module';
+import { MaterialModule } from '../../../utilitarios/material.module';
 import { NgxMaskModule } from 'ngx-mask';
 
 import { CLASSIFICACAO_ROUTES } from './classificacao.routes';
@@ -14,6 +14,7 @@ import { ClassificacaoComponent } from './classificacao.component';
 @NgModule({
     declarations: [
         ClassificacaoComponent
+        //SafePipe
     ],
     imports: [
         CommonModule,

@@ -290,7 +290,7 @@ export class ProdutosThreeComponent implements OnInit {
                 }
             }
 
-            this.produtoService
+            this.produtoService 
                 .setAlterarProdutos(this.produto)
                 .subscribe(versoes => {
 
@@ -313,12 +313,14 @@ export class ProdutosThreeComponent implements OnInit {
                     });
                     
                 }, error => {
-                     this.errored = true;
+                    this.errored = true;
 
-                     this.spinner = false;
-                     this.finish = false;
+                    console.log(error)
 
-                     this._snackBar.open('Não foi possível salvar este produto!', 'Erro', {
+                    this.spinner = false;
+                    this.finish = false;
+
+                    this._snackBar.open('Não foi possível salvar este produto!', 'Erro', {
                         duration: 7000,
                     });
                 });
@@ -450,5 +452,17 @@ export class ProdutosThreeComponent implements OnInit {
     voltarEtapa() {
         this.produto.etapaUnificacao--;
         this.produtoAlterado.emit(this.produto);
+    }
+
+    classificarProduto(){
+        this.produtoService.setClassificarProduto(this.produto).subscribe(ret => {
+
+            this._snackBar.open('Produto enviado para classificação!', 'Sucesso', {
+                duration: 5000,
+            });
+        },
+        error => { this.errored = true; })
+
+        this.produto.etapaUnificacao = this.produto.etapaUnificacao
     }
 }

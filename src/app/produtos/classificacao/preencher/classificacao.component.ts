@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProdutoService } from '../shared/services/produtos.service';
+import { ProdutoService } from '../../shared/services/produtos.service';
 import $ from "jquery";
-import { IClassificacao } from '../shared/models/classificacao.model';
-import { IColuna, IResposta, IComentario } from '../shared/models/classificacao.legendas';
+import { IClassificacao } from '../../shared/models/classificacao.model';
+import { IColuna, IResposta, IComentario } from '../../shared/models/classificacao.legendas';
 
 @Component({
     selector: 'app-classificacao',
@@ -22,8 +22,11 @@ export class ClassificacaoComponent implements OnInit {
 
     userInfo:any = {};
 
+    url = ''
+
     constructor(
-        private produtoService: ProdutoService
+        private produtoService: ProdutoService,
+        private hostElement: ElementRef
     ) {
         this.classificacao = {
             spreadsheetId: '1PZCLAymlsaBO1GLFPGxjZSONkYGwy-tYBeXyIDibjaQ',
@@ -31,10 +34,14 @@ export class ClassificacaoComponent implements OnInit {
         };
 
         this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'));
+        this.url = 'https://docs.google.com/forms/d/e/1FAIpQLSft8XkeMuh0vuhQl77FaGCkRLCMn4KEyG5OCURe0Jnw8q-7sA/viewform?embedded=true';
         this.obterClassificacao();
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        const iframe = this.hostElement.nativeElement.querySelector('iframe');
+        iframe.src = this.url;
+    }
 
     ngAfterViewInit() {
         //this.validaFormGoogle();

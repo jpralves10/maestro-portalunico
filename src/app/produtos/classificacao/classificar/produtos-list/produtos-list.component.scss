@@ -1,0 +1,76 @@
+.mat-row:hover {
+    cursor: pointer;
+}
+
+canvas {
+    width: 80px !important;
+    height: 40px !important;
+    margin: 0 !important;
+}
+
+.selected-itens {
+    font-size: 0.75rem;
+    font-weight: 600;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+/*
+    Pendente: #FADBD8
+    Completo: #FAE5D3
+    Inativo: #E8DAEF
+    Aprovado: #D1F2EB
+    Integrado: #D6DBDF
+*/
+
+.chip {
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    transform: translateZ(0);
+}
+
+.chip-standard {
+    transition: box-shadow 280ms cubic-bezier(.4,0,.2,1);
+    display: inline-flex;
+    padding: 5px 10px;
+    border-radius: 16px;
+    align-items: center;
+    min-height: 28px;
+    height: 1px;
+    margin-right: 5px;
+    
+    color: rgba(0,0,0,.87);
+    font-size: 0.9em;
+}
+
+.chip-Pendente {
+    background-color: #EBDEF0;
+}
+
+.chip-Completo {
+    background-color: #FAE5D3;
+}
+
+.chip-Inativo {
+    background-color: #E8DAEF;
+}
+
+.chip-Aprovado {
+    background-color: #D1F2EB;
+}
+
+.chip-Integrado {
+    background-color: #D6DBDF;
+}
+
+.container-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}

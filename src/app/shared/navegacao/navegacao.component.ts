@@ -93,13 +93,14 @@ export class NavegacaoComponent implements OnInit {
                     {id: '2.3', name: 'Catálogo de Produtos', enable: true, routerLink: '/catalogo', routerLinkActive: 'active', toggle: false, submenus: []},
                     {id: '2.4', name: 'Classificação Fiscal', enable: true, routerLink: '#', routerLinkActive: '', toggle: true, submenus: [
                         {id: '2.4.1', name: 'Criar Modelos', enable: true, routerLink: '/classificacao-modelos', routerLinkActive: 'active', toggle: false, submenus: []},
-                        {id: '2.4.2', name: 'Classificar Produtos', enable: true, routerLink: '/classificacao-preencher', routerLinkActive: 'active', toggle: false, submenus: []}
+                        {id: '2.4.2', name: 'Classificar Produtos', enable: true, routerLink: '/classificacao-classificar', routerLinkActive: 'active', toggle: false, submenus: []},
+                        {id: '2.4.3', name: 'Preencher Formulário', enable: true, routerLink: '/classificacao-preencher', routerLinkActive: 'active', toggle: false, submenus: []}
                     ]}
                 ]
             }
         ]
     }
-
+    
     openDialogFilter(): void {
         this.modalService.open(FilterComponent, {size: '900', centered: true}).result.then((result) => {}, (reason) => {
             this.getFilterResult();
@@ -115,6 +116,20 @@ export class NavegacaoComponent implements OnInit {
         this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
             this.getFilterResult();
             location.reload(); // !Important
+        });
+    }
+
+    getNotificaoResult(){
+        this.router.navigate([`/notificacao`], {
+            relativeTo: this.route,
+            replaceUrl: false
+        });
+    }
+
+    getSuporteResult(){
+        this.router.navigate([`/suporte`], {
+            relativeTo: this.route,
+            replaceUrl: false
         });
     }
 }

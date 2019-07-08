@@ -10,6 +10,7 @@ import paises from '../../../utilitarios/pais-origem.model';
 import * as Util from '../../../utilitarios/utilitarios';
 import listaNcm from '../../../utilitarios/ncm.model';
 import { msg_default_three } from '../../../utilitarios/mensagens.module';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-produtos-edit',
@@ -64,7 +65,8 @@ export class ProdutosEditComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private produtoService: ProdutoService
+        private produtoService: ProdutoService,
+        private _snackBar: MatSnackBar
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
             this.produto = JSON.parse(paramMap.get('filterCatalogo'));
@@ -376,5 +378,17 @@ export class ProdutosEditComponent implements OnInit {
                 filter: this.getFilterAsString()
             }
         });
+    }
+
+    classificarProduto(){
+        this.produtoService.setClassificarProduto(this.produto).subscribe(ret => {
+
+            this._snackBar.open('Produto enviado para classificação!', 'Sucesso', {
+                duration: 5000,
+            });
+        },
+        error => { this.errored = true; })
+
+        this.produto.etapaUnificacao = this.produto.etapaUnificacao
     }
 }

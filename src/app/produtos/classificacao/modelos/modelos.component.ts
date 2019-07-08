@@ -8,6 +8,7 @@ import { ModelosListComponent } from './modelos-list/modelos-list.component';
 import { SpreadsheetsLinkComponent } from './modelos-edit/spreadsheets-link/spreadsheets-link.component';
 import { ResultService } from '../../shared/services/formularios.result.service';
 import { IResultItem } from '../../shared/models/formulario.result.model';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-modelos',
@@ -40,7 +41,8 @@ export class ModelosComponent implements OnInit {
         private route: ActivatedRoute,
         private resultService: ResultService,
         private produtoService: ProdutoService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private _snackBar: MatSnackBar
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
             if(this.childModelosList != undefined){
@@ -69,38 +71,65 @@ export class ModelosComponent implements OnInit {
     adicionarProduto(){
         const modalLink = this.modalService.open(SpreadsheetsLinkComponent, {size: '900', centered: true});
         modalLink.componentInstance.linkSpreadsheets = '';
+        modalLink.result.then((links:string[]) => {
 
-        modalLink.result.then((link:string) => {
+            let linkIframe = links[0];
+            let linkSpread = links[1];
 
-            let itensLink:string[] = link.split('/');
-            let formulario = {} as IClassificacao
+            if(linkIframe == '' || linkSpread == '' || !linkIframe.startsWith('<iframe') || !linkSpread.startsWith('https://docs.google.com/')){
 
-            if(link != ''){
-                formulario.spreadsheetId = itensLink[5];
-                formulario.idSheet = parseInt(itensLink[6].split('edit#gid=')[1], 10);
-                formulario.spreadsheetIdDisabled = true
-                formulario.idSheetDisabled = true
+                this._snackBar.open('Verificar preenchimento!', 'Sem sucesso', {
+                    duration: 5000,
+                });
+                
             }else{
-                formulario.spreadsheetId = null;
-                formulario.idSheet = null;
-                formulario.spreadsheetIdDisabled = false
-                formulario.idSheetDisabled = false
-            }
-            
-            formulario._id = null;
-            formulario.titulo = '';
-            formulario.status = 'Novo';
+
+                let formulario = {} as IClassificacao
+
+                /* IFrame */
+
+                //<iframe src="https://docs.google.com/forms/d/e/1FAIpQLSft8XkeMuh0vuhQl77FaGCkRLCMn4KEyG5OCURe0Jnw8q-7sA/viewform?embedded=true" width="640" height="2437" frameborder="0" marginheight="0" marginwidth="0">Carregando…</iframe>
+                //"https://docs.google.com/forms/d/e/1FAIpQLSft8XkeMuh0vuhQl77FaGCkRLCMn4KEyG5OCURe0Jnw8q-7sA/viewform?embedded=true"
+
+                let str = linkIframe;
+                let patt = /src=".+embedded=true/i;
+                let result = str.match(patt);
+
+                formulario.iframe = result.toString().split('"')[1]
     
-            formulario.dataCriacao = new Date();
-            formulario.dataAtualizacao = new Date();
+                /* SpreadSheet */
     
-            this.router.navigate([`/classificacao-modelos/modelos-edit`], {
-                relativeTo: this.route,
-                replaceUrl: false,
-                queryParams: {
-                    filterFormulario: JSON.stringify({...formulario})
+                let itensLink:string[] = linkSpread.split('/');
+                
+    
+                if(linkSpread != ''){
+                    formulario.spreadsheetId = itensLink[5];
+                    formulario.idSheet = parseInt(itensLink[6].split('edit#gid=')[1], 10);
+                    formulario.spreadsheetIdDisabled = true
+                    formulario.idSheetDisabled = true
+                }else{
+                    formulario.spreadsheetId = null;
+                    formulario.idSheet = null;
+                    formulario.spreadsheetIdDisabled = false
+                    formulario.idSheetDisabled = false
                 }
-            });
+                
+                formulario._id = null;
+                formulario.titulo = '';
+                formulario.status = 'Novo';
+        
+                formulario.dataCriacao = new Date();
+                formulario.dataAtualizacao = new Date();
+        
+                this.router.navigate([`/classificacao-modelos/modelos-edit`], {
+                    relativeTo: this.route,
+                    replaceUrl: false,
+                    queryParams: {
+                        filterFormulario: JSON.stringify({...formulario})
+                    }
+                });
+            }
+
 
         }, (reason) => {});
     }

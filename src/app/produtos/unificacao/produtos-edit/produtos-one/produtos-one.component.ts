@@ -1,8 +1,10 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { Produto } from '../../../shared/models/produto.model';
+import { IProduto } from '../../../shared/models/produto.model';
 import { IFilterResult } from '../../../../shared/filter/filter.model';
+import { ProdutoService } from 'src/app/produtos/shared/services/produtos.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
     selector: 'app-produtos-one',
@@ -11,7 +13,7 @@ import { IFilterResult } from '../../../../shared/filter/filter.model';
 })
 export class ProdutosOneComponent implements OnInit {
 
-    @Input() produto: Produto;
+    @Input() produto: IProduto;
     @Output() produtoAlterado = new EventEmitter();
 
     public loading = true;
@@ -23,6 +25,8 @@ export class ProdutosOneComponent implements OnInit {
     constructor(
         private router: Router,
         private route: ActivatedRoute,
+        private produtoService: ProdutoService,
+        private _snackBar: MatSnackBar
     ) { }
 
     ngOnInit() {
@@ -74,5 +78,17 @@ export class ProdutosOneComponent implements OnInit {
     proximaEtapa(){
         this.produto.etapaUnificacao++;
         this.produtoAlterado.emit(this.produto);
+    }
+
+    classificarProduto(){
+        this.produtoService.setClassificarProduto(this.produto).subscribe(ret => {
+
+            this._snackBar.open('Produto enviado para classificação!', 'Sucesso', {
+                duration: 5000,
+            });
+        },
+        error => { this.errored = true; })
+
+        this.produto.etapaUnificacao = this.produto.etapaUnificacao
     }
 }

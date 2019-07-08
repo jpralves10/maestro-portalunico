@@ -26,6 +26,8 @@ import { CategoriasListComponent } from './produtos/classificacao/modelos/modelo
 import { SpreadsheetsLinkComponent } from './produtos/classificacao/modelos/modelos-edit/spreadsheets-link/spreadsheets-link.component';
 
 import { AppGuard } from './app.guard';
+import { NotificacoesComponent } from './shared/notificacoes/notificacoes.component';
+import { SuporteComponent } from './shared/suporte/suporte.component';
 
 @NgModule({
     declarations: [
@@ -38,7 +40,9 @@ import { AppGuard } from './app.guard';
         ImportacaoComponent,
         CategoriasComponent,
         CategoriasListComponent,
-        SpreadsheetsLinkComponent
+        SpreadsheetsLinkComponent,
+        NotificacoesComponent,
+        SuporteComponent
     ],
     imports: [
         BrowserModule,
@@ -58,7 +62,7 @@ import { AppGuard } from './app.guard';
             provide: APP_INITIALIZER,
             useFactory: initializer,
             multi: true,
-            deps: [KeycloakService]
+            deps: [KeycloakService],
         }
     ],
     entryComponents: [
