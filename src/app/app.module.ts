@@ -27,6 +27,7 @@ import { SpreadsheetsLinkComponent } from './produtos/classificacao/modelos/mode
 
 import { AppGuard } from './app.guard';
 import { NotificacoesComponent } from './shared/notificacoes/notificacoes.component';
+import { NotificacoesListComponent } from './shared/notificacoes/notificacoes-list/notificacoes-list.component';
 import { SuporteComponent } from './shared/suporte/suporte.component';
 
 @NgModule({
@@ -42,6 +43,7 @@ import { SuporteComponent } from './shared/suporte/suporte.component';
         CategoriasListComponent,
         SpreadsheetsLinkComponent,
         NotificacoesComponent,
+        NotificacoesListComponent,
         SuporteComponent
     ],
     imports: [
