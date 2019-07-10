@@ -3,11 +3,11 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { MatPaginator, MatSort } from '@angular/material';
 import { SelectionModel } from '@angular/cdk/collections';
 
-import { Produto } from '../../../shared/models/produto.model';
+import { Produto, IProduto } from '../../../shared/models/produto.model';
 import { ProdutoService } from '../../../shared/services/produtos.service';
 import { ProdutosListDataSource } from './produtos-list-datasource';
-import { IResult, IResultItem } from '../../../shared/models/unificacao.result.model';
-import { ResultService } from '../../../shared/services/unificacao.result.service';
+import { IClassificar } from 'src/app/produtos/shared/models/classificar.model';
+import { ResultService } from 'src/app/produtos/shared/services/classificar.result.service';
 
 @Component({
     selector: 'app-produtos-list',
@@ -19,16 +19,13 @@ export class ProdutosListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    @Input() data: Produto[];
-    @Input() status: string[];
+    @Input() data: IClassificar[];
 
-    produtosAprovados: Produto[] = [];
-    statusOld: string[];
     errored = false;
 
     dataSource: ProdutosListDataSource;
-    selection = new SelectionModel<Produto>(true, []);
-    displayedColumns = ['select', 'descricaoBruta', 'ncm'];
+    selection = new SelectionModel<IClassificar>(true, []);
+    displayedColumns = ['titulo', 'status', 'dataAtualizacao'];
 
     public filtroValue: IResultItem;
     public currentFilter: IResult;
@@ -45,14 +42,12 @@ export class ProdutosListComponent implements OnInit {
         this.selection.changed.subscribe(() => {
             resultService.changeFilterResult({
                 ...this.currentFilter,
-                produtos: this.selection.selected
+                classificar: this.selection.selected
             });
         });
     }
 
     ngOnInit() {
-        this.statusOld = [...this.status]
-
         this.dataSource = new ProdutosListDataSource(
             this.paginator,
             this.sort,
@@ -74,7 +69,7 @@ export class ProdutosListComponent implements OnInit {
         this.resultService.changeFilter(this.filtroValue);
     }
 
-    updateDataSource(data: Produto[]){
+    updateDataSource(data: IClassificar[]){
         this.dataSource.data = [...data];
         this.dataSource.fullData = [...data];
         this.updateFiltro();
@@ -87,7 +82,7 @@ export class ProdutosListComponent implements OnInit {
     isAllSelected() {
         const visibleData = this.dataSource.getUpdatedData();
         return !visibleData.some(
-            ds => !this.selection.selected.some(s => s.descricao === ds.descricao)
+            ds => !this.selection.selected.some(s => s.titulo === ds.titulo)
         );
     }
 
@@ -108,7 +103,7 @@ export class ProdutosListComponent implements OnInit {
         return;
     }
 
-    editRowProduto(row: Produto){
+    editRowProduto(row: IClassificar){
         this.router.navigate([`/catalogo/catalogo-edit`], {
             relativeTo: this.route,
             replaceUrl: false,
@@ -119,20 +114,20 @@ export class ProdutosListComponent implements OnInit {
     }
 
     aprovarTodos(){
-        const visibleData = this.getVisibleData();
+        /*const visibleData = this.getVisibleData();
         visibleData.forEach(row =>{
             if(row.status != 'Aprovado'){
                 this.aprovarProduto(row);
             }
         });
-        this.salvarAprovados();
+        this.salvarAprovados();*/
     }
 
-    aprovarProduto(row: Produto) {
+    aprovarProduto(row: IClassificar) {
         if(this.selection.isSelected(row)){
             row.status = 'Aprovado';
 
-            this.produtosAprovados.push(row);
+            //this.produtosAprovados.push(row);
 
             setTimeout(() => {
                 this.dataSource.getUpdatedData();
@@ -142,7 +137,7 @@ export class ProdutosListComponent implements OnInit {
     }
 
     salvarAprovados(){
-        this.produtosAprovados.forEach(produto => {
+        /*this.produtosAprovados.forEach(produto => {
             produto.dataAtualizacao = new Date();
             produto.versoesProduto = undefined;
             produto.etapaUnificacao = undefined;
@@ -161,11 +156,26 @@ export class ProdutosListComponent implements OnInit {
                 .setAlterarProdutos(produto)
                 .subscribe(versoes => {}, error => { this.errored = true;});
         })
-        this.produtosAprovados = [];
+        this.produtosAprovados = [];*/
     }
 
-    getQtdProdutosListSelecionados(){
+    getQtdClassificarListSelecionados(){
         return this.selection.selected.length > 1 ? '' + this.selection.selected.length + ' ' + 'categorias selecionadas' :
                this.selection.selected.length > 0 ? '' + this.selection.selected.length + ' ' + 'categoria selecionada' :  ''
+    }
+}
+
+export interface IResult {
+    classificar: IClassificar[];
+    data_inicio?: Date;
+    data_fim?: Date;
+}
+
+export interface IResultItem {
+    classificar: {
+        titulo: string;
+        status: string;
+        dataAtualizacao: string;
+        produto: IProduto;
     }
 }

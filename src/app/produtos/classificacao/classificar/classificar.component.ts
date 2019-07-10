@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { ProdutosListComponent } from '../../unificacao/produtos-list/produtos-list.component';
-import { IResultItem, ResultClass, IResult } from '../../shared/models/unificacao.result.model';
 import { IFilterResult } from 'src/app/shared/filter/filter.model';
-import { Produto } from '../../shared/models/produto.model';
+import { Produto, IProduto } from '../../shared/models/produto.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProdutoService } from '../../shared/services/produtos.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ResultService } from '../../shared/services/unificacao.result.service';
+import { IClassificar } from '../../shared/models/classificar.model';
+import { ResultService } from '../../shared/services/classificar.result.service';
+import { ProdutosListComponent } from './produtos-list/produtos-list.component';
 
 @Component({
   selector: 'app-classificar',
@@ -23,19 +23,9 @@ export class ClassificarComponent implements OnInit {
     errored = false;
 
     produtos: Produto[];
-    data: IResult = null;
-    status: string[] = ['Pendente', 'Completo', 'Aprovado', 'Integrado'];
+    data: IClassificar[] = null;
 
-    @Input() current_filtro: IResultItem = {
-        produto: {
-            numeroDI: '',
-            descricaoBruta: '',
-            ncm: '',
-            status: '',
-            cnpj: '',
-            operador: ''
-        }
-    };
+    @Input() current_filtro: IResultItem = {} as IResultItem
 
     constructor(
         private router: Router,
@@ -44,60 +34,47 @@ export class ClassificarComponent implements OnInit {
         private produtoService: ProdutoService,
         private modalService: NgbModal
     ) {
-        this.loading = false;
+        this.produtoService.getClassificarProdutoAll().subscribe(classificar => {
+            this.data = [...classificar]
 
-        
+            this.data.forEach(item => {
+                item.dataAtualizacao = new Date(item.dataAtualizacao)
+                item.dataCriacao = new Date(item.dataCriacao)
+            })
+
+            /*if(this.childNotificacoesList != undefined){
+                this.childNotificacoesList.updateDataSource(this.data);
+            }*/
+
+            this.loading = false;
+        })
     }
 
     ngOnInit() {}
 
-    setDadosResult(){
-        this.data = new ResultClass();
-        this.data.produtos = [];
-
-        let date = new Date();
-
-        this.produtoService.getProdutosGenerico(
-            {
-                cnpjRaiz: this.filter.importers[0],
-                status: this.status,
-                dataInicial: new Date(date.setMonth(date.getMonth() - 12)),
-                dataFinal: new Date()
-            }
-        ).subscribe(adicoes => {
-            this.data.produtos = (adicoes as any).produtos;
-
-            this.data.produtos.forEach(produto => {
-                produto.dataRegistro = new Date(produto.dataRegistro);
-                produto.dataCriacao = new Date(produto.dataCriacao);
-
-                if(produto.declaracoes == null || produto.declaracoes == undefined){
-                    produto.declaracoes = [];
-                }
-
-                produto.declaracoes.forEach(declaracao => {
-                    declaracao.dataRegistro = new Date(declaracao.dataRegistro);
-                });
-
-                produto.canalDominante = 0;
-            });
-
-            //this.agruparDeclaracoes(this.data.produtos);
-            this.produtos = this.data.produtos;
-            this.childUpdateDataSource();
-            this.loading = false;
-        },
-        error => { this.errored = true; })
-    }
-
     childUpdateDataSource(){
         if(this.childProdutosList != undefined){
-            this.childProdutosList.updateDataSource(this.data.produtos);
+            this.childProdutosList.updateDataSource(this.data);
             //this.childProdutosList.eventTable = 1;
         }
     }
 
     updateFiltro() {
         this.resultService.changeFilter(this.current_filtro);
+    }
+}
+
+export interface IResult {
+    classificar: IClassificar[];
+    data_inicio?: Date;
+    data_fim?: Date;
+}
+
+export interface IResultItem {
+    classificar: {
+        titulo: string;
+        status: string;
+        dataAtualizacao: string;
+        produto: IProduto;
     }
 }

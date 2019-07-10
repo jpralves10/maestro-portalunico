@@ -22,37 +22,17 @@
                             <mat-form-field>
                                 <input
                                     matInput
-                                    placeholder="Descrição do Produto"
-                                    [(ngModel)]="current_filtro.produto.descricaoBruta"
+                                    placeholder="Título da Classificação"
+                                    [(ngModel)]="current_filtro.titulo"
                                     (ngModelChange)="updateFiltro()" />
                             </mat-form-field>
                             <mat-form-field>
                                 <input
                                     matInput
-                                    placeholder="Número NCM"
-                                    [(ngModel)]="current_filtro.produto.ncm"
+                                    placeholder="Data da Atualização"
+                                    [(ngModel)]="current_filtro.dataAtualizacao"
                                     (ngModelChange)="updateFiltro()" />
                             </mat-form-field>
-                            <mat-form-field>
-                                <input
-                                    matInput
-                                    placeholder="Número da DI"
-                                    [(ngModel)]="current_filtro.produto.numeroDI"
-                                    (ngModelChange)="updateFiltro()" />
-                            </mat-form-field>
-                            <mat-form-field>
-                                <input
-                                    matInput
-                                    placeholder="Status"
-                                    [(ngModel)]="current_filtro.produto.status"
-                                    (ngModelChange)="updateFiltro()" />
-                            </mat-form-field>
-                        </div>
-
-                        <div class="filtro-fields-two">
-
-                            
-                            
                         </div>
                     </div>
                 </mat-expansion-panel>
@@ -60,8 +40,7 @@
 
             <app-produtos-list
                 *ngIf="data !== null"
-                [data]="data.produtos"
-                [status]="status">
+                [data]="data">
             </app-produtos-list>
 
             <!--app-produtos-list>

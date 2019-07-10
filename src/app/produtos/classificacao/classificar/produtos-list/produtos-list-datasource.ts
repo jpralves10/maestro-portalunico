@@ -3,16 +3,16 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { Input } from '@angular/core';
 import { map, filter } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, from } from 'rxjs';
-import { Produto } from '../../../shared/models/produto.model';
-import { IResultItem } from '../../../shared/models/unificacao.result.model';
-import { ResultService } from '../../../shared/services/unificacao.result.service';
+import { IClassificar } from 'src/app/produtos/shared/models/classificar.model';
+import { ResultService } from 'src/app/produtos/shared/services/classificar.result.service';
+import { IProduto } from 'src/app/produtos/shared/models/produto.model';
 
-export class ProdutosListDataSource extends DataSource<Produto> {
+export class ProdutosListDataSource extends DataSource<IClassificar> {
 
     @Input()
-    public data: Produto[];
-    public fullData: Produto[];
-    public filteredData: Produto[];
+    public data: IClassificar[];
+    public fullData: IClassificar[];
+    public filteredData: IClassificar[];
 
     public filtro: IResultItem;
     public dataObservable: Observable<any>;
@@ -21,7 +21,7 @@ export class ProdutosListDataSource extends DataSource<Produto> {
         private paginator: MatPaginator,
         private sort: MatSort,
         private resultService: ResultService,
-        data: Produto[]
+        data: IClassificar[]
     ) {
         super();
         this.data = [...data];
@@ -34,7 +34,7 @@ export class ProdutosListDataSource extends DataSource<Produto> {
      * the returned stream emits new items.
      * @returns A stream of the items to be rendered.
      */
-    connect(): Observable<Produto[]> {
+    connect(): Observable<IClassificar[]> {
         // Combine everything that affects the rendered data into one update
         // stream for the data-table to consume.
         const dataMutations = [
@@ -67,32 +67,32 @@ export class ProdutosListDataSource extends DataSource<Produto> {
      */
     disconnect() {}
 
-    public getFilteredData(data: Produto[]): Produto[] {
+    public getFilteredData(data: IClassificar[]): IClassificar[] {
 
-        const { produto } = this.filtro;
+        const { classificar } = this.filtro;
 
         let newData = data;
 
-        if (produto.numeroDI !== '') {
+        if (classificar.titulo !== '') {
             newData = newData.filter(d =>
-                d.numeroDI.includes(produto.numeroDI)
+                d.titulo.toUpperCase().includes(classificar.titulo.toUpperCase())
             );
         }
-        if (produto.descricaoBruta !== '') {
+        if (classificar.status !== '') {
             newData = newData.filter(d =>
-                d.descricaoBruta.toUpperCase().includes(produto.descricaoBruta.toUpperCase())
+                d.status.toUpperCase().includes(classificar.status.toUpperCase())
             );
         }
-        if (produto.ncm !== '') {
+        if (classificar.dataAtualizacao !== '') {
             newData = newData.filter(d =>
-                d.ncm.includes(produto.ncm)
+                d.dataAtualizacao.toString() == classificar.dataAtualizacao.toString()
             );
         }
-        if (produto.status !== '') {
+        /*if (classificar.produto.descricaoBruta !== '') {
             newData = newData.filter(d =>
-                d.status.toUpperCase().includes(produto.status.toUpperCase())
+                d.produto.descricaoBruta.toUpperCase().includes(classificar.produto.descricaoBruta.toUpperCase())
             );
-        }
+        }*/
 
         /*if(this.filter.importadores.length > 0){
 
@@ -122,7 +122,7 @@ export class ProdutosListDataSource extends DataSource<Produto> {
      * Paginate the data (client-side). If you're using server-side pagination,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getPagedData(data: Produto[]) {
+    public getPagedData(data: IClassificar[]) {
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         return data.splice(startIndex, this.paginator.pageSize);
     }
@@ -131,7 +131,7 @@ export class ProdutosListDataSource extends DataSource<Produto> {
      * Sort the data (client-side). If you're using server-side sorting,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getSortedData(data: Produto[]) {
+    public getSortedData(data: IClassificar[]) {
 
         if (!this.sort.active || this.sort.direction === '') {
             return data;
@@ -140,14 +140,14 @@ export class ProdutosListDataSource extends DataSource<Produto> {
         return data.sort((a, b) => {
             const isAsc = this.sort.direction === 'asc';
             switch (this.sort.active) {
-                /*case 'numeroDI':
-                    return compare(a.numeroDI, b.numeroDI, isAsc);*/
-                case 'descricaoBruta':
-                    return compare(a.descricaoBruta, b.descricaoBruta, isAsc);
-                case 'ncm':
-                    return compare(a.ncm, b.ncm, isAsc);
-                /*case 'canal':
-                    return compare(a.canalDominante, b.canalDominante, isAsc);*/
+                case 'titulo':
+                    return compare(a.titulo, b.titulo, isAsc);
+                case 'status':
+                    return compare(a.status, b.status, isAsc);
+                case 'dataAtualizacao':
+                    return compare(a.dataAtualizacao, b.dataAtualizacao, isAsc);
+                case 'produto':
+                    return compare(a.produto.descricaoBruta, b.produto.descricaoBruta, isAsc);
                 default:
                     return 0;
             }
@@ -158,4 +158,19 @@ export class ProdutosListDataSource extends DataSource<Produto> {
 /** Simple sort comparator for example ID/Name columns (for client-side sorting). */
 function compare(a, b, isAsc) {
     return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
+}
+
+export interface IResult {
+    classificar: IClassificar[];
+    data_inicio?: Date;
+    data_fim?: Date;
+}
+
+export interface IResultItem {
+    classificar: {
+        titulo: string;
+        status: string;
+        dataAtualizacao: string;
+        produto: IProduto;
+    }
 }

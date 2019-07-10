@@ -9,15 +9,30 @@
     flex-wrap: wrap-reverse;
     width: 100%;
 }
+
 .container-footer {
     display: grid;
-    grid-template-columns: 1fr 2fr;
+    grid-template-columns: 2fr 2fr;
     grid-column-gap: 10px;
     @media screen and (max-width: 750px) {
         display: flex;
         flex-direction: column;
     }
 }
+
 .row-modelos{
     cursor: pointer;
+    display: inline;
+    margin: 0 auto;
+    padding: 10px;
+    background: #FCF3CF;
+    margin-right: 10px;
+}
+
+.td-modelos{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    border-bottom-style:none;
+    font-size: 11px;
 }

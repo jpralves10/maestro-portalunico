@@ -11,6 +11,7 @@ import {
 } from '../../../utilitarios/app.api';
 import { IClassificacao } from '../models/classificacao.model';
 import { IComentario, ICategoriasForm } from '../models/classificacao.legendas';
+import { IClassificar } from '../models/classificar.model';
 
 @Injectable({
     providedIn: 'root'
@@ -88,6 +89,12 @@ export class ProdutoService {
     setClassificarProduto(produto: IProduto): Observable<IProduto[]> {
         return this.httpClient.post<any>(
             `${ GOOGLE_FORMS_API }/produtos/classificar/saveProduto`, produto
+        );
+    }
+
+    getClassificarProdutoAll(): Observable<IClassificar[]> {
+        return this.httpClient.post<any>(
+            `${ GOOGLE_FORMS_API }/produtos/classificar/findAll`, []
         );
     }
 

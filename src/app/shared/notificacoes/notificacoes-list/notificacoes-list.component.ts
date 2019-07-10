@@ -7,6 +7,8 @@ import { ProdutoService } from 'src/app/produtos/shared/services/produtos.servic
 import { IClassificacao } from 'src/app/produtos/shared/models/classificacao.model';
 import { ResultService } from '../../service/notificacoes.result.service';
 import { INotificacoes } from '../notificacoes.model';
+import $ from "jquery";
+import { FilterService } from '../../service/filter.service';
 
 @Component({
     selector: 'app-notificacoes-list',
@@ -22,7 +24,7 @@ export class NotificacoesListComponent implements OnInit {
 
     dataSource: NotificacoesListDataSource;
     selection = new SelectionModel<INotificacoes>(true, []);
-    displayedColumns = ['titulo', 'spreadsheetId', 'idSheet', 'status', 'dataAtualizacao'];
+    displayedColumns = ['select', 'tela', 'titulo', 'status', 'dataAtualizacao'];
 
     public filtroValue: IResultItem;
     public currentFilter: IResult;
@@ -31,7 +33,7 @@ export class NotificacoesListComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private resultService: ResultService,
-        private produtoService: ProdutoService
+        private filterService: FilterService
     ) {
         resultService.filter.subscribe(f => (this.filtroValue = f));
         resultService.filterResult.subscribe(fr => (this.currentFilter = fr));
@@ -58,6 +60,7 @@ export class NotificacoesListComponent implements OnInit {
             ...this.resultService.whenUpdated,
             this.paginator
         ]);
+        $( "thead" ).attr("style", "display: none !important;");
     }
 
     /** Filtro Mat Table **/
@@ -85,6 +88,38 @@ export class NotificacoesListComponent implements OnInit {
     getQtdNotificacoesSelecionados(){
         return this.selection.selected.length > 1 ? '' + this.selection.selected.length + ' ' + 'Notificacões selecionadas' :
                this.selection.selected.length > 0 ? '' + this.selection.selected.length + ' ' + 'Notificacão selecionada' :  ''
+    }
+
+    getVisibleData() {
+        return this.dataSource.getUpdatedData();
+    }
+
+    deselectAll() {
+        this.selection.clear();
+        this.paginator.firstPage();
+    }
+
+    removerTodos(){
+        const visibleData = this.getVisibleData();
+        visibleData.forEach(row =>{
+            this.removeRowCategoria(row);
+        });
+    }
+
+    removeRowCategoria(row: INotificacoes) {
+        if(this.selection.isSelected(row)){
+            this.data.splice(this.data.indexOf(row), 1);
+            this.dataSource.data = [...this.data];
+            this.dataSource.fullData = [...this.data];
+
+            this.filterService.delNotificacoesForm(row).subscribe(status => {})
+
+            setTimeout(() => {
+                this.selection.toggle(row);
+                this.dataSource.getUpdatedData();
+                this.updateFiltro();
+            }, 500);
+        }
     }
 }
 
