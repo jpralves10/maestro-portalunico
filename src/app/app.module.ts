@@ -29,6 +29,8 @@ import { AppGuard } from './app.guard';
 import { NotificacoesComponent } from './shared/notificacoes/notificacoes.component';
 import { NotificacoesListComponent } from './shared/notificacoes/notificacoes-list/notificacoes-list.component';
 import { SuporteComponent } from './shared/suporte/suporte.component';
+import { ModelosClassificarComponent } from './produtos/classificacao/classificar/classificar-list/modelos-classificar/modelos-classificar.component';
+import { ModelosClassificarListComponent } from './produtos/classificacao/classificar/classificar-list/modelos-classificar/modelos-classificar-list/modelos-classificar-list.component';
 
 @NgModule({
     declarations: [
@@ -40,6 +42,8 @@ import { SuporteComponent } from './shared/suporte/suporte.component';
         IndicadoresComponent,
         ImportacaoComponent,
         CategoriasComponent,
+        ModelosClassificarComponent,
+        ModelosClassificarListComponent,
         CategoriasListComponent,
         SpreadsheetsLinkComponent,
         NotificacoesComponent,
@@ -70,6 +74,7 @@ import { SuporteComponent } from './shared/suporte/suporte.component';
     entryComponents: [
         FilterComponent,
         CategoriasComponent,
+        ModelosClassificarComponent,
         SpreadsheetsLinkComponent
     ],
     bootstrap: [AppComponent]

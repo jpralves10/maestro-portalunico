@@ -1,80 +1,73 @@
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { IFilterResult } from 'src/app/shared/filter/filter.model';
-import { Produto, IProduto } from '../../shared/models/produto.model';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ProdutoService } from '../../shared/services/produtos.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
+import { ProdutoService } from '../../shared/services/produtos.service';
+import { ClassificarListComponent } from './classificar-list/classificar-list.component';
+import { ResultService } from '../../shared/services/formularios.result.service';
+import { IResultItem } from '../../shared/models/formulario.result.model';
+import { MatSnackBar } from '@angular/material';
 import { IClassificar } from '../../shared/models/classificar.model';
-import { ResultService } from '../../shared/services/classificar.result.service';
-import { ProdutosListComponent } from './produtos-list/produtos-list.component';
 
 @Component({
-  selector: 'app-classificar',
-  templateUrl: './classificar.component.html',
-  styleUrls: ['./classificar.component.scss']
+    selector: 'app-classificar',
+    templateUrl: './classificar.component.html',
+    styleUrls: ['./classificar.component.scss']
 })
 export class ClassificarComponent implements OnInit {
 
-    @ViewChild(ProdutosListComponent) 
-    childProdutosList:ProdutosListComponent;
+    @ViewChild(ClassificarListComponent) 
+    childClassificarList:ClassificarListComponent;
 
-    filter: IFilterResult;
     loading = true;
     errored = false;
 
-    produtos: Produto[];
-    data: IClassificar[] = null;
+    formulario = {} as IClassificar;
+    data: IClassificar[] = [];
 
-    @Input() current_filtro: IResultItem = {} as IResultItem
+    current_filtro: IResultItem = {
+        formulario: {
+            spreadsheetId: '',
+            idSheet: null,
+            titulo: '',
+            status: '',
+            dataAtualizacao: null
+        }
+    }
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private resultService: ResultService,
         private produtoService: ProdutoService,
-        private modalService: NgbModal
+        private modalService: NgbModal,
+        private _snackBar: MatSnackBar
     ) {
-        this.produtoService.getClassificarProdutoAll().subscribe(classificar => {
+        /*this.route.queryParamMap.subscribe(paramMap => {
+            if(this.childClassificarList != undefined){
+                this.data.push(JSON.parse(paramMap.get('paramsFormulario')));
+                this.childClassificarList.updateDataSource(this.data);
+            }            
+        });*/
+
+        this.produtoService.getClassificarAll().subscribe(classificar => {
             this.data = [...classificar]
 
             this.data.forEach(item => {
                 item.dataAtualizacao = new Date(item.dataAtualizacao)
                 item.dataCriacao = new Date(item.dataCriacao)
             })
-
-            /*if(this.childNotificacoesList != undefined){
-                this.childNotificacoesList.updateDataSource(this.data);
-            }*/
-
+            
+            if(this.childClassificarList != undefined){
+                this.childClassificarList.updateDataSource(this.data);
+            }
             this.loading = false;
         })
     }
 
     ngOnInit() {}
 
-    childUpdateDataSource(){
-        if(this.childProdutosList != undefined){
-            this.childProdutosList.updateDataSource(this.data);
-            //this.childProdutosList.eventTable = 1;
-        }
-    }
-
     updateFiltro() {
         this.resultService.changeFilter(this.current_filtro);
-    }
-}
-
-export interface IResult {
-    classificar: IClassificar[];
-    data_inicio?: Date;
-    data_fim?: Date;
-}
-
-export interface IResultItem {
-    classificar: {
-        titulo: string;
-        status: string;
-        dataAtualizacao: string;
-        produto: IProduto;
     }
 }

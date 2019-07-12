@@ -1,0 +1,57 @@
+
+<div class="modal-header">
+    <span class="modal-title">
+        Modelos de Formulário
+    </span>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+
+    <div *ngIf="loading" fxAlign="center" class="loading">
+        <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        <p>Carregando os dados para filtro...</p>
+    </div>
+
+    <div *ngIf="!loading" class="filter-container">
+
+        <div class="content-add-formulario table-list">
+            <div class="btn-formulario">
+                <a (click)="findFormulario()" class="btn-find-formulario">
+                    <i class="fas fa-filter"></i>
+                    Pesquisar Formulario
+                </a>
+            </div>
+            <mat-form-field class="input-formulario">
+                <input
+                    matInput
+                    placeholder="Título do Formulário"
+                    [(ngModel)]="formulario.titulo"
+                    (ngModelChange)="findFormularioList()"/>
+            </mat-form-field>    
+        </div>
+
+        <h5>Listagem de Formularios:</h5>
+
+        <app-modelos-classificar-list
+            *ngIf="data.length > 0"
+            [data]="data"
+            [modelosClassificar]="modelosClassificar">
+        </app-modelos-classificar-list>
+
+        <div *ngIf="data.length == 0" class="table-not-records" style="padding-left: 0;">
+            Nenhum registro encontrado!
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+    <button
+        mat-raised-button
+        class="filter-button"
+        (click)="selecionarFormulario()">
+        Selecionar
+    </button>
+</div>

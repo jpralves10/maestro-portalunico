@@ -1,0 +1,86 @@
+//@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.filter-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 10px;
+    //margin-bottom: 10px;
+}
+.mat-card.filtro-card {
+    margin-bottom: 5px;
+}
+.importer-fields {
+    display: grid;
+    grid-template-columns: 3fr 1fr;
+    grid-column-gap: 10px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+.period-fields {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+.form-container {
+    display: flex;
+    flex-direction: column;
+}
+.filter-button {
+    background: #673AB7;
+    color: #fff;
+    float: right;
+}
+.modal-title{
+    font-weight: 500;
+    line-height: 1.2;
+    font-size: 1.25rem;
+    color: #596679;
+}
+.modal-body{
+    min-height: 300px;
+    max-height: 800px;
+    overflow-y: auto;
+    padding-top: 0px;
+    font-size: 12px;
+    color: #596679;
+}
+.title-body{
+    font-size: 1.25rem;
+    margin-bottom: .8rem;
+    font-weight: 400;
+    line-height: 1.2;
+}
+.container-body{
+    margin: 10px;
+    min-height: 250px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+.content-add-categoria {
+    padding-bottom: 15px;
+}
+.btn-categoria {
+    padding: 10px;
+    padding-left: 0;
+}
+.input-categoria {
+    padding: 10px;
+    padding-left: 0;
+    width: 50%;
+}
+.btn-add-categoria{
+    padding-right: 5px;
+    cursor: pointer;
+}
+.btn-find-categoria{
+    padding-left: 5px;
+    cursor: pointer;
+}

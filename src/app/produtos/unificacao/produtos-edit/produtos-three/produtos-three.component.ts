@@ -63,6 +63,8 @@ export class ProdutosThreeComponent implements OnInit {
     codigoInternoColumns: string[] = ['valor', 'operacao'];
     codigointerno_form = '';
 
+    userInfo: any;
+
     constructor(
         private router: Router,
         private route: ActivatedRoute,
@@ -71,6 +73,8 @@ export class ProdutosThreeComponent implements OnInit {
     ) { 
         this.paises = paises;
         this.listaNcm = listaNcm;
+
+        this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'))
     }
 
     ngOnInit() {
@@ -455,7 +459,12 @@ export class ProdutosThreeComponent implements OnInit {
     }
 
     classificarProduto(){
-        this.produtoService.setClassificarProduto(this.produto).subscribe(ret => {
+
+        let name = this.userInfo.firstName + this.userInfo.lastName
+
+        this.produtoService.setClassificarProduto(
+            [{nome:name, email:this.userInfo.email}, this.produto]
+        ).subscribe(ret => {
 
             this._snackBar.open('Produto enviado para classificação!', 'Sucesso', {
                 duration: 5000,

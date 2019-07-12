@@ -4,21 +4,21 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProdutoService } from '../../shared/services/produtos.service';
 import { IClassificacao } from '../../shared/models/classificacao.model';
-import { ModelosListComponent } from './modelos-list/modelos-list.component';
-import { SpreadsheetsLinkComponent } from './modelos-edit/spreadsheets-link/spreadsheets-link.component';
+import { PreencherListComponent } from './preencher-list/preencher-list.component';
+import { SpreadsheetsLinkComponent } from './preencher-edit/spreadsheets-link/spreadsheets-link.component';
 import { ResultService } from '../../shared/services/formularios.result.service';
 import { IResultItem } from '../../shared/models/formulario.result.model';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
-    selector: 'app-modelos',
-    templateUrl: './modelos.component.html',
-    styleUrls: ['./modelos.component.scss']
+    selector: 'app-preencher',
+    templateUrl: './preencher.component.html',
+    styleUrls: ['./preencher.component.scss']
 })
-export class ModelosComponent implements OnInit {
+export class PreencherComponent implements OnInit {
 
-    @ViewChild(ModelosListComponent) 
-    childModelosList:ModelosListComponent;
+    @ViewChild(PreencherListComponent) 
+    childPreencherList:PreencherListComponent;
 
     loading = true;
     errored = false;
@@ -45,9 +45,9 @@ export class ModelosComponent implements OnInit {
         private _snackBar: MatSnackBar
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
-            if(this.childModelosList != undefined){
+            if(this.childPreencherList != undefined){
                 this.data.push(JSON.parse(paramMap.get('paramsFormulario')));
-                this.childModelosList.updateDataSource(this.data);
+                this.childPreencherList.updateDataSource(this.data);
             }            
         });
 
@@ -59,8 +59,8 @@ export class ModelosComponent implements OnInit {
                 item.dataCriacao = new Date(item.dataCriacao)
             })
             
-            if(this.childModelosList != undefined){
-                this.childModelosList.updateDataSource(this.data);
+            if(this.childPreencherList != undefined){
+                this.childPreencherList.updateDataSource(this.data);
             }
             this.loading = false;
         })
@@ -121,7 +121,7 @@ export class ModelosComponent implements OnInit {
                 formulario.dataCriacao = new Date();
                 formulario.dataAtualizacao = new Date();
         
-                this.router.navigate([`/classificacao-modelos/modelos-edit`], {
+                this.router.navigate([`/classificacao-preencher/preencher-edit`], {
                     relativeTo: this.route,
                     replaceUrl: false,
                     queryParams: {

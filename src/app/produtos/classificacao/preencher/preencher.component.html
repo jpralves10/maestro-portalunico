@@ -4,7 +4,7 @@
 </div>
 
 <div *ngIf="!loading" class="filter-container">
-    <h3>Cassificar de Formulários</h3>
+    <h3>Preencher de Formulários</h3>
 
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
@@ -62,18 +62,14 @@
                                     (ngModelChange)="updateFiltro()" />
                             </mat-form-field>
                         </div>
-
-                        <div class="filtro-fields-two">
-                            
-                        </div>
                     </div>
                 </mat-expansion-panel>
             </mat-accordion>
 
-            <app-classificar-list
+            <app-preencher-list
                 *ngIf="data.length > 0"
                 [data]="data">
-            </app-classificar-list>
+            </app-preencher-list>
 
         </mat-card-content>
     </mat-card>

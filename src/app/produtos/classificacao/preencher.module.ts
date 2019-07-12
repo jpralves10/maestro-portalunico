@@ -5,20 +5,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ObserversModule } from '@angular/cdk/observers';
 //import { CdkTableModule } from '@angular/cdk/table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MaterialModule } from '../../../utilitarios/material.module';
+import { MaterialModule } from '../../utilitarios/material.module';
 import { NgxMaskModule } from 'ngx-mask';
 
-import { MODELOS_ROUTES } from './modelos.routes';
+import { PreencherComponent } from './preencher/preencher.component';
+import { PreencherListComponent } from './preencher/preencher-list/preencher-list.component';
+import { PreencherEditComponent } from './preencher/preencher-edit/preencher-edit.component';
 
-import { ModelosComponent } from './modelos.component';
-import { ModelosListComponent } from './modelos-list/modelos-list.component';
-import { ModelosEditComponent } from './modelos-edit/modelos-edit.component';
+export const PREENCHER_ROUTES = [
+    { path: '', component: PreencherComponent },
+    { path: 'preencher-edit', component: PreencherEditComponent },
+    { path: '**', redirectTo: '' }
+];
 
 @NgModule({
     declarations: [
-        ModelosComponent,
-        ModelosListComponent,
-        ModelosEditComponent
+        PreencherComponent,
+        PreencherListComponent,
+        PreencherEditComponent
     ],
     imports: [
         CommonModule,
@@ -27,9 +31,9 @@ import { ModelosEditComponent } from './modelos-edit/modelos-edit.component';
         MaterialModule,
         ObserversModule,
         NgbModule.forRoot(),
-        RouterModule.forChild(MODELOS_ROUTES),
+        RouterModule.forChild(PREENCHER_ROUTES),
         NgxMaskModule.forRoot()
     ],
     entryComponents: []
 })
-export class ModelosModule { }
+export class PreencherModule { }

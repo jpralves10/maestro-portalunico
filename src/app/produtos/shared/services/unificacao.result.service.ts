@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material';
 import { IResult, IResultItem } from '../models/unificacao.result.model';
-import { IClassificar } from '../models/classificar.model';
-import { IProduto } from '../models/produto.model';
 
 @Injectable({
     providedIn: 'root'

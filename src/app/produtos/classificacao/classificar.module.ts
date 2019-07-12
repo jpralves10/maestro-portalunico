@@ -5,17 +5,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ObserversModule } from '@angular/cdk/observers';
 //import { CdkTableModule } from '@angular/cdk/table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MaterialModule } from '../../../utilitarios/material.module';
+import { MaterialModule } from '../../utilitarios/material.module';
 import { NgxMaskModule } from 'ngx-mask';
 
-import { CLASSIFICAR_ROUTES } from './classificar.routes';
-import { ClassificarComponent } from './classificar.component';
-import { ProdutosListComponent } from './produtos-list/produtos-list.component';
+import { ClassificarComponent } from './classificar/classificar.component';
+import { ClassificarListComponent } from './classificar/classificar-list/classificar-list.component';
+import { ClassificarEditComponent } from './classificar/classificar-edit/classificar-edit.component';
+
+export const CLASSIFICAR_ROUTES = [
+    { path: '', component: ClassificarComponent },
+    { path: 'classificar-edit', component: ClassificarEditComponent },
+    { path: '**', redirectTo: '' }
+];
 
 @NgModule({
     declarations: [
         ClassificarComponent,
-        ProdutosListComponent
+        ClassificarListComponent,
+        ClassificarEditComponent
     ],
     imports: [
         CommonModule,

@@ -11,10 +11,11 @@ export interface IResult {
 export interface IResultItem {
     formulario: {
         spreadsheetId: string,
-        idSheet: string,
-        titulo: string,
-        status: string,
-        dataAtualizacao: string
+        idSheet: number,
+        titulo?: string,
+        status?: string,
+        dataAtualizacao?: Date,
+        disabled?: boolean
     }
 }
 

@@ -18,6 +18,7 @@ export interface IClassificacao {
 
     spreadsheetIdDisabled?: boolean,
     idSheetDisabled?: boolean
+    disabled?: boolean
 }
 
 /*

@@ -5,16 +5,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ObserversModule } from '@angular/cdk/observers';
 //import { CdkTableModule } from '@angular/cdk/table';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { MaterialModule } from '../../../utilitarios/material.module';
+import { MaterialModule } from '../../utilitarios/material.module';
 import { NgxMaskModule } from 'ngx-mask';
 
-import { CLASSIFICACAO_ROUTES } from './classificacao.routes';
-import { ClassificacaoComponent } from './classificacao.component';
+import { ModelosComponent } from './modelos/modelos.component';
+import { ModelosListComponent } from './modelos/modelos-list/modelos-list.component';
+import { ModelosEditComponent } from './modelos/modelos-edit/modelos-edit.component';
+
+export const MODELOS_ROUTES = [
+    { path: '', component: ModelosComponent },
+    { path: 'modelos-edit', component: ModelosEditComponent },
+    { path: '**', redirectTo: '' }
+];
 
 @NgModule({
     declarations: [
-        ClassificacaoComponent
-        //SafePipe
+        ModelosComponent,
+        ModelosListComponent,
+        ModelosEditComponent
     ],
     imports: [
         CommonModule,
@@ -23,9 +31,9 @@ import { ClassificacaoComponent } from './classificacao.component';
         MaterialModule,
         ObserversModule,
         NgbModule.forRoot(),
-        RouterModule.forChild(CLASSIFICACAO_ROUTES),
+        RouterModule.forChild(MODELOS_ROUTES),
         NgxMaskModule.forRoot()
     ],
     entryComponents: []
 })
-export class ClassificacaoModule { }
+export class ModelosModule { }

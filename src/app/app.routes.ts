@@ -13,8 +13,8 @@ export const ROUTES: Routes = [
     { path: 'suporte', component: SuporteComponent },
     { path: 'catalogo', loadChildren: './produtos/catalogo/catalogo.module#CatalogoModule' },
     { path: 'unificacao', loadChildren: './produtos/unificacao/unificacao.module#UnificacaoModule' },
-    { path: 'classificacao-preencher', loadChildren: './produtos/classificacao/preencher/classificacao.module#ClassificacaoModule'},
-    { path: 'classificacao-modelos', loadChildren: './produtos/classificacao/modelos/modelos.module#ModelosModule'},
-    { path: 'classificacao-classificar', loadChildren: './produtos/classificacao/classificar/classificar.module#ClassificarModule'},
+    { path: 'classificacao-preencher', loadChildren: './produtos/classificacao/preencher.module#PreencherModule'},
+    { path: 'classificacao-modelos', loadChildren: './produtos/classificacao/modelos.module#ModelosModule'},
+    { path: 'classificacao-classificar', loadChildren: './produtos/classificacao/classificar.module#ClassificarModule'},
     { path: '**', redirectTo: '' }
 ]

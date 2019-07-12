@@ -1,0 +1,20 @@
+.selected-itens {
+    font-size: 0.75rem;
+    font-weight: 600;
+    
+    display: flex;
+    align-items: center;
+    min-height: 56px;
+    padding: 0 8px;
+    flex-wrap: wrap-reverse;
+    width: 100%;
+}
+.container-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: 10px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}

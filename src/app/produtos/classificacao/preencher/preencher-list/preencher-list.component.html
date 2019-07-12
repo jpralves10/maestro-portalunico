@@ -1,0 +1,102 @@
+<div class="table-list">
+    <table
+        mat-table
+        class="full-width-table"
+        [dataSource]="dataSource"
+        matSort
+        aria-label="Elements">
+
+        <!-- Column -->
+        <!--ng-container matColumnDef="select">
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox
+                    class="select-check"
+                    (change)="$event ? masterToggle() : null"
+                    [checked]="selection.hasValue() && isAllSelected()"
+                    [indeterminate]="selection.hasValue() && !isAllSelected()">
+                </mat-checkbox>
+            </th>
+            <td mat-cell *matCellDef="let row">
+                <mat-checkbox
+                    class="select-check"
+                    (click)="$event.stopPropagation(); habilitarOperacao(row, null)"
+                    (change)="$event ? selection.toggle(row) : null"
+                    [checked]="selection.isSelected(row)">
+                </mat-checkbox>
+            </td>
+        </ng-container-->
+
+        <ng-container matColumnDef="titulo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Título</th>
+            <td mat-cell *matCellDef="let row">{{ row.titulo }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="spreadsheetId">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>SpreadsheetId</th>
+            <td mat-cell *matCellDef="let row">{{ row.spreadsheetId }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="idSheet">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>IdSheet</th>
+            <td mat-cell *matCellDef="let row">{{ row.idSheet }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Status</th>
+            <td mat-cell *matCellDef="let row">{{ row.status }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="dataAtualizacao">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Data de Atualização</th>
+            <td mat-cell *matCellDef="let row">
+                {{row.dataAtualizacao.toLocaleDateString()}}
+                {{row.dataAtualizacao.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="editModelo(row)" class="row-preencher"></tr>
+    </table>
+
+    <div class="container-footer">
+        <div class="selected-itens">
+            {{ getQtdPreencherSelecionados() }}
+            <button
+                mat-button
+                color="warn"
+                style="padding:0 10px;"
+                (click)="deselectAll()">
+                {{
+                    selection.selected.length > 1
+                        ? 'Desmarcar todos'
+                        : selection.selected.length > 0 ? 'Desmarcar' : ''
+                }}
+            </button>
+            {{
+                selection.hasValue() && selection.selected.length > 0
+                    ? '/'
+                    : ''
+            }}
+            <button
+                mat-button
+                *ngIf="selection.hasValue() && selection.selected.length > 0"
+                color="warn"
+                style="padding:0 10px;"
+                (click)="removerTodos()">
+                {{
+                    selection.selected.length > 1 && selection.selected.length > 0
+                        ? 'Remover todos'
+                        : 'Remover'
+                }}
+            </button>
+        </div>
+
+        <mat-paginator
+            #paginator
+            [length]="dataSource.data.length"
+            [pageIndex]="0"
+            [pageSize]="5"
+            [pageSizeOptions]="[5, 10, 20, 50, 100, 200, 500, 1000]">
+        </mat-paginator>
+    </div>
+</div>

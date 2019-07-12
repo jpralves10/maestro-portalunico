@@ -44,13 +44,28 @@
             </td>
         </ng-container>
 
+        <ng-container matColumnDef="operacoes">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Operacoes</th>
+            <td mat-cell *matCellDef="let row">
+                <span style="padding: 5px;" (click)="openModelo(row)">
+                    <i class="fas fa-link fa-lg"></i>
+                </span>
+                <span style="padding: 5px;">
+                    <i class="fas fa-file-alt fa-lg"></i>
+                </span>
+                <span style="padding: 5px;" (click)="editModelo(row)">
+                    <i class="fas fa-edit fa-lg"></i>
+                </span>
+            </td>
+        </ng-container>
+
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="editModelo(row)" class="row-modelos"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns" class="row-classificar"></tr>
     </table>
 
     <div class="container-footer">
         <div class="selected-itens">
-            {{ getQtdClassificarListSelecionados() }}
+            {{ getQtdClassificarSelecionados() }}
             <button
                 mat-button
                 color="warn"

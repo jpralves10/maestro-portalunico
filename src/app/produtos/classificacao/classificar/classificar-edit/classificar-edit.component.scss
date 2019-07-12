@@ -1,0 +1,149 @@
+//@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+.produtos-container {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 10px 10px;
+    margin-bottom: 10px;
+}
+
+.mat-card.filtro-card {
+    margin-bottom: 5px;
+}
+
+.produto-fields {
+    display: grid;
+    margin-bottom: 10px;
+    grid-template-columns: 2fr 2fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.produto-fields-textarea {
+    display: grid;
+    //grid-template-columns: 2fr 2fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.produto-descricao {
+    min-height: 60px;
+}
+
+.produto-atributo-fields {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.produto-codigos-fields {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.atributo-button-add {
+    width: 100px;
+    height: 40px;
+}
+
+.atributo-table {
+    min-width: 70%;
+}
+
+.atributo-table tr {
+    height: 35px;
+}
+
+.categorias-fields {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr;
+    grid-column-gap: 50px;
+    @media screen and (max-width: 750px) {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+.add-categorias {
+    width: 100px;
+    height: 40px;
+    color: #596679;
+}
+
+.codigointerno-table {
+    min-width: 70%;
+}
+
+.codigointerno-table tr {
+    height: 35px;
+}
+
+.atributos-panel-content {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0 20px 16px;
+}
+
+.codigos-panel-content {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 0 20px 16px;
+}
+
+.categorias-content {
+    //max-height: 300px;
+    overflow-y: auto;
+    color: #596679;
+    //padding: 0 10px 16px;
+}
+
+.step-button-finish {
+    background-color: #673AB7; //#BB8FCE;
+    color: #fff;
+}
+
+.step-button-return {
+    color:darkgrey;
+}
+
+.button-return {
+    color:darkgrey;
+}
+
+.informativo {
+    font-size: 12px;
+    color: #596679;
+}
+
+.informativo span {
+    font-weight: 500;
+}
+
+/* Categorias */
+ul {
+    padding:0px;
+    margin:0px;
+    list-style:none;
+}
+
+ul li {
+    //display: inline-block;
+    color: #596679;
+}

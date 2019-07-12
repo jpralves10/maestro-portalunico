@@ -54,8 +54,10 @@ export class ProdutosTwoComponent implements OnInit {
 
     displayedColumns = ['select', 'descricaoBruta', 'ncm', 'quantidade', 'similaridade', 'canal'];
 
-    public filtroValue: IResultItem;
-    public currentFilter: IResult;
+    filtroValue: IResultItem;
+    currentFilter: IResult;
+
+    userInfo: any;
 
     constructor(
         private produtoService: ProdutoService,
@@ -71,7 +73,9 @@ export class ProdutosTwoComponent implements OnInit {
                 ...this.currentFilter,
                 produtos: this.selection.selected
             });
-        });   
+        });
+
+        this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'))
     }
 
     ngOnInit() {
@@ -245,7 +249,12 @@ export class ProdutosTwoComponent implements OnInit {
     }
 
     classificarProduto(){
-        this.produtoService.setClassificarProduto(this.produto).subscribe(ret => {
+
+        let name = this.userInfo.firstName + this.userInfo.lastName
+
+        this.produtoService.setClassificarProduto(
+            [{nome:name, email:this.userInfo.email}, this.produto]
+        ).subscribe(ret => {
 
             this._snackBar.open('Produto enviado para classificação!', 'Sucesso', {
                 duration: 5000,

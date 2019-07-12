@@ -1,0 +1,97 @@
+<div class="produtos-container">
+    <h3>Editar Modelo</h3>
+
+    <div *ngIf="mensagem !== null">
+        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div {{mensagem.class}}">
+            <span class="alert-text">{{msg.valor}}</span>
+        </div>
+    </div>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+            <div class="produto-fields-textarea">
+                <mat-form-field>
+                    <textarea
+                        matInput
+                        placeholder="Título do Formulario"
+                        [(ngModel)]="formulario.titulo"
+                        class="produto-descricao">
+                    </textarea>
+                </mat-form-field>
+            </div>
+
+            <div class="produto-fields">
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Número da Planilha"
+                        [(ngModel)]="formulario.spreadsheetId"
+                        [disabled]="formulario.spreadsheetIdDisabled"/>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input
+                        matInput
+                        placeholder="Número da Folha"
+                        [(ngModel)]="formulario.idSheet"
+                        [disabled]="formulario.idSheetDisabled"/>
+                </mat-form-field>
+
+                <mat-checkbox
+                    [checked]="formulario.status == 'Inativo'"
+                    (change)="setStatusFormulario($event)">
+                    Inativar Formulário
+                </mat-checkbox>
+            </div>
+
+            <div class="categorias-content table-list">
+                <div class="categorias-fields">
+                    Categorias:
+                    <a (click)="openDialogCategorias()" class="add-categorias">
+                        <i class="fas fa-plus-square"></i>
+                        Adicionar
+                    </a>
+                </div>
+
+                <ul>
+                    <li *ngFor="let categoria of formulario.categorias">
+                        <button mat-button (click)="removerCategoria(categoria)" style="font-size: 0.9em;">
+                            <i class="fas fa-times"></i>
+                            {{categoria.descricao}}
+                        </button>
+                    </li>
+                </ul>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card class="mat-elevation-z5">
+        
+        <mat-card-actions align="end" style="padding:0;margin:0;">
+
+            <img 
+                *ngIf="spinner" 
+                src="assets/spinner.gif" 
+                style="height:30px;padding-right:10px;">
+
+            <button
+                mat-raised-button
+                (click)="voltarEtapa()"
+                class="button-return"
+                style="margin: 0 8px;">
+                <!--i class="fas fa-angle-double-left fa-sm"></i-->
+                Voltar
+            </button>
+
+            <button
+                mat-raised-button
+                (click)="finalizarPreenchimento()"
+                class="step-button-finish">
+                <i class="fas fa-check fa-sm"></i>
+                Finalizar
+            </button>
+        </mat-card-actions>
+    </mat-card>
+</div>

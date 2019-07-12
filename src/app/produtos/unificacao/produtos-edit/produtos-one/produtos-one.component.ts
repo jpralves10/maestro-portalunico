@@ -21,13 +21,17 @@ export class ProdutosOneComponent implements OnInit {
 
     descricaoBruta: string = '';
     codigoSelecionado: string = '';
+
+    userInfo: any;
     
     constructor(
         private router: Router,
         private route: ActivatedRoute,
         private produtoService: ProdutoService,
         private _snackBar: MatSnackBar
-    ) { }
+    ) {
+        this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'))
+    }
 
     ngOnInit() {
         this.loading = false;
@@ -81,7 +85,11 @@ export class ProdutosOneComponent implements OnInit {
     }
 
     classificarProduto(){
-        this.produtoService.setClassificarProduto(this.produto).subscribe(ret => {
+        let name = this.userInfo.firstName + this.userInfo.lastName
+
+        this.produtoService.setClassificarProduto(
+            [{nome:name, email:this.userInfo.email}, this.produto]
+        ).subscribe(ret => {
 
             this._snackBar.open('Produto enviado para classificação!', 'Sucesso', {
                 duration: 5000,

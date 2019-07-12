@@ -1,13 +1,13 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
+import { map } from 'rxjs/operators';
+import { Observable, of as observableOf, merge } from 'rxjs';
 import { Input } from '@angular/core';
-import { map, filter } from 'rxjs/operators';
-import { Observable, of as observableOf, merge, from } from 'rxjs';
-import { IResultItem } from '../../../shared/models/formulario.result.model';
-import { ResultService } from '../../../shared/services/formularios.result.service';
 import { IClassificacao } from 'src/app/produtos/shared/models/classificacao.model';
+import { IResultItem } from 'src/app/produtos/shared/models/formulario.result.model';
+import { ResultService } from 'src/app/produtos/shared/services/formularios.result.service';
 
-export class ModelosListDataSource extends DataSource<IClassificacao> {
+export class ModelosClassificarListDataSource extends DataSource<IClassificacao> {
 
     @Input()
     public data: IClassificacao[];
@@ -15,18 +15,17 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
     public filteredData: IClassificacao[];
 
     public filtro: IResultItem;
-    public dataObservable: Observable<any>;
 
     constructor(
         private paginator: MatPaginator,
         private sort: MatSort,
-        private resultService: ResultService,
+        private filterService: ResultService,
         data: IClassificacao[]
     ) {
         super();
         this.data = [...data];
         this.fullData = [...data];
-        this.resultService.filterSource.subscribe(filtro => (this.filtro = filtro));
+        this.filterService.filterSource.subscribe(filtro => (this.filtro = filtro));
     }
 
     /**
@@ -39,7 +38,7 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
         // stream for the data-table to consume.
         const dataMutations = [
             observableOf(this.data),
-            this.resultService.filterSource,
+            this.filterService.filterSource,
             this.paginator.page,
             this.sort.sortChange
         ];
@@ -54,11 +53,7 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
         this.filteredData = this.getFilteredData(this.fullData);
 
         this.paginator.length = this.filteredData.length;
-        var sortedFormularios = this.getPagedData(this.getSortedData(this.filteredData));
-
-        //this.formulariosList.setChartList(sortedFormularios);
-
-        return sortedFormularios;
+        return this.getPagedData(this.getSortedData(this.filteredData));
     }
 
     /**
@@ -68,34 +63,19 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
     disconnect() {}
 
     public getFilteredData(data: IClassificacao[]): IClassificacao[] {
-
+        
         const { formulario } = this.filtro;
 
         let newData = data;
 
-        if (formulario.titulo !== '') {
+        if (formulario.spreadsheetId != undefined && formulario.spreadsheetId != '') {
+            newData = newData.filter(d =>
+                d.spreadsheetId.toString().toUpperCase().includes(formulario.spreadsheetId.toString().toUpperCase())
+            );
+        }
+        if (formulario.titulo != undefined && formulario.titulo != '') {
             newData = newData.filter(d =>
                 d.titulo.toUpperCase().includes(formulario.titulo.toUpperCase())
-            );
-        }
-        if (formulario.spreadsheetId !== '') {
-            newData = newData.filter(d =>
-                d.spreadsheetId.toUpperCase().includes(formulario.spreadsheetId.toUpperCase())
-            );
-        }
-        if (formulario.idSheet != null) {
-            newData = newData.filter(d =>
-                d.idSheet == formulario.idSheet
-            );
-        }
-        if (formulario.status !== '') {
-            newData = newData.filter(d =>
-                d.status.toUpperCase().includes(formulario.status.toUpperCase())
-            );
-        }
-        if (formulario.dataAtualizacao != null) {
-            newData = newData.filter(d =>
-                d.dataAtualizacao.toString().toUpperCase().includes(formulario.dataAtualizacao.toString().toUpperCase())
             );
         }
 
@@ -119,7 +99,7 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
         }else{
             newData = [];
         }*/
-
+        
         return [...newData];
     }
 
@@ -149,12 +129,6 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
                     return compare(a.titulo, b.titulo, isAsc);
                 case 'spreadsheetId':
                     return compare(a.spreadsheetId, b.spreadsheetId, isAsc);
-                case 'idSheet':
-                    return compare(a.idSheet, b.idSheet, isAsc);
-                case 'status':
-                    return compare(a.status, b.status, isAsc);
-                case 'dataAtualizacao':
-                    return compare(a.dataAtualizacao, b.dataAtualizacao, isAsc);
                 default:
                     return 0;
             }

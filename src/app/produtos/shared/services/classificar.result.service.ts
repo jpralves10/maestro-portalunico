@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { MatPaginator } from '@angular/material';
-import { IClassificar } from '../models/classificar.model';
+import { IResult, IResultItem } from '../models/classificar.result.model';
 import { IProduto } from '../models/produto.model';
 
 @Injectable({
@@ -19,7 +19,17 @@ export class ResultService {
     /** Default Filter **/
 
     private defaultFilter: IResultItem = {
-        classificar: {titulo: '', status: '', dataAtualizacao: '', produto: null}
+        classificar: {
+            codigo: null,
+            titulo: '', 
+            status: '', 
+            dataAtualizacao: null,
+            usuario:{
+                nome:'',
+                email:''
+            },
+            produto: null
+        }
     };
 
     public filterSource:
@@ -42,7 +52,7 @@ export class ResultService {
         this.changeFilter(this.defaultFilter);
     }
 
-    /** Default Filter Result **/
+    /** Default Filter IResult **/
 
     private readonly defaultFilterResult: IResult = {
         classificar: [],
@@ -62,20 +72,5 @@ export class ResultService {
 
     public resetFilter() {
         this.filterResultSource.next(this.defaultFilterResult);
-    }
-}
-
-export interface IResult {
-    classificar: IClassificar[];
-    data_inicio?: Date;
-    data_fim?: Date;
-}
-
-export interface IResultItem {
-    classificar: {
-        titulo: string;
-        status: string;
-        dataAtualizacao: string;
-        produto: IProduto;
     }
 }

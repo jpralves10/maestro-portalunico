@@ -86,13 +86,13 @@ export class ProdutoService {
         );
     }
 
-    setClassificarProduto(produto: IProduto): Observable<IProduto[]> {
+    setClassificarProduto(objetos: any[]): Observable<IProduto[]> {
         return this.httpClient.post<any>(
-            `${ GOOGLE_FORMS_API }/produtos/classificar/saveProduto`, produto
+            `${ GOOGLE_FORMS_API }/produtos/classificar/classificarSave`, objetos
         );
     }
 
-    getClassificarProdutoAll(): Observable<IClassificar[]> {
+    getClassificarAll(): Observable<IClassificar[]> {
         return this.httpClient.post<any>(
             `${ GOOGLE_FORMS_API }/produtos/classificar/findAll`, []
         );

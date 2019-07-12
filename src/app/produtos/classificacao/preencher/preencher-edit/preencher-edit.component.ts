@@ -1,19 +1,21 @@
-import { Component, OnInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProdutoService } from '../../shared/services/produtos.service';
+import { ProdutoService } from 'src/app/produtos/shared/services/produtos.service';
+
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { MatSnackBar } from '@angular/material';
+
+import { IColuna, IComentario } from '../../../shared/models/classificacao.legendas';
+import { IClassificacao } from 'src/app/produtos/shared/models/classificacao.model';
 import $ from "jquery";
-import { IClassificacao } from '../../shared/models/classificacao.model';
-import { IColuna, IResposta, IComentario } from '../../shared/models/classificacao.legendas';
 
 @Component({
-    selector: 'app-classificacao',
-    templateUrl: './classificacao.component.html',
-    styleUrls: ['./classificacao.component.scss']
+    selector: 'app-preencher-edit',
+    templateUrl: './preencher-edit.component.html',
+    styleUrls: ['./preencher-edit.component.scss']
 })
-export class ClassificacaoComponent implements OnInit {
+export class PreencherEditComponent implements OnInit {
 
-    //classificacoes: IClassificacao[] = [];
-    classificacao = {} as IClassificacao;
     colunas: IColuna[] = [];
     coluna = {} as IColuna;
 
@@ -22,55 +24,53 @@ export class ClassificacaoComponent implements OnInit {
 
     userInfo:any = {};
 
-    url = ''
+    formulario = {} as IClassificacao;
+
+    loading = true;
+    errored = false;
+    finish = false;
+    spinner = false;
 
     constructor(
+        private router: Router,
+        private route: ActivatedRoute,
+        private modalService: NgbModal,
         private produtoService: ProdutoService,
-        private hostElement: ElementRef
+        private hostElement: ElementRef,
+        private _snackBar: MatSnackBar
     ) {
-        this.classificacao = {
-            spreadsheetId: '1PZCLAymlsaBO1GLFPGxjZSONkYGwy-tYBeXyIDibjaQ',
-            idSheet: 1997890537
-        };
+        this.route.queryParamMap.subscribe(paramMap => {
+            this.formulario = JSON.parse(paramMap.get('filterFormulario'));
 
-        this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'));
-        this.url = 'https://docs.google.com/forms/d/e/1FAIpQLSft8XkeMuh0vuhQl77FaGCkRLCMn4KEyG5OCURe0Jnw8q-7sA/viewform?embedded=true';
-        this.obterClassificacao();
+            if(this.formulario.categorias == undefined){
+                this.formulario.categorias = []
+            }
+
+            this.obterClassificacao();
+        });
     }
 
     ngOnInit() {
         const iframe = this.hostElement.nativeElement.querySelector('iframe');
-        iframe.src = this.url;
-    }
-
-    ngAfterViewInit() {
-        //this.validaFormGoogle();
-
-        /*var frame = document.querySelector('#frameForms') as any;
-        frame.onload = () => {
-            const doc = (frame as any).contentDocument;
-            var x = doc.querySelectorAll(".freebirdFormviewerViewItemsItemItemTitle");
-            x[0].innerHTML = "Hello World!";
-            alert(x);
-        }*/
+        iframe.src = this.formulario.iframe;
     }
 
     obterClassificacao(){
-        this.produtoService.getClassificacao(this.classificacao).subscribe(classificacoes => {
+        this.produtoService.getClassificacao(this.formulario).subscribe(classificacoes => {
 
             if(classificacoes.length > 0){
                 this.setSortClassificacoes(classificacoes);
-                let classificacao = classificacoes[0];
-                this.classificacao = classificacao;
+                let formulario = classificacoes[0];
+                this.formulario = formulario;
                 this.carregarColunas();
             }
         });
     }
 
     carregarColunas(){
-        if(this.classificacao.colunas != undefined && this.classificacao.colunas.length > 0){
+        if(this.formulario.colunas != undefined && this.formulario.colunas.length > 0){
 
-            this.classificacao.colunas.forEach(coluna => {
+            this.formulario.colunas.forEach(coluna => {
                 if(coluna.idColuna > 1){
                     coluna.comentarios = false
                     coluna.selecionada = false
@@ -79,7 +79,7 @@ export class ClassificacaoComponent implements OnInit {
                 }
             });
 
-            this.classificacao.comentarios.forEach(comentario => {
+            this.formulario.comentarios.forEach(comentario => {
                 this.colunas.forEach(coluna => {
                     if(comentario.idColuna == coluna.idColuna){
                         coluna.comentarios = true
@@ -131,8 +131,8 @@ export class ClassificacaoComponent implements OnInit {
 
         this.comentarios = [];
 
-        if(this.classificacao.comentarios.length > 0){
-            this.classificacao.comentarios.forEach(comentario => {
+        if(this.formulario.comentarios.length > 0){
+            this.formulario.comentarios.forEach(comentario => {
                 if(comentario.idColuna == idColuna){
                     comentario.idUsuario == this.userInfo.email ? 
                     comentario.side = 'right' : comentario.side = 'left';
@@ -160,8 +160,8 @@ export class ClassificacaoComponent implements OnInit {
     salvarComentario(){
         if(this.comentario.descricao != undefined && this.comentario.descricao.length > 0){
             let nmUsuario = this.userInfo.firstName + ' ' + this.userInfo.lastName;
-            this.comentario.idSheet = this.classificacao.idSheet;
-            this.comentario.sheetVersao = this.classificacao.version;
+            this.comentario.idSheet = this.formulario.idSheet;
+            this.comentario.sheetVersao = this.formulario.version;
             this.comentario.idComentario = null;
             this.comentario.idResposta = this.userInfo.email;
             this.comentario.idUsuario = this.userInfo.email;
@@ -173,7 +173,7 @@ export class ClassificacaoComponent implements OnInit {
 
             this.produtoService.setComentarios([this.comentario]).subscribe(classificacoes => {
                 if(classificacoes.length > 0){
-                    this.classificacao = classificacoes[0];
+                    this.formulario = classificacoes[0];
 
                     this.comentario.descricao = '';
                     this.printComentarios(this.comentario.idColuna);

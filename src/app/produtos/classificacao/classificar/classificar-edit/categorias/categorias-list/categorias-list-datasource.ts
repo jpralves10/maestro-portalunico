@@ -1,32 +1,31 @@
 import { DataSource } from '@angular/cdk/collections';
 import { MatPaginator, MatSort } from '@angular/material';
+import { map } from 'rxjs/operators';
+import { Observable, of as observableOf, merge } from 'rxjs';
 import { Input } from '@angular/core';
-import { map, filter } from 'rxjs/operators';
-import { Observable, of as observableOf, merge, from } from 'rxjs';
-import { IResultItem } from '../../../shared/models/formulario.result.model';
-import { ResultService } from '../../../shared/services/formularios.result.service';
-import { IClassificacao } from 'src/app/produtos/shared/models/classificacao.model';
+import { ResultServiceCategorias } from '../../../../../shared/services/categorias.result.service'
+import { ICategoriasForm } from 'src/app/produtos/shared/models/classificacao.legendas';
+import { IResultItemCategorias } from 'src/app/produtos/shared/models/formulario.result.model';
 
-export class ModelosListDataSource extends DataSource<IClassificacao> {
-
+export class CategoriasListDataSource extends DataSource<ICategoriasForm> {
+    
     @Input()
-    public data: IClassificacao[];
-    public fullData: IClassificacao[];
-    public filteredData: IClassificacao[];
+    public data: ICategoriasForm[];
+    public fullData: ICategoriasForm[];
+    public filteredData: ICategoriasForm[];
 
-    public filtro: IResultItem;
-    public dataObservable: Observable<any>;
+    public filtro: IResultItemCategorias;
 
     constructor(
         private paginator: MatPaginator,
         private sort: MatSort,
-        private resultService: ResultService,
-        data: IClassificacao[]
+        private filterService: ResultServiceCategorias,
+        data: ICategoriasForm[]
     ) {
         super();
         this.data = [...data];
         this.fullData = [...data];
-        this.resultService.filterSource.subscribe(filtro => (this.filtro = filtro));
+        this.filterService.filterSource.subscribe(filtro => (this.filtro = filtro));
     }
 
     /**
@@ -34,12 +33,12 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
      * the returned stream emits new items.
      * @returns A stream of the items to be rendered.
      */
-    connect(): Observable<IClassificacao[]> {
+    connect(): Observable<ICategoriasForm[]> {
         // Combine everything that affects the rendered data into one update
         // stream for the data-table to consume.
         const dataMutations = [
             observableOf(this.data),
-            this.resultService.filterSource,
+            this.filterService.filterSource,
             this.paginator.page,
             this.sort.sortChange
         ];
@@ -54,11 +53,7 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
         this.filteredData = this.getFilteredData(this.fullData);
 
         this.paginator.length = this.filteredData.length;
-        var sortedFormularios = this.getPagedData(this.getSortedData(this.filteredData));
-
-        //this.formulariosList.setChartList(sortedFormularios);
-
-        return sortedFormularios;
+        return this.getPagedData(this.getSortedData(this.filteredData));
     }
 
     /**
@@ -67,35 +62,20 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
      */
     disconnect() {}
 
-    public getFilteredData(data: IClassificacao[]): IClassificacao[] {
-
-        const { formulario } = this.filtro;
+    public getFilteredData(data: ICategoriasForm[]): ICategoriasForm[] {
+        
+        const { categoria } = this.filtro;
 
         let newData = data;
 
-        if (formulario.titulo !== '') {
+        if (categoria.codigo != null) {
             newData = newData.filter(d =>
-                d.titulo.toUpperCase().includes(formulario.titulo.toUpperCase())
+                d.codigo == categoria.codigo
             );
         }
-        if (formulario.spreadsheetId !== '') {
+        if (categoria.descricao != undefined && categoria.descricao != '') {
             newData = newData.filter(d =>
-                d.spreadsheetId.toUpperCase().includes(formulario.spreadsheetId.toUpperCase())
-            );
-        }
-        if (formulario.idSheet != null) {
-            newData = newData.filter(d =>
-                d.idSheet == formulario.idSheet
-            );
-        }
-        if (formulario.status !== '') {
-            newData = newData.filter(d =>
-                d.status.toUpperCase().includes(formulario.status.toUpperCase())
-            );
-        }
-        if (formulario.dataAtualizacao != null) {
-            newData = newData.filter(d =>
-                d.dataAtualizacao.toString().toUpperCase().includes(formulario.dataAtualizacao.toString().toUpperCase())
+                d.descricao.toUpperCase().includes(categoria.descricao.toUpperCase())
             );
         }
 
@@ -119,7 +99,7 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
         }else{
             newData = [];
         }*/
-
+        
         return [...newData];
     }
 
@@ -127,7 +107,7 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
      * Paginate the data (client-side). If you're using server-side pagination,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getPagedData(data: IClassificacao[]) {
+    public getPagedData(data: ICategoriasForm[]) {
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         return data.splice(startIndex, this.paginator.pageSize);
     }
@@ -136,7 +116,7 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
      * Sort the data (client-side). If you're using server-side sorting,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getSortedData(data: IClassificacao[]) {
+    public getSortedData(data: ICategoriasForm[]) {
 
         if (!this.sort.active || this.sort.direction === '') {
             return data;
@@ -145,16 +125,10 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
         return data.sort((a, b) => {
             const isAsc = this.sort.direction === 'asc';
             switch (this.sort.active) {
-                case 'titulo':
-                    return compare(a.titulo, b.titulo, isAsc);
-                case 'spreadsheetId':
-                    return compare(a.spreadsheetId, b.spreadsheetId, isAsc);
-                case 'idSheet':
-                    return compare(a.idSheet, b.idSheet, isAsc);
-                case 'status':
-                    return compare(a.status, b.status, isAsc);
-                case 'dataAtualizacao':
-                    return compare(a.dataAtualizacao, b.dataAtualizacao, isAsc);
+                case 'codigo':
+                    return compare(a.codigo, b.codigo, isAsc);
+                case 'descricao':
+                    return compare(a.descricao, b.descricao, isAsc);
                 default:
                     return 0;
             }
