@@ -1,0 +1,124 @@
+{"_id" : ObjectId("5d2333ea61513723d444d2b1"), "descricao" : "Alimentos e Bebidas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d444d2b2"), "descricao" : "Arte e Antiguidades", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d444d2b3"), "descricao" : "Artigos Religiosos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d444d2b4"), "descricao" : "Assinaturas e Revistas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d444d2b5"), "descricao" : "Automóveis e Veículos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d444d2b6"), "descricao" : "Bebês e Cia", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d444d2b7"), "descricao" : "Blu-Ray", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d444d2b8"), "descricao" : "Brindes / Materiais Promocionais", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d444d2b9"), "descricao" : "Brinquedos e Games", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b10"), "descricao" : "Casa e Decoração", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b11"), "descricao" : "CDs", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b12"), "descricao" : "Colecionáveis", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b13"), "descricao" : "Compras Coletivas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b14"), "descricao" : "Construção e Ferramentas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b15"), "descricao" : "Cosméticos e Perfumaria", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b16"), "descricao" : "Cursos e Educação", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b17"), "descricao" : "Discos de Vinil", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b18"), "descricao" : "DVDs", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b19"), "descricao" : "Eletrodomésticos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b20"), "descricao" : "Eletrônicos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b21"), "descricao" : "Emissoras de Rádio", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b22"), "descricao" : "Emissoras de Televisão", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b23"), "descricao" : "Empregos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b24"), "descricao" : "Empresas de Telemarketing", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b25"), "descricao" : "Esporte e Lazer", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b26"), "descricao" : "Fitas K7 Gravadas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b27"), "descricao" : "Flores, Cestas e Presentes", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b28"), "descricao" : "Fotografia", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b29"), "descricao" : "HD-DVD", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b30"), "descricao" : "Igrejas / Templos / Instituições Religiosas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b31"), "descricao" : "Indústria, Comércio e Negócios", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b32"), "descricao" : "Infláveis Promocionais", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b33"), "descricao" : "Informática", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b34"), "descricao" : "Ingressos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b35"), "descricao" : "Instrumentos Musicais", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b36"), "descricao" : "Joalheria", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b37"), "descricao" : "Lazer", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b38"), "descricao" : "LD", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b39"), "descricao" : "Livros", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b40"), "descricao" : "MD", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b41"), "descricao" : "Moda e Acessórios", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b42"), "descricao" : "Motéis", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b43"), "descricao" : "Música Digital", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b44"), "descricao" : "Natal", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b45"), "descricao" : "Negócios e Oportunidades", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b46"), "descricao" : "Outros Serviços", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b47"), "descricao" : "Outros Serviços de Avaliação", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b48"), "descricao" : "Papelaria e Escritório", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b49"), "descricao" : "Páscoa", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b50"), "descricao" : "Pet Shop", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b51"), "descricao" : "Saúde", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b52"), "descricao" : "Serviço Advocaticios", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b53"), "descricao" : "Serviço de Distribuição de Jornais / Revistas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b54"), "descricao" : "Serviços Administrativos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b55"), "descricao" : "Serviços Artísticos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b56"), "descricao" : "Serviços de Abatedouros / Matadouros", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b57"), "descricao" : "Serviços de Aeroportos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b58"), "descricao" : "Serviços de Agências", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b59"), "descricao" : "Serviços de Aluguel / Locação", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b60"), "descricao" : "Serviços de Armazenagem", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b61"), "descricao" : "Serviços de Assessorias", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b62"), "descricao" : "Serviços de Assistência Técnica / Instalações", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b63"), "descricao" : "Serviços de Associações", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b64"), "descricao" : "Serviços de Bancos de Sangue", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b65"), "descricao" : "Serviços de Bibliotecas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b66"), "descricao" : "Serviços de Cartórios", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b67"), "descricao" : "Serviços de Casas Lotéricas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b68"), "descricao" : "Serviços de Confecções", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b69"), "descricao" : "Serviços de Consórcios", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b70"), "descricao" : "Serviços de Consultorias", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b71"), "descricao" : "Serviços de Cooperativas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b72"), "descricao" : "Serviços de Despachante", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b73"), "descricao" : "Serviços de Engenharia", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b74"), "descricao" : "Serviços de Estacionamentos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b75"), "descricao" : "Serviços de Estaleiros", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b76"), "descricao" : "Serviços de Exportação / Importação", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b77"), "descricao" : "Serviços de Geólogos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b78"), "descricao" : "Serviços de joalheiros", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b79"), "descricao" : "Serviços de Leiloeiros", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b80"), "descricao" : "Serviços de limpeza", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b81"), "descricao" : "Serviços de Loja de Conveniência", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b82"), "descricao" : "Serviços de Mão de Obra", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b83"), "descricao" : "Serviços de Órgão Públicos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b84"), "descricao" : "Serviços de Pesquisas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b85"), "descricao" : "Serviços de Portos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b86"), "descricao" : "Serviços de Saúde / Bem Estar", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b87"), "descricao" : "Serviços de Seguradoras", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b88"), "descricao" : "Serviços de Segurança", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b89"), "descricao" : "Serviços de Sinalização", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b90"), "descricao" : "Serviços de Sindicatos / Federações", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b91"), "descricao" : "Serviços de Traduções", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b92"), "descricao" : "Serviços de Transporte", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b93"), "descricao" : "Serviços de Utilidade Pública", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b94"), "descricao" : "Serviços em Agricultura / Pecuária / Piscicultura", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b95"), "descricao" : "Serviços em Alimentação", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b96"), "descricao" : "Serviços em Arte", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b97"), "descricao" : "Serviços em Cine / Foto / Som", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b98"), "descricao" : "Serviços em Comunicação", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d44d2b99"), "descricao" : "Serviços em Construção", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b100"), "descricao" : "Serviços em Ecologia / Meio Ambiente", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b101"), "descricao" : "Serviços em Eletroeletrônica / Metal Mecânica", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b102"), "descricao" : "Serviços em Festas / Eventos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b103"), "descricao" : "Serviços em Informática", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b104"), "descricao" : "Serviços em Internet", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b105"), "descricao" : "Serviços em Jóias / Relógios / Óticas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b106"), "descricao" : "Serviços em Telefonia", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b107"), "descricao" : "Serviços em Veículos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b108"), "descricao" : "Serviços Esotéricos / Místicos", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b109"), "descricao" : "Serviços Financeiros", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b110"), "descricao" : "Serviços Funerários", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b111"), "descricao" : "Serviços Gerais", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b112"), "descricao" : "Serviços Gráficos / Editoriais", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b113"), "descricao" : "Serviços para Animais", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b114"), "descricao" : "Serviços para Deficientes", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b115"), "descricao" : "Serviços para Escritórios", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b116"), "descricao" : "Serviços para Roupas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b117"), "descricao" : "Serviços Socias / Assistenciais", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b118"), "descricao" : "Sex Shop", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b119"), "descricao" : "Shopping Centers", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b120"), "descricao" : "Tabacaria", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b121"), "descricao" : "Tarifas Bancárias", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b122"), "descricao" : "Tarifas Telefônicas", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b123"), "descricao" : "Telefonia", "disabled" : true,"codigo" : 0}
+{"_id" : ObjectId("5d2333ea61513723d4d2b124"), "descricao" : "Turismo", "disabled" : true,"codigo" : 0}

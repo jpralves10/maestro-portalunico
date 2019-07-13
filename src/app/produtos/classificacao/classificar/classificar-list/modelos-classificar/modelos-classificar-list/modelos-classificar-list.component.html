@@ -9,17 +9,17 @@
         <!-- Column -->
         <ng-container matColumnDef="select">
             <th mat-header-cell *matHeaderCellDef>
-                <mat-checkbox
+                <!--mat-checkbox
                     class="select-check"
                     (change)="$event ? masterToggle() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
                     [indeterminate]="selection.hasValue() && !isAllSelected()">
-                </mat-checkbox>
+                </mat-checkbox-->
             </th>
             <td mat-cell *matCellDef="let row">
                 <mat-checkbox
                     class="select-check"
-                    (click)="$event.stopPropagation(); habilitarOperacao(row, null)"
+                    (click)="$event.stopPropagation(); clearCheckbox(row);"
                     (change)="$event ? selection.toggle(row) : null"
                     [checked]="selection.isSelected(row)">
                 </mat-checkbox>

@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
 import { IResult, IResultItem } from 'src/app/produtos/shared/models/classificar.result.model';
 import { ClassificarListDataSource } from './classificar-list-datasource';
@@ -36,7 +36,8 @@ export class ClassificarListComponent implements OnInit {
         private route: ActivatedRoute,
         private modalService: NgbModal,
         private resultService: ResultService,
-        private produtoService: ProdutoService
+        private produtoService: ProdutoService,
+        private _snackBar: MatSnackBar
     ) {
         resultService.filter.subscribe(f => (this.filtroValue = f));
         resultService.filterResult.subscribe(fr => (this.currentFilter = fr));
@@ -79,23 +80,22 @@ export class ClassificarListComponent implements OnInit {
 
     openModelo(row: IClassificar){
         const modalFormulario = this.modalService.open(ModelosClassificarComponent, {size: '900', centered: true});
-        //modalFormulario.componentInstance.formulariosClassificar = this.formulario;
+        modalFormulario.componentInstance.modelosClassificar = [row.classificacao]
 
         modalFormulario.result.then((formularios) => {
-            let flFormulario = false
-            
-            /*formularios.forEach(mdFormulario => {
-                this.formulario.formularios.forEach(categoria => {
-                    if(categoria.codigo == mdFormulario.codigo){
-                        flFormulario = true
+
+            if(formularios.length > 0){
+                row.classificacao = formularios[0]
+                row.dataAtualizacao = new Date()
+
+                this.produtoService.setClassificar(row).subscribe(res => {
+                    if(res == '200'){
+                        this._snackBar.open('Modelo de formulário foi vinculado!', 'Sucesso', {
+                            duration: 5000,
+                        });
                     }
                 })
-
-                if(!flFormulario){
-                    this.formulario.formularios.push(mdFormulario)
-                }
-            })
-            this.formulario.formularios = formularios;*/
+            }
 
         }, (reason) => {});
     }

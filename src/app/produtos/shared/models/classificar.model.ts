@@ -3,7 +3,7 @@ import { IClassificacao } from './classificacao.model';
 
 export interface IClassificar {
 
-    _id?: any
+    _id?: any,
     codigo:number,
     titulo?: string,
     version?: number,

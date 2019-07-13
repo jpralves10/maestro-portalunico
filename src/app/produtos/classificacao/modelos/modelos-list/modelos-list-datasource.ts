@@ -80,7 +80,7 @@ export class ModelosListDataSource extends DataSource<IClassificacao> {
         }
         if (formulario.spreadsheetId !== '') {
             newData = newData.filter(d =>
-                d.spreadsheetId.toUpperCase().includes(formulario.spreadsheetId.toUpperCase())
+                d.spreadsheetId.toString().toUpperCase().includes(formulario.spreadsheetId.toString().toUpperCase())
             );
         }
         if (formulario.idSheet != null) {

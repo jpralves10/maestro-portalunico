@@ -50,14 +50,14 @@ export class ModelosClassificarListComponent implements OnInit {
             this.data
         );
 
-        this.data.forEach(formulario => {
-            this.modelosClassificar.forEach(mdFormulario => {
-                if(formulario._id == mdFormulario._id){
+        if(this.modelosClassificar[0] != undefined){
+            this.data.forEach(formulario => {
+                if(formulario._id == this.modelosClassificar[0]._id){
                     this.selection.select(formulario);
                     formulario.disabled = false;
                 }
             })
-        })
+        }
 
         this.updateDataSource(this.data)
     }

@@ -92,6 +92,12 @@ export class ProdutoService {
         );
     }
 
+    setClassificar(classificar: IClassificar): Observable<string> {
+        return this.httpClient.post<any>(
+            `${ GOOGLE_FORMS_API }/produtos/classificar/save`, classificar
+        );
+    }
+
     getClassificarAll(): Observable<IClassificar[]> {
         return this.httpClient.post<any>(
             `${ GOOGLE_FORMS_API }/produtos/classificar/findAll`, []
