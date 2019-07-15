@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { ResultService } from 'src/app/produtos/shared/services/classificar.result.service';
 import { ProdutoService } from 'src/app/produtos/shared/services/produtos.service';
 import { ModelosClassificarComponent } from './modelos-classificar/modelos-classificar.component';
+import { ProdutosEditComponent } from './produtos-edit/produtos-edit.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IClassificar } from 'src/app/produtos/shared/models/classificar.model';
 
@@ -79,24 +80,34 @@ export class ClassificarListComponent implements OnInit {
     }
 
     openModelo(row: IClassificar){
-        const modalFormulario = this.modalService.open(ModelosClassificarComponent, {size: '900', centered: true});
-        modalFormulario.componentInstance.modelosClassificar = [row.classificacao]
+        const modalProduto = this.modalService.open(ProdutosEditComponent, {size: '900', centered: true});
+        row.produto.descricao = row.produto.descricaoBruta
+        modalProduto.componentInstance.produto = row.produto
 
-        modalFormulario.result.then((formularios) => {
+        modalProduto.result.then((result) => {
 
-            if(formularios.length > 0){
-                row.classificacao = formularios[0]
-                row.dataAtualizacao = new Date()
+            row.produto = result
 
-                this.produtoService.setClassificar(row).subscribe(res => {
-                    if(res == '200'){
-                        this._snackBar.open('Modelo de formulário foi vinculado!', 'Sucesso', {
-                            duration: 5000,
-                        });
-                    }
-                })
-            }
+            const modalFormulario = this.modalService.open(ModelosClassificarComponent, {size: '900', centered: true});
+            modalFormulario.componentInstance.modelosClassificar = [row.classificacao]
 
+            modalFormulario.result.then((formularios) => {
+
+                if(formularios.length > 0){
+                    row.classificacao = formularios[0]
+                    row.dataAtualizacao = new Date()
+                    row.status = "Classificado"
+
+                    this.produtoService.setClassificar(row).subscribe(res => {
+                        if(res == '200'){
+                            this._snackBar.open('Modelo de formulário foi vinculado!', 'Sucesso', {
+                                duration: 5000,
+                            });
+                        }
+                    })
+                }
+            }, (reason) => {});
+            
         }, (reason) => {});
     }
 

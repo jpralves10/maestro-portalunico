@@ -4,7 +4,7 @@
 </div>
 
 <div *ngIf="!loading" class="filter-container">
-    <h3>Preencher de Formulários</h3>
+    <h3>Cassificar de Formulários</h3>
 
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
@@ -36,31 +36,21 @@
                             <mat-form-field>
                                 <input
                                     matInput
-                                    placeholder="Descrição do Formulário"
-                                    [(ngModel)]="current_filtro.formulario.titulo"
-                                    (ngModelChange)="updateFiltro()" />
-                            </mat-form-field>
-                            <mat-form-field>
-                                <input
-                                    matInput
-                                    placeholder="Número da Planilha"
-                                    [(ngModel)]="current_filtro.formulario.spreadsheetId"
-                                    (ngModelChange)="updateFiltro()" />
-                            </mat-form-field>
-                            <mat-form-field>
-                                <input
-                                    matInput
-                                    placeholder="Número da Folha"
-                                    [(ngModel)]="current_filtro.formulario.idSheet"
+                                    placeholder="Título da Classificação"
+                                    [(ngModel)]="current_filtro.classificar.titulo"
                                     (ngModelChange)="updateFiltro()" />
                             </mat-form-field>
                             <mat-form-field>
                                 <input
                                     matInput
                                     placeholder="Status"
-                                    [(ngModel)]="current_filtro.formulario.status"
+                                    [(ngModel)]="current_filtro.classificar.status"
                                     (ngModelChange)="updateFiltro()" />
                             </mat-form-field>
+                        </div>
+
+                        <div class="filtro-fields-two">
+                            
                         </div>
                     </div>
                 </mat-expansion-panel>

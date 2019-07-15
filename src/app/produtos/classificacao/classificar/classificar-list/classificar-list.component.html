@@ -50,10 +50,13 @@
                 <span style="padding: 5px;" (click)="openModelo(row)">
                     <i class="fas fa-link fa-lg"></i>
                 </span>
-                <span style="padding: 5px;">
+                <!--span style="padding: 5px;">
                     <i class="fas fa-file-alt fa-lg"></i>
-                </span>
-                <span style="padding: 5px;" (click)="editModelo(row)">
+                </span-->
+                <span 
+                    *ngIf="row.classificacao"
+                    style="padding: 5px;" 
+                    (click)="editModelo(row)">
                     <i class="fas fa-edit fa-lg"></i>
                 </span>
             </td>

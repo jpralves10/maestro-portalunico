@@ -3,16 +3,16 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { Input } from '@angular/core';
 import { map, filter } from 'rxjs/operators';
 import { Observable, of as observableOf, merge, from } from 'rxjs';
-import { IResultItem } from '../../../shared/models/formulario.result.model';
-import { ResultService } from '../../../shared/services/formularios.result.service';
-import { IClassificacao } from 'src/app/produtos/shared/models/classificacao.model';
+import { IResultItem } from '../../../shared/models/classificar.result.model';
+import { ResultService } from '../../../shared/services/classificar.result.service';
+import { IClassificar } from 'src/app/produtos/shared/models/classificar.model';
 
-export class PreencherListDataSource extends DataSource<IClassificacao> {
+export class PreencherListDataSource extends DataSource<IClassificar> {
 
     @Input()
-    public data: IClassificacao[];
-    public fullData: IClassificacao[];
-    public filteredData: IClassificacao[];
+    public data: IClassificar[];
+    public fullData: IClassificar[];
+    public filteredData: IClassificar[];
 
     public filtro: IResultItem;
     public dataObservable: Observable<any>;
@@ -21,7 +21,7 @@ export class PreencherListDataSource extends DataSource<IClassificacao> {
         private paginator: MatPaginator,
         private sort: MatSort,
         private resultService: ResultService,
-        data: IClassificacao[]
+        data: IClassificar[]
     ) {
         super();
         this.data = [...data];
@@ -34,7 +34,7 @@ export class PreencherListDataSource extends DataSource<IClassificacao> {
      * the returned stream emits new items.
      * @returns A stream of the items to be rendered.
      */
-    connect(): Observable<IClassificacao[]> {
+    connect(): Observable<IClassificar[]> {
         // Combine everything that affects the rendered data into one update
         // stream for the data-table to consume.
         const dataMutations = [
@@ -67,35 +67,43 @@ export class PreencherListDataSource extends DataSource<IClassificacao> {
      */
     disconnect() {}
 
-    public getFilteredData(data: IClassificacao[]): IClassificacao[] {
+    public getFilteredData(data: IClassificar[]): IClassificar[] {
 
-        const { formulario } = this.filtro;
+        const { classificar } = this.filtro;
 
         let newData = data;
 
-        if (formulario.titulo !== '') {
+        if (classificar.codigo != null) {
             newData = newData.filter(d =>
-                d.titulo.toUpperCase().includes(formulario.titulo.toUpperCase())
+                d.codigo == classificar.codigo
             );
         }
-        if (formulario.spreadsheetId !== '') {
+        if (classificar.titulo !== '') {
             newData = newData.filter(d =>
-                d.spreadsheetId.toUpperCase().includes(formulario.spreadsheetId.toUpperCase())
+                d.titulo.toUpperCase().includes(classificar.titulo.toUpperCase())
             );
         }
-        if (formulario.idSheet != null) {
+        if (classificar.status !== '') {
             newData = newData.filter(d =>
-                d.idSheet == formulario.idSheet
+                d.status.toUpperCase().includes(classificar.status.toUpperCase())
             );
         }
-        if (formulario.status !== '') {
+        if (classificar.dataAtualizacao != null) {
             newData = newData.filter(d =>
-                d.status.toUpperCase().includes(formulario.status.toUpperCase())
+                d.dataAtualizacao.toString().toUpperCase().includes(classificar.dataAtualizacao.toString().toUpperCase())
             );
         }
-        if (formulario.dataAtualizacao != null) {
+        if (classificar.usuario != undefined && (classificar.usuario.nome != '' || classificar.usuario.email != '')) {
             newData = newData.filter(d =>
-                d.dataAtualizacao.toString().toUpperCase().includes(formulario.dataAtualizacao.toString().toUpperCase())
+                d.usuario.nome.toUpperCase().includes(classificar.usuario.nome.toUpperCase()),
+            );
+            newData = newData.filter(d =>
+                d.usuario.email.toUpperCase().includes(classificar.usuario.email.toUpperCase()),
+            );
+        }
+        if (classificar.produto != null) {
+            newData = newData.filter(d =>
+                d.produto.descricaoBruta.toUpperCase().includes(classificar.produto.descricaoBruta.toUpperCase())
             );
         }
 
@@ -127,7 +135,7 @@ export class PreencherListDataSource extends DataSource<IClassificacao> {
      * Paginate the data (client-side). If you're using server-side pagination,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getPagedData(data: IClassificacao[]) {
+    public getPagedData(data: IClassificar[]) {
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         return data.splice(startIndex, this.paginator.pageSize);
     }
@@ -136,7 +144,7 @@ export class PreencherListDataSource extends DataSource<IClassificacao> {
      * Sort the data (client-side). If you're using server-side sorting,
      * this would be replaced by requesting the appropriate data from the server.
      */
-    public getSortedData(data: IClassificacao[]) {
+    public getSortedData(data: IClassificar[]) {
 
         if (!this.sort.active || this.sort.direction === '') {
             return data;
@@ -145,16 +153,18 @@ export class PreencherListDataSource extends DataSource<IClassificacao> {
         return data.sort((a, b) => {
             const isAsc = this.sort.direction === 'asc';
             switch (this.sort.active) {
+                case 'codigo':
+                    return compare(a.codigo, b.codigo, isAsc);
                 case 'titulo':
                     return compare(a.titulo, b.titulo, isAsc);
-                case 'spreadsheetId':
-                    return compare(a.spreadsheetId, b.spreadsheetId, isAsc);
-                case 'idSheet':
-                    return compare(a.idSheet, b.idSheet, isAsc);
                 case 'status':
                     return compare(a.status, b.status, isAsc);
                 case 'dataAtualizacao':
                     return compare(a.dataAtualizacao, b.dataAtualizacao, isAsc);
+                case 'usuario':
+                    return compare(a.usuario.nome, b.usuario.nome, isAsc);
+                case 'produto':
+                    return compare(a.produto.descricaoBruta, b.produto.descricaoBruta, isAsc);
                 default:
                     return 0;
             }

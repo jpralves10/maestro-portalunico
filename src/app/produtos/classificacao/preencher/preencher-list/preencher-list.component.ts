@@ -1,12 +1,12 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { Router, ActivatedRoute } from '@angular/router';
-import { IResult, IResultItem } from 'src/app/produtos/shared/models/formulario.result.model';
+import { IResult, IResultItem } from 'src/app/produtos/shared/models/classificar.result.model';
 import { PreencherListDataSource } from './preencher-list-datasource';
 import { SelectionModel } from '@angular/cdk/collections';
-import { ResultService } from 'src/app/produtos/shared/services/formularios.result.service';
 import { ProdutoService } from 'src/app/produtos/shared/services/produtos.service';
-import { IClassificacao } from 'src/app/produtos/shared/models/classificacao.model';
+import { IClassificar } from 'src/app/produtos/shared/models/classificar.model';
+import { ResultService } from 'src/app/produtos/shared/services/classificar.result.service';
 
 @Component({
     selector: 'app-preencher-list',
@@ -18,11 +18,11 @@ export class PreencherListComponent implements OnInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    @Input() data: IClassificacao[];
+    @Input() data: IClassificar[];
 
     dataSource: PreencherListDataSource;
-    selection = new SelectionModel<IClassificacao>(true, []);
-    displayedColumns = ['titulo', 'spreadsheetId', 'idSheet', 'status', 'dataAtualizacao'];
+    selection = new SelectionModel<IClassificar>(true, []);
+    displayedColumns = ['titulo', 'status', 'dataAtualizacao'];
 
     public filtroValue: IResultItem;
     public currentFilter: IResult;
@@ -39,7 +39,7 @@ export class PreencherListComponent implements OnInit {
         this.selection.changed.subscribe(() => {
             resultService.changeFilterResult({
                 ...this.currentFilter,
-                formularios: this.selection.selected
+                classificar: this.selection.selected
             });
         });
     }
@@ -66,13 +66,13 @@ export class PreencherListComponent implements OnInit {
         this.resultService.changeFilter(this.filtroValue);
     }
 
-    updateDataSource(data: IClassificacao[]){
+    updateDataSource(data: IClassificar[]){
         this.dataSource.data = [...data];
         this.dataSource.fullData = [...data];
         this.updateFiltro();
     }
 
-    editModelo(row: IClassificacao){
+    editModelo(row: IClassificar){
         this.router.navigate([`/classificacao-preencher/preencher-edit`], {
             relativeTo: this.route,
             replaceUrl: false,

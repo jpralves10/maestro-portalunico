@@ -31,6 +31,7 @@ import { NotificacoesListComponent } from './shared/notificacoes/notificacoes-li
 import { SuporteComponent } from './shared/suporte/suporte.component';
 import { ModelosClassificarComponent } from './produtos/classificacao/classificar/classificar-list/modelos-classificar/modelos-classificar.component';
 import { ModelosClassificarListComponent } from './produtos/classificacao/classificar/classificar-list/modelos-classificar/modelos-classificar-list/modelos-classificar-list.component';
+import { ProdutosEditComponent } from './produtos/classificacao/classificar/classificar-list/produtos-edit/produtos-edit.component';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { ModelosClassificarListComponent } from './produtos/classificacao/classi
         CategoriasComponent,
         ModelosClassificarComponent,
         ModelosClassificarListComponent,
+        ProdutosEditComponent,
         CategoriasListComponent,
         SpreadsheetsLinkComponent,
         NotificacoesComponent,
@@ -75,6 +77,7 @@ import { ModelosClassificarListComponent } from './produtos/classificacao/classi
         FilterComponent,
         CategoriasComponent,
         ModelosClassificarComponent,
+        ProdutosEditComponent,
         SpreadsheetsLinkComponent
     ],
     bootstrap: [AppComponent]

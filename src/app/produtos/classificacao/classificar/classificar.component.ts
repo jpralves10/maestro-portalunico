@@ -4,8 +4,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProdutoService } from '../../shared/services/produtos.service';
 import { ClassificarListComponent } from './classificar-list/classificar-list.component';
-import { ResultService } from '../../shared/services/formularios.result.service';
-import { IResultItem } from '../../shared/models/formulario.result.model';
+import { ResultService } from '../../shared/services/classificar.result.service';
+import { IResultItem } from '../../shared/models/classificar.result.model';
 import { MatSnackBar } from '@angular/material';
 import { IClassificar } from '../../shared/models/classificar.model';
 
@@ -26,12 +26,9 @@ export class ClassificarComponent implements OnInit {
     data: IClassificar[] = [];
 
     current_filtro: IResultItem = {
-        formulario: {
-            spreadsheetId: '',
-            idSheet: null,
+        classificar: {
             titulo: '',
-            status: '',
-            dataAtualizacao: null
+            status: ''
         }
     }
 

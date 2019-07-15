@@ -93,7 +93,7 @@ export class ClassificarListDataSource extends DataSource<IClassificar> {
                 d.dataAtualizacao.toString().toUpperCase().includes(classificar.dataAtualizacao.toString().toUpperCase())
             );
         }
-        if (classificar.usuario.nome != '' || classificar.usuario.email != '') {
+        if (classificar.usuario != undefined && (classificar.usuario.nome != '' || classificar.usuario.email != '')) {
             newData = newData.filter(d =>
                 d.usuario.nome.toUpperCase().includes(classificar.usuario.nome.toUpperCase()),
             );

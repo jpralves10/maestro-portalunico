@@ -287,3 +287,7 @@ app-root {
 .mat-badge-medium.mat-badge-above .mat-badge-content {
     top: -2px;
 }
+
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+    z-index: 99999 !important;
+ }
