@@ -8,6 +8,7 @@ import { MatSnackBar } from '@angular/material';
 import { IColuna, IComentario } from '../../../shared/models/classificacao.legendas';
 import { IClassificacao } from 'src/app/produtos/shared/models/classificacao.model';
 import $ from "jquery";
+import { IClassificar } from 'src/app/produtos/shared/models/classificar.model';
 
 @Component({
     selector: 'app-preencher-edit',
@@ -24,7 +25,7 @@ export class PreencherEditComponent implements OnInit {
 
     userInfo:any = {};
 
-    formulario = {} as IClassificacao;
+    classificar = {} as IClassificar;
 
     loading = true;
     errored = false;
@@ -40,10 +41,10 @@ export class PreencherEditComponent implements OnInit {
         private _snackBar: MatSnackBar
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
-            this.formulario = JSON.parse(paramMap.get('filterFormulario'));
+            this.classificar = JSON.parse(paramMap.get('filterFormulario'));
 
-            if(this.formulario.categorias == undefined){
-                this.formulario.categorias = []
+            if(this.classificar.classificacao.categorias == undefined){
+                this.classificar.classificacao.categorias = []
             }
 
             this.obterClassificacao();
@@ -52,25 +53,25 @@ export class PreencherEditComponent implements OnInit {
 
     ngOnInit() {
         const iframe = this.hostElement.nativeElement.querySelector('iframe');
-        iframe.src = this.formulario.iframe;
+        iframe.src = this.classificar.classificacao.iframe;
     }
 
     obterClassificacao(){
-        this.produtoService.getClassificacao(this.formulario).subscribe(classificacoes => {
+        this.produtoService.getClassificacao(this.classificar.classificacao).subscribe(classificacoes => {
 
             if(classificacoes.length > 0){
                 this.setSortClassificacoes(classificacoes);
-                let formulario = classificacoes[0];
-                this.formulario = formulario;
+                let classificacao = classificacoes[0];
+                this.classificar.classificacao = classificacao;
                 this.carregarColunas();
             }
         });
     }
 
     carregarColunas(){
-        if(this.formulario.colunas != undefined && this.formulario.colunas.length > 0){
+        if(this.classificar.classificacao.colunas != undefined && this.classificar.classificacao.colunas.length > 0){
 
-            this.formulario.colunas.forEach(coluna => {
+            this.classificar.classificacao.colunas.forEach(coluna => {
                 if(coluna.idColuna > 1){
                     coluna.comentarios = false
                     coluna.selecionada = false
@@ -79,7 +80,7 @@ export class PreencherEditComponent implements OnInit {
                 }
             });
 
-            this.formulario.comentarios.forEach(comentario => {
+            this.classificar.classificacao.comentarios.forEach(comentario => {
                 this.colunas.forEach(coluna => {
                     if(comentario.idColuna == coluna.idColuna){
                         coluna.comentarios = true
@@ -131,8 +132,8 @@ export class PreencherEditComponent implements OnInit {
 
         this.comentarios = [];
 
-        if(this.formulario.comentarios.length > 0){
-            this.formulario.comentarios.forEach(comentario => {
+        if(this.classificar.classificacao.comentarios.length > 0){
+            this.classificar.classificacao.comentarios.forEach(comentario => {
                 if(comentario.idColuna == idColuna){
                     comentario.idUsuario == this.userInfo.email ? 
                     comentario.side = 'right' : comentario.side = 'left';
@@ -160,8 +161,8 @@ export class PreencherEditComponent implements OnInit {
     salvarComentario(){
         if(this.comentario.descricao != undefined && this.comentario.descricao.length > 0){
             let nmUsuario = this.userInfo.firstName + ' ' + this.userInfo.lastName;
-            this.comentario.idSheet = this.formulario.idSheet;
-            this.comentario.sheetVersao = this.formulario.version;
+            this.comentario.idSheet = this.classificar.classificacao.idSheet;
+            this.comentario.sheetVersao = this.classificar.version;
             this.comentario.idComentario = null;
             this.comentario.idResposta = this.userInfo.email;
             this.comentario.idUsuario = this.userInfo.email;
@@ -173,7 +174,7 @@ export class PreencherEditComponent implements OnInit {
 
             this.produtoService.setComentarios([this.comentario]).subscribe(classificacoes => {
                 if(classificacoes.length > 0){
-                    this.formulario = classificacoes[0];
+                    this.classificar.classificacao = classificacoes[0];
 
                     this.comentario.descricao = '';
                     this.printComentarios(this.comentario.idColuna);

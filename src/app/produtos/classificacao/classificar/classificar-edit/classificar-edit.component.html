@@ -1,11 +1,5 @@
 <div class="produtos-container">
-    <h3>Editar Modelo</h3>
-
-    <div *ngIf="mensagem !== null">
-        <div *ngFor="let msg of mensagem.lista" class="mat-card-content-div {{mensagem.class}}">
-            <span class="alert-text">{{msg.valor}}</span>
-        </div>
-    </div>
+    <h3>Dados da Classificação</h3>
 
     <mat-card class="mat-elevation-z5 filtro-card">
         <mat-card-content class="form-container">
@@ -15,51 +9,25 @@
                     <textarea
                         matInput
                         placeholder="Título do Formulario"
-                        [(ngModel)]="formulario.titulo"
+                        [(ngModel)]="classificar.titulo"
                         class="produto-descricao">
                     </textarea>
                 </mat-form-field>
             </div>
 
             <div class="produto-fields">
-                <mat-form-field>
-                    <input
-                        matInput
-                        placeholder="Número da Planilha"
-                        [(ngModel)]="formulario.spreadsheetId"
-                        [disabled]="formulario.spreadsheetIdDisabled"/>
-                </mat-form-field>
 
-                <mat-form-field>
-                    <input
-                        matInput
-                        placeholder="Número da Folha"
-                        [(ngModel)]="formulario.idSheet"
-                        [disabled]="formulario.idSheetDisabled"/>
-                </mat-form-field>
 
-                <mat-checkbox
-                    [checked]="formulario.status == 'Inativo'"
-                    (change)="setStatusFormulario($event)">
-                    Inativar Formulário
-                </mat-checkbox>
             </div>
 
             <div class="categorias-content table-list">
-                <div class="categorias-fields">
-                    Categorias:
-                    <a (click)="openDialogCategorias()" class="add-categorias">
-                        <i class="fas fa-plus-square"></i>
-                        Adicionar
-                    </a>
-                </div>
 
                 <ul>
-                    <li *ngFor="let categoria of formulario.categorias">
-                        <button mat-button (click)="removerCategoria(categoria)" style="font-size: 0.9em;">
+                    <li *ngFor="let perguntas of classificar.classificacao.colunas">
+                        <span>
                             <i class="fas fa-times"></i>
-                            {{categoria.descricao}}
-                        </button>
+                            {{perguntas.nmColuna}}
+                        </span>
                     </li>
                 </ul>
             </div>
@@ -85,13 +53,119 @@
                 Voltar
             </button>
 
-            <button
+            <!--button
                 mat-raised-button
                 (click)="finalizarPreenchimento()"
                 class="step-button-finish">
                 <i class="fas fa-check fa-sm"></i>
                 Finalizar
-            </button>
+            </button-->
         </mat-card-actions>
     </mat-card>
 </div>
+
+<!-- Comentários:: -->
+
+<div *ngIf="colunas.length > 0" class="open-button">
+    <div class="comment-content">
+        <div class="comment-title">
+            Comentários do Formulário
+        </div>
+        <div (click)="openForm()">
+            <i class="fas fa-plus-square fa-sm comment-icon"></i>
+        </div>
+    </div>
+</div>
+
+<mat-card *ngIf="colunas.length > 0" id="chatComment" class="mat-elevation-z5 chat-popup">
+
+    <div class="open-button-chat">
+        <div class="comment-content">
+            <div class="comment-title">
+                Comentários do Formulário
+            </div>
+            <div (click)="closeForm()">
+                <i class="fas fa-minus-square fa-sm comment-icon"></i>
+            </div>
+        </div>
+    </div>
+
+    <mat-card-content class="form-container">
+
+        <div>
+            <!--mat-form-field style="width: 100%;">
+                <mat-label>Campos do Formulário</mat-label>
+                <mat-select [(ngModel)]="idColuna" (selectionChange)="printComentarios()">
+                    <mat-option
+                        *ngFor="let coluna of colunas"
+                        [value]="coluna.idColuna"
+                        class="option-campos">
+                        {{coluna.nmColuna}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field-->
+
+            <div class="commen-inputs" style="min-height:180px;">
+                <div class="content-campos">
+                    <div
+                        *ngFor="let coluna of colunas"
+                        (click)="teste($event); printComentarios(coluna.idColuna);"
+                        class="comment-card
+                                comment-item-{{coluna.comentarios}}
+                                {{coluna.selecionada == true ? 'comment-item-selected' : ''}}"
+                        matBadge="{{coluna.pendentes}}" 
+                        matBadgePosition="after"
+                        matBadgeColor="accent"
+                        matBadgeSize="medium"
+                        [matBadgeHidden]="!coluna.comentarios && !coluna.selecionada">
+                        {{coluna.nmColuna}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="comment-fields">
+
+                <div class="content-comment">
+                    <div
+                        *ngFor="let comentario of classificar.classificacao.comentarios"
+                        class="comment-card comment-item-{{comentario.side}}">
+                        <div class="comment-head">
+                            <span class="comment-user-{{comentario.side}}">
+                                {{comentario.nmUsuario}}
+                            </span>
+                            <span class="comment-date-{{comentario.side}}">
+                                <i class="fas fa-clock comment-icon-clock"></i>
+                                {{comentario.dataCriacao.toLocaleDateString()}}
+                                {{comentario.dataCriacao.toLocaleTimeString(
+                                    [], {hour: '2-digit', minute:'2-digit'}
+                                )}}
+                            </span>
+                        </div>
+                        {{comentario.descricao}}
+                    </div>
+                    <div class="content-msg content-msg-{{coluna.comentarios == true ? 'none' : 'table'}}">
+                        <div
+                            *ngIf="classificar.classificacao.comentarios.length == 0"
+                            class="content-msg-item">
+                            Não há comentários!
+                        </div>
+                    </div>
+                </div>
+
+                <div class="comment-input">
+                    <input
+                        [(ngModel)]="comentario.descricao"
+                        placeholder="..." />
+
+                    <button
+                        mat-button
+                        class="button-salvar"
+                        (click)="salvarComentario()">
+                        Ok
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </mat-card-content>
+</mat-card>

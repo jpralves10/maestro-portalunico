@@ -81,9 +81,12 @@ export class ClassificarListComponent implements OnInit {
 
     openModelo(row: IClassificar){
         const modalProduto = this.modalService.open(ProdutosEditComponent, {size: '900', centered: true});
-        row.produto.descricao = row.produto.descricaoBruta
+        
+        if(row.produto.descricao.length == 0){
+            row.produto.descricao = row.produto.descricaoBruta
+        }
+        
         modalProduto.componentInstance.produto = row.produto
-
         modalProduto.result.then((result) => {
 
             row.produto = result
@@ -116,7 +119,7 @@ export class ClassificarListComponent implements OnInit {
             relativeTo: this.route,
             replaceUrl: false,
             queryParams: {
-                filterFormulario: JSON.stringify({...row})
+                filterClassificarList: JSON.stringify({...row})
             }
         });
     }

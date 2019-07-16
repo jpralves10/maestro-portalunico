@@ -72,14 +72,14 @@ export class PreencherComponent implements OnInit {
 
     ngOnInit() {}
 
-    adicionarProduto(){
+    /*adicionarProduto(){
         const modalLink = this.modalService.open(SpreadsheetsLinkComponent, {size: '900', centered: true});
         modalLink.componentInstance.linkSpreadsheets = '';
         modalLink.result.then((links:string[]) => {
 
 
         }, (reason) => {});
-    }
+    }*/
 
     updateFiltro() {
         this.resultService.changeFilter(this.current_filtro);
