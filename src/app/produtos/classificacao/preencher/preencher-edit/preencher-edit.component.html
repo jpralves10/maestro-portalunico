@@ -1,14 +1,50 @@
-<iframe
-    src=""
-    id="frameForms"
-    width="640"
-    height="1058"
-    frameborder="0" 
-    marginheight="0"
-    marginwidth="0"
-    class="iframe-google">
-    Carregando…
-</iframe>
+<div style="height: 100%;">
+
+    <mat-card class="mat-elevation-z5 filtro-card" style="margin: 35px;">
+        <mat-card-content class="form-container">
+            <mat-card-title>
+                Preencher Campos Obrigatórios:
+            </mat-card-title>
+            <mat-card-subtitle style="font-size: 1.2em;font-weight: 500; margin-bottom:2px;">
+                Endereço de e-mail:
+                <mat-chip style="background-color:#D4E6F1;">
+                    {{classificar.usuario.email}}
+                </mat-chip>
+            </mat-card-subtitle>
+            <mat-card-subtitle style="font-size: 1.2em;font-weight: 500;">
+                Código do Produto:
+                <mat-chip style="background-color:#D4E6F1;">
+                    {{classificar.produto._id}}
+                </mat-chip>
+            </mat-card-subtitle>
+        </mat-card-content>
+    </mat-card>
+
+    <iframe
+        src=""
+        id="frameForms"
+        width="640"
+        height="1058"
+        frameborder="0" 
+        marginheight="0"
+        marginwidth="0"
+        class="iframe-google"
+        (load)="onSubmit($event)">
+        Carregando…
+    </iframe>
+</div>
+
+<!--div [innerHTML]="body">    
+</div>
+
+<!--form 
+    action="https://docs.google.com/forms/u/1/d/e/1FAIpQLScJJvPc4xlmPA2pGd5VIusBzbRok79W1VV_CcDmO6ZQi5aLJw/formResponse?embedded=true"
+    method="POST">
+
+    <input type="text" aria-label="email" value="Novo" disabled>
+
+    <button type="submit">Aqui</button>
+</form-->
 
 <div *ngIf="colunas.length > 0" class="open-button">
     <div class="comment-content">

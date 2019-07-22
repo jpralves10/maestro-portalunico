@@ -5,28 +5,24 @@
         <mat-card-content class="form-container">
 
             <div class="produto-fields-textarea">
-                <mat-form-field>
-                    <textarea
-                        matInput
-                        placeholder="Título do Formulario"
-                        [(ngModel)]="classificar.titulo"
-                        class="produto-descricao">
-                    </textarea>
-                </mat-form-field>
-            </div>
-
-            <div class="produto-fields">
-
-
+                <textarea
+                    matInput
+                    placeholder="Título do Formulario"
+                    [(ngModel)]="classificar.titulo"
+                    class="produto-descricao" disabled></textarea>
             </div>
 
             <div class="categorias-content table-list">
 
                 <ul>
-                    <li *ngFor="let perguntas of classificar.classificacao.colunas">
-                        <span>
-                            <i class="fas fa-times"></i>
-                            {{perguntas.nmColuna}}
+                    <li *ngFor="let questoes of perguntasRespostas" style="padding-bottom: 15px;">
+                        <div>
+                            <i class="fas fa-dot-circle"></i>
+                            {{questoes.nmColuna}}                            
+                        </div>
+                        <br/>
+                        <span style="padding-left: 20px;">
+                            {{questoes.deCampo}}
                         </span>
                     </li>
                 </ul>
@@ -127,7 +123,7 @@
 
                 <div class="content-comment">
                     <div
-                        *ngFor="let comentario of classificar.classificacao.comentarios"
+                        *ngFor="let comentario of comentarios"
                         class="comment-card comment-item-{{comentario.side}}">
                         <div class="comment-head">
                             <span class="comment-user-{{comentario.side}}">
@@ -145,7 +141,7 @@
                     </div>
                     <div class="content-msg content-msg-{{coluna.comentarios == true ? 'none' : 'table'}}">
                         <div
-                            *ngIf="classificar.classificacao.comentarios.length == 0"
+                            *ngIf="comentarios.length == 0"
                             class="content-msg-item">
                             Não há comentários!
                         </div>

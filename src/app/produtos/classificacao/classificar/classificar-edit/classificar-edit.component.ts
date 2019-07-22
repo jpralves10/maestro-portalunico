@@ -1,13 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProdutoService } from 'src/app/produtos/shared/services/produtos.service';
 
-import * as Util from '../../../../utilitarios/utilitarios';
-import { msg_default_three } from 'src/app/utilitarios/mensagens.module';
-import { CategoriasComponent } from './categorias/categorias.component';
-
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { ICategoriasForm, IComentario, IColuna } from 'src/app/produtos/shared/models/classificacao.legendas';
+import { IComentario, IColuna } from 'src/app/produtos/shared/models/classificacao.legendas';
 
 import { MatSnackBar } from '@angular/material';
 import { IResult } from 'src/app/produtos/shared/models/formulario.result.model';
@@ -30,6 +26,10 @@ export class ClassificarEditComponent implements OnInit {
 
     colunas: IColuna[] = [];
     coluna = {} as IColuna;
+
+    idColuna:number;
+
+    perguntasRespostas: {nmColuna:string, deCampo:string}[] = []
 
     userInfo:any = {};
 
@@ -54,7 +54,14 @@ export class ClassificarEditComponent implements OnInit {
                 this.classificar.classificacao.categorias = []
             }
 
-            this.obterClassificacao();            
+            this.comentarios = [...this.classificar.classificacao.comentarios]
+
+            this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'))
+
+            this.getPerguntasRespostas();
+            this.carregarColunas();
+
+            //this.obterClassificacao();            
         });
     }
 
@@ -130,7 +137,7 @@ export class ClassificarEditComponent implements OnInit {
 
     printComentarios(idColuna:number){
 
-        this.comentario.idColuna = idColuna;
+        this.idColuna = idColuna
 
         this.colunas.forEach(coluna => {
             if(coluna.idColuna != idColuna){
@@ -163,23 +170,21 @@ export class ClassificarEditComponent implements OnInit {
             })
         }
 
-        setTimeout(() => {
-            this.produtoService.setComentarios(this.comentarios).subscribe(status => {
-                //console.log(status);
-            });
+        this.comentario = {} as IComentario;
 
-            var objDiv = $( ".content-comment" )[0];
-            objDiv.scrollTop = objDiv.scrollHeight;
-        }, 1);
+        var objDiv = $( ".content-comment" )[0];
+        objDiv.scrollTop = objDiv.scrollHeight;
     }
 
     salvarComentario(){
         if(this.comentario.descricao != undefined && this.comentario.descricao.length > 0){
             let nmUsuario = this.userInfo.firstName + ' ' + this.userInfo.lastName;
             this.comentario.idSheet = this.classificar.classificacao.idSheet;
-            this.comentario.sheetVersao = this.classificar.classificacao.version;
+            this.comentario.idColuna = this.idColuna;
+            this.comentario.sheetVersao = this.classificar.version;
             this.comentario.idComentario = null;
             this.comentario.idResposta = this.userInfo.email;
+            this.comentario.idProduto = this.classificar.produto._id;
             this.comentario.idUsuario = this.userInfo.email;
             this.comentario.nmUsuario = nmUsuario;
             this.comentario.status = 'Pendente';
@@ -187,13 +192,22 @@ export class ClassificarEditComponent implements OnInit {
             this.comentario.dataAtualizacao = new Date();
             this.comentario.side = undefined;
 
-            this.produtoService.setComentarios([this.comentario]).subscribe(classificacoes => {
-                if(classificacoes.length > 0){
-                    this.classificar.classificacao = classificacoes[0];
+            //this.comentario.idComentario = getIdComentario(classificacao);
 
-                    this.comentario.descricao = '';
-                    this.printComentarios(this.comentario.idColuna);
-                }
+            if(this.classificar.classificacao.comentarios.length > 0){
+                let comentarios = [...this.classificar.classificacao.comentarios];
+                comentarios.sort((a, b) => a.idComentario > b.idComentario ? 1 : -1 );
+                this.comentario.idComentario = (comentarios.pop().idComentario + 1);
+            }else{
+                this.comentario.idComentario = 0;
+            }
+
+            this.comentarios.push(this.comentario);
+            this.classificar.classificacao.comentarios.push(this.comentario)
+
+            this.produtoService.setClassificarUpdate(this.classificar).subscribe(ret => {
+                this.comentario.descricao = '';
+                this.printComentarios(this.comentario.idColuna);
             });
         }
     }
@@ -201,4 +215,32 @@ export class ClassificarEditComponent implements OnInit {
     setSortClassificacoes = async (classificacoes:IClassificacao[]) => {
         classificacoes.sort((a, b) => a.version > b.version ? 1 : -1 );
     };
+
+    getPerguntasRespostas(){
+
+        let pergResp = {} as {nmColuna:string, deCampo:string};
+
+        this.classificar.classificacao.respostas.forEach(resposta => {
+
+            if(resposta.idResposta == this.classificar.usuario.email && 
+                resposta.idProduto == this.classificar.produto._id){
+
+                this.classificar.classificacao.colunas.forEach(coluna => {
+                    
+                    resposta.campos.forEach(campo => {
+
+                        if(coluna.idColuna == campo.idColuna){
+        
+                            pergResp.nmColuna = coluna.nmColuna
+                            pergResp.deCampo = campo.deCampo
+        
+                            this.perguntasRespostas.push(pergResp)
+        
+                            pergResp = {} as {nmColuna:string, deCampo:string};
+                        }
+                    })
+                })
+            }            
+        })
+    }
 }

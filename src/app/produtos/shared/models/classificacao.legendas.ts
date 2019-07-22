@@ -8,6 +8,7 @@ export interface IColuna {
 
 export interface IResposta {
     idResposta: string,
+    idProduto: string,
     carimbo: string,
     campos: {
         idColuna: number,
@@ -21,6 +22,7 @@ export interface IComentario {
     sheetVersao: number,
     idComentario: number,
     idResposta: string,
+    idProduto: string,
     idColuna: number,
     idUsuario: string,
     nmUsuario: string,

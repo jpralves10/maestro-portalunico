@@ -12,6 +12,7 @@ import {
 import { IClassificacao } from '../models/classificacao.model';
 import { IComentario, ICategoriasForm } from '../models/classificacao.legendas';
 import { IClassificar } from '../models/classificar.model';
+import { text } from '@angular/core/src/render3';
 
 @Injectable({
     providedIn: 'root'
@@ -50,6 +51,12 @@ export class ProdutoService {
         );
     }
 
+    getFormGoogle(){
+        return this.httpClient.post(
+            `${ GOOGLE_FORMS_API }/produtos/classificacao/formGoogle`, [], {responseType:'text'}
+        );
+    }
+
     getClassificacao(classificacao: IClassificacao): Observable<IClassificacao[]> {
         return this.httpClient.post<any>(
             `${ GOOGLE_FORMS_API }/produtos/classificacao/find`, classificacao
@@ -62,11 +69,11 @@ export class ProdutoService {
         );
     }
 
-    setComentarios(comentarios: IComentario[]): Observable<IClassificacao[]> {
+    /*setComentarios(comentarios: IComentario[]): Observable<IClassificacao[]> {
         return this.httpClient.post<any>(
             `${ GOOGLE_FORMS_API }/produtos/comentario/save`, comentarios
         );
-    }
+    }*/
 
     getCategoriasForm(categoria: ICategoriasForm): Observable<ICategoriasForm[]> {
         return this.httpClient.post<any>(
@@ -101,6 +108,18 @@ export class ProdutoService {
     getClassificarAll(): Observable<IClassificar[]> {
         return this.httpClient.post<any>(
             `${ GOOGLE_FORMS_API }/produtos/classificar/findAll`, []
+        );
+    }
+
+    setClassificarSpreed(classificar: IClassificar): Observable<string> {
+        return this.httpClient.post<any>(
+            `${ GOOGLE_FORMS_API }/produtos/classificar/saveSpreed`, classificar
+        );
+    }
+
+    setClassificarUpdate(classificar: IClassificar): Observable<IClassificar> {
+        return this.httpClient.post<any>(
+            `${ GOOGLE_FORMS_API }/produtos/classificar/saveUpdate`, classificar
         );
     }
 

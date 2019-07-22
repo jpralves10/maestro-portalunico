@@ -20,17 +20,20 @@ export class PreencherEditComponent implements OnInit {
     colunas: IColuna[] = [];
     coluna = {} as IColuna;
 
+    idColuna:number;
+
     comentarios: IComentario[] = [];
     comentario = {} as IComentario;
 
     userInfo:any = {};
-
     classificar = {} as IClassificar;
 
     loading = true;
     errored = false;
     finish = false;
     spinner = false;
+
+    body:string
 
     constructor(
         private router: Router,
@@ -47,7 +50,11 @@ export class PreencherEditComponent implements OnInit {
                 this.classificar.classificacao.categorias = []
             }
 
-            this.obterClassificacao();
+            this.comentarios = [...this.classificar.classificacao.comentarios]
+
+            this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'))
+
+            this.carregarColunas();
         });
     }
 
@@ -56,16 +63,8 @@ export class PreencherEditComponent implements OnInit {
         iframe.src = this.classificar.classificacao.iframe;
     }
 
-    obterClassificacao(){
-        this.produtoService.getClassificacao(this.classificar.classificacao).subscribe(classificacoes => {
-
-            if(classificacoes.length > 0){
-                this.setSortClassificacoes(classificacoes);
-                let classificacao = classificacoes[0];
-                this.classificar.classificacao = classificacao;
-                this.carregarColunas();
-            }
-        });
+    ngAfterViewInit() {
+        //$( "input[aria-label='email']" ).prop("disabled", true);
     }
 
     carregarColunas(){
@@ -115,7 +114,7 @@ export class PreencherEditComponent implements OnInit {
 
     printComentarios(idColuna:number){
 
-        this.comentario.idColuna = idColuna;
+        this.idColuna = idColuna
 
         this.colunas.forEach(coluna => {
             if(coluna.idColuna != idColuna){
@@ -130,7 +129,7 @@ export class PreencherEditComponent implements OnInit {
         $( ".content-campos" ).css("max-height","200px");
         $( ".comment-fields" ).css("display","grid");
 
-        this.comentarios = [];
+        this.comentarios = []
 
         if(this.classificar.classificacao.comentarios.length > 0){
             this.classificar.classificacao.comentarios.forEach(comentario => {
@@ -148,13 +147,13 @@ export class PreencherEditComponent implements OnInit {
             })
         }
 
-        setTimeout(() => {
-            this.produtoService.setComentarios(this.comentarios).subscribe(status => {
-                //console.log(status);
-            });
+        this.comentario = {} as IComentario;
 
-            var objDiv = $( ".content-comment" )[0];
-            objDiv.scrollTop = objDiv.scrollHeight;
+        var objDiv = $( ".content-comment" )[0];
+        objDiv.scrollTop = objDiv.scrollHeight;
+
+        setTimeout(() => {
+            
         }, 1);
     }
 
@@ -162,9 +161,11 @@ export class PreencherEditComponent implements OnInit {
         if(this.comentario.descricao != undefined && this.comentario.descricao.length > 0){
             let nmUsuario = this.userInfo.firstName + ' ' + this.userInfo.lastName;
             this.comentario.idSheet = this.classificar.classificacao.idSheet;
+            this.comentario.idColuna = this.idColuna;
             this.comentario.sheetVersao = this.classificar.version;
             this.comentario.idComentario = null;
             this.comentario.idResposta = this.userInfo.email;
+            this.comentario.idProduto = this.classificar.produto._id;
             this.comentario.idUsuario = this.userInfo.email;
             this.comentario.nmUsuario = nmUsuario;
             this.comentario.status = 'Pendente';
@@ -172,13 +173,21 @@ export class PreencherEditComponent implements OnInit {
             this.comentario.dataAtualizacao = new Date();
             this.comentario.side = undefined;
 
-            this.produtoService.setComentarios([this.comentario]).subscribe(classificacoes => {
-                if(classificacoes.length > 0){
-                    this.classificar.classificacao = classificacoes[0];
+            //this.comentario.idComentario = getIdComentario(classificacao);
 
-                    this.comentario.descricao = '';
-                    this.printComentarios(this.comentario.idColuna);
-                }
+            if(this.classificar.classificacao.comentarios.length > 0){
+                let comentarios = [...this.classificar.classificacao.comentarios];
+                comentarios.sort((a, b) => a.idComentario > b.idComentario ? 1 : -1 );
+                this.comentario.idComentario = (comentarios.pop().idComentario + 1);
+            }else{
+                this.comentario.idComentario = 0;
+            }
+
+            this.comentarios.push(this.comentario);
+            this.classificar.classificacao.comentarios.push(this.comentario)
+
+            this.produtoService.setClassificarUpdate(this.classificar).subscribe(ret => {
+                this.printComentarios(this.comentario.idColuna);
             });
         }
     }
@@ -186,4 +195,8 @@ export class PreencherEditComponent implements OnInit {
     setSortClassificacoes = async (classificacoes:IClassificacao[]) => {
         classificacoes.sort((a, b) => a.version > b.version ? 1 : -1 );
     };
+
+    onSubmit(event: Event){
+        this.produtoService.setClassificarSpreed(this.classificar).subscribe(ret => {})
+    }
 }

@@ -13,6 +13,10 @@
     margin-bottom: 5px;
 }
 
+.mat-form-field-wrapper {
+    padding-bottom: 0;
+}
+
 .produto-fields {
     display: grid;
     margin-bottom: 10px;
@@ -288,13 +292,15 @@ ul li {
 }
 
 .form-container textarea {
-    width: 100%;
+    /* width: 100%; */
     padding: 15px;
-    margin: 5px 0 22px 0;
+    margin: 5px 0 10px 0;
     border: none;
-    background: #f1f1f1;
+    /* background: #f1f1f1; */
     resize: none;
-    min-height: 50px;
+    /* min-height: 50px; */
+    overflow: hidden;
+    color: #596679;
 }
 
 .form-container textarea:focus {

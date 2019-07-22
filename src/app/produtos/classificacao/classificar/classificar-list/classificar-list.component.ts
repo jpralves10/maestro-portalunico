@@ -82,7 +82,7 @@ export class ClassificarListComponent implements OnInit {
     openModelo(row: IClassificar){
         const modalProduto = this.modalService.open(ProdutosEditComponent, {size: '900', centered: true});
         
-        if(row.produto.descricao.length == 0){
+        if(row.produto.descricao == undefined || row.produto.descricao.length == 0){
             row.produto.descricao = row.produto.descricaoBruta
         }
         
