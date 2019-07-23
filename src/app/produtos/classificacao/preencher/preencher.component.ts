@@ -9,6 +9,7 @@ import { ResultService } from '../../shared/services/classificar.result.service'
 import { IResultItem } from '../../shared/models/classificar.result.model';
 import { MatSnackBar } from '@angular/material';
 import { IClassificar } from '../../shared/models/classificar.model';
+import { EmpresaComponent } from 'src/app/shared/empresas/empresa.component';
 
 @Component({
     selector: 'app-preencher',
@@ -22,6 +23,7 @@ export class PreencherComponent implements OnInit {
 
     loading = true;
     errored = false;
+    empresa = false;
 
     formulario = {} as IClassificar;
     data: IClassificar[] = [];
@@ -48,25 +50,31 @@ export class PreencherComponent implements OnInit {
             }            
         });*/
 
-        this.produtoService.getClassificarAll().subscribe(classificar => {
-
-            let userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'))
-
-            classificar.forEach(item => {
-                if(item.status == 'Classificado' && item.usuario.email == userInfo.email){
-                    this.data.push(item)
-                }
-            })
-
-            this.data.forEach(item => {
-                item.dataAtualizacao = new Date(item.dataAtualizacao)
-                item.dataCriacao = new Date(item.dataCriacao)
-            })
-            
-            if(this.childPreencherList != undefined){
-                this.childPreencherList.updateDataSource(this.data);
+        this.produtoService.getEmpresaFind().subscribe(ret => {
+            if(ret.length == 0){
+                this.empresa = true
             }
-            this.loading = false;
+
+            this.produtoService.getClassificarAll().subscribe(classificar => {
+
+                let userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'))
+
+                classificar.forEach(item => {
+                    if(item.status == 'Classificado' && item.usuario.email == userInfo.email){
+                        this.data.push(item)
+                    }
+                })
+
+                this.data.forEach(item => {
+                    item.dataAtualizacao = new Date(item.dataAtualizacao)
+                    item.dataCriacao = new Date(item.dataCriacao)
+                })
+                
+                if(this.childPreencherList != undefined){
+                    this.childPreencherList.updateDataSource(this.data);
+                }
+                this.loading = false;
+            })
         })
     }
 
@@ -83,5 +91,12 @@ export class PreencherComponent implements OnInit {
 
     updateFiltro() {
         this.resultService.changeFilter(this.current_filtro);
+    }
+
+    adicionarEmpresa(){
+        this.modalService.open(EmpresaComponent, {size: '900', centered: true}).result.then((result) => {}, (reason) => {
+            window.sessionStorage.setItem('empresa', reason)
+            this.empresa = false
+        });
     }
 }

@@ -21,6 +21,9 @@ import { ImportacaoComponent } from './produtos/importacao/importacao.component'
 import { FilterComponent } from './shared/filter/filter.component';
 import { ImportersListComponent } from './shared/filter/importers-list/importers-list.component';
 
+import { EmpresaComponent } from './shared/empresas/empresa.component';
+import { EmpresaListComponent } from './shared/empresas/categorias-list/empresa-list.component';
+
 import { CategoriasComponent } from './produtos/classificacao/modelos/modelos-edit/categorias/categorias.component';
 import { CategoriasListComponent } from './produtos/classificacao/modelos/modelos-edit/categorias/categorias-list/categorias-list.component';
 import { SpreadsheetsLinkComponent } from './produtos/classificacao/modelos/modelos-edit/spreadsheets-link/spreadsheets-link.component';
@@ -39,6 +42,8 @@ import { ProdutosEditComponent } from './produtos/classificacao/classificar/clas
         NavegacaoComponent,
         HomeComponent,
         FilterComponent,
+        EmpresaComponent,
+        EmpresaListComponent,
         ImportersListComponent,
         IndicadoresComponent,
         ImportacaoComponent,
@@ -75,6 +80,7 @@ import { ProdutosEditComponent } from './produtos/classificacao/classificar/clas
     ],
     entryComponents: [
         FilterComponent,
+        EmpresaComponent,
         CategoriasComponent,
         ModelosClassificarComponent,
         ProdutosEditComponent,

@@ -108,18 +108,37 @@ export class NotificacoesListComponent implements OnInit {
 
     removeRowCategoria(row: INotificacoes) {
         if(this.selection.isSelected(row)){
-            this.data.splice(this.data.indexOf(row), 1);
-            this.dataSource.data = [...this.data];
-            this.dataSource.fullData = [...this.data];
-
-            this.filterService.delNotificacoesForm(row).subscribe(status => {})
-
-            setTimeout(() => {
-                this.selection.toggle(row);
-                this.dataSource.getUpdatedData();
-                this.updateFiltro();
-            }, 500);
+            this.removeRowNow(row)
         }
+    }
+
+    removeRowNow(row: INotificacoes){
+        this.data.splice(this.data.indexOf(row), 1);
+        this.dataSource.data = [...this.data];
+        this.dataSource.fullData = [...this.data];
+
+        this.filterService.delNotificacoesForm(row).subscribe(status => {})
+
+        setTimeout(() => {
+            this.selection.toggle(row);
+            this.dataSource.getUpdatedData();
+            this.updateFiltro();
+        }, 500);
+    }
+
+    direcionarTela(row: INotificacoes){
+
+        let telaRedirecionar = row.tela
+
+        this.removeRowNow(row);
+        
+        this.router.navigate([telaRedirecionar], {
+            relativeTo: this.route,
+            replaceUrl: false,
+            /*queryParams: {
+                filterFormulario: JSON.stringify({...row})
+            }*/
+        });
     }
 }
 

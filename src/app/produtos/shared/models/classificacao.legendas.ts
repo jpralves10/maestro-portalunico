@@ -40,3 +40,14 @@ export interface ICategoriasForm {
     descricao:string,
     disabled?:boolean
 }
+
+export interface IEmpresa {
+    _id?:any,
+    descricao:string,
+    codigo?:number,
+    cnpj?:number,
+    importador?:boolean,
+    exportador?:boolean,
+    trading?:boolean,
+    categorias?:ICategoriasForm[]
+}

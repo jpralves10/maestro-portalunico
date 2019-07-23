@@ -8,69 +8,45 @@
 
         <!-- Column -->
         <ng-container matColumnDef="select">
-            <th mat-header-cell *matHeaderCellDef style="display: none">
-                <!--mat-checkbox
+            <th mat-header-cell *matHeaderCellDef>
+                <mat-checkbox
                     class="select-check"
                     (change)="$event ? masterToggle() : null"
                     [checked]="selection.hasValue() && isAllSelected()"
                     [indeterminate]="selection.hasValue() && !isAllSelected()">
-                </mat-checkbox-->
+                </mat-checkbox>
             </th>
-            <td mat-cell *matCellDef="let row" style="border-bottom-style:none">
+            <td mat-cell *matCellDef="let row">
                 <mat-checkbox
                     class="select-check"
-                    (click)="$event.stopPropagation();"
+                    (click)="$event.stopPropagation(); habilitarOperacao(row, null)"
                     (change)="$event ? selection.toggle(row) : null"
                     [checked]="selection.isSelected(row)">
                 </mat-checkbox>
             </td>
         </ng-container>
 
-        <ng-container matColumnDef="tela">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="display: none">Tela</th>
-            <td mat-cell *matCellDef="let row" class="td-modelos">
-                <strong>Tela: </strong>
-                {{ row.tela }}
+        <ng-container matColumnDef="descricao">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Descrição</th>
+            <td mat-cell *matCellDef="let row">{{ row.descricao }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="operacao">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let row">
+                <button mat-button (click)="removeRowCategoria(row)" title="Remover" [disabled]='row.disabled'>
+                    <i class="fas fa-minus-square lg"></i>
+                </button>
             </td>
         </ng-container>
 
-        <ng-container matColumnDef="titulo">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="display: none">Titulo</th>
-            <td mat-cell *matCellDef="let row" class="td-modelos">
-                <strong>Titulo: </strong>
-                {{ row.titulo }}
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="status">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="display: none">Status</th>
-            <td mat-cell *matCellDef="let row" class="td-modelos">
-                <strong>Status: </strong>
-                {{ row.status }}
-            </td>
-        </ng-container>
-
-        <ng-container matColumnDef="dataAtualizacao">
-            <th mat-header-cell *matHeaderCellDef mat-sort-header style="display: none">Data de Atualização</th>
-            <td mat-cell *matCellDef="let row" class="td-modelos">
-                <strong>Data de Atualização: </strong>
-                {{row.dataAtualizacao.toLocaleDateString()}}
-                {{row.dataAtualizacao.toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}}
-            </td>
-        </ng-container>
-
-        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-        <tr mat-row 
-            *matRowDef="let row; columns: displayedColumns" 
-            class="row-modelos"
-            (click)="direcionarTela(row)"
-            style="width: 20%;height: auto;float: left;margin-bottom: 10px;">
-        </tr>
+        <tr mat-header-row *matHeaderRowDef="categoriasColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: categoriasColumns"></tr>
     </table>
 
     <div class="container-footer">
         <div class="selected-itens">
-            {{ getQtdNotificacoesSelecionados() }}
+            {{ getQtdCategoriasSelecionados() }}
             <button
                 mat-button
                 color="warn"
@@ -109,4 +85,4 @@
             [pageSizeOptions]="[5, 10, 20, 50, 100, 200, 500, 1000]">
         </mat-paginator>
     </div>
-</div>
+</div>  

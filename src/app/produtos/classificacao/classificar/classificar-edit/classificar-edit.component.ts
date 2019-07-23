@@ -206,7 +206,6 @@ export class ClassificarEditComponent implements OnInit {
             this.classificar.classificacao.comentarios.push(this.comentario)
 
             this.produtoService.setClassificarUpdate(this.classificar).subscribe(ret => {
-                this.comentario.descricao = '';
                 this.printComentarios(this.comentario.idColuna);
             });
         }

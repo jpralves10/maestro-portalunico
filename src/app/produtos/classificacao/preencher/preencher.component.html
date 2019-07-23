@@ -3,7 +3,7 @@
     <p>Carregando dados da consulta...</p>
 </div>
 
-<div *ngIf="!loading" class="filter-container">
+<div *ngIf="!loading && !empresa" class="filter-container">
     <h3>Preencher Formulários</h3>
 
     <mat-card class="mat-elevation-z5 filtro-card">
@@ -64,4 +64,24 @@
         </mat-card-content>
     </mat-card>
 
+</div>
+
+<div *ngIf="!loading && empresa" class="filter-container">
+    <h3>Cadastrar Empresa</h3>
+
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container">
+
+            <div class="table-head clearfix">
+                <button
+                    mat-raised-button
+                    (click)="adicionarEmpresa()"
+                    matTooltip="Adicionar Modelo"
+                    class="button-return">
+                    <i class="fas fa-plus fa-sm"></i>
+                    Adicionar Empresa
+                </button>
+            </div>
+        </mat-card-content>
+    </mat-card>
 </div>

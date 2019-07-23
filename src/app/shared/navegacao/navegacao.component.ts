@@ -10,6 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { IFilterResult } from '../filter/filter.model'
 import { FilterComponent } from '../../shared/filter/filter.component';
+import { EmpresaComponent } from '../empresas/empresa.component';
 
 @Component({
     selector: 'app-navegacao',
@@ -110,12 +111,11 @@ export class NavegacaoComponent implements OnInit {
 
     getFilterResult(){
         this.filter = JSON.parse(window.sessionStorage.getItem('result'));
-    }
+    } 
 
     openDialogEmpresa(): void {
-        this.modalService.open(FilterComponent).result.then((result) => {}, (reason) => {
-            this.getFilterResult();
-            location.reload(); // !Important
+        this.modalService.open(EmpresaComponent, {size: '900', centered: true}).result.then((result) => {}, (reason) => {
+            window.sessionStorage.setItem('empresa', reason)
         });
     }
 

@@ -10,9 +10,8 @@ import {
     GOOGLE_FORMS_API
 } from '../../../utilitarios/app.api';
 import { IClassificacao } from '../models/classificacao.model';
-import { IComentario, ICategoriasForm } from '../models/classificacao.legendas';
+import { IEmpresa, ICategoriasForm } from '../models/classificacao.legendas';
 import { IClassificar } from '../models/classificar.model';
-import { text } from '@angular/core/src/render3';
 
 @Injectable({
     providedIn: 'root'
@@ -120,6 +119,18 @@ export class ProdutoService {
     setClassificarUpdate(classificar: IClassificar): Observable<IClassificar> {
         return this.httpClient.post<any>(
             `${ GOOGLE_FORMS_API }/produtos/classificar/saveUpdate`, classificar
+        );
+    }
+
+    setEmpresaUpdate(empresa: IEmpresa): Observable<string> {
+        return this.httpClient.post<any>(
+            `${ GOOGLE_FORMS_API }/produtos/empresa/empresaUpdate`, empresa
+        );
+    }
+
+    getEmpresaFind(): Observable<IEmpresa[]> {
+        return this.httpClient.post<IEmpresa[]>(
+            `${ GOOGLE_FORMS_API }/produtos/empresa/findAll`, []
         );
     }
 
