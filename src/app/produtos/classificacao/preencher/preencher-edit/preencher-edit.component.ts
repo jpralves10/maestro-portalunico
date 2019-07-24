@@ -108,6 +108,14 @@ export class PreencherEditComponent implements OnInit {
         document.getElementById("chatComment").style.display = "none";
     }
 
+    printDataCriacao(comentario:any){
+        return typeof comentario.dataCriacao == "object" ? "" + 
+        comentario.dataCriacao.toLocaleDateString() + " " + comentario.dataCriacao.toLocaleTimeString(
+            [], {hour: '2-digit', minute:'2-digit'}
+        ) : 
+        "";
+    }
+
     teste(event:any){
         $( "#" + event.srcElement.children[0].id ).css("display","none");
     }

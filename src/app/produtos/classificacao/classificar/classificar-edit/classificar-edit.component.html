@@ -131,10 +131,7 @@
                             </span>
                             <span class="comment-date-{{comentario.side}}">
                                 <i class="fas fa-clock comment-icon-clock"></i>
-                                {{comentario.dataCriacao.toLocaleDateString()}}
-                                {{comentario.dataCriacao.toLocaleTimeString(
-                                    [], {hour: '2-digit', minute:'2-digit'}
-                                )}}
+                                {{printDataCriacao(comentario)}}
                             </span>
                         </div>
                         {{comentario.descricao}}

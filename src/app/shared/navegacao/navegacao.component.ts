@@ -27,6 +27,7 @@ export class NavegacaoComponent implements OnInit {
 
     listaMenus = this.getListaMenus();
     userInfo:any = {};
+    userRoles:string[] = [];
 
     filter: IFilterResult = null;
 
@@ -38,7 +39,14 @@ export class NavegacaoComponent implements OnInit {
         private route: ActivatedRoute,
     ) {
         this.keycloakAngular.loadUserProfile().then(profile => {
+
+            this.userRoles = this.keycloakAngular.getUserRoles(true)
+
             window.sessionStorage.setItem('userInfo', JSON.stringify(profile));
+            window.sessionStorage.setItem('userRoles', JSON.stringify(this.userRoles));
+
+            //this.userRoles.includes('groupadmin') && !userRoles.includes('groupadmin')
+
             this.userInfo.name = profile.firstName + ' ' + profile.lastName;
             this.userInfo.email = profile.email;
         })

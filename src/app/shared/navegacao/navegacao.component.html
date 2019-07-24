@@ -62,13 +62,34 @@
 
                             <li *ngIf="submenu.toggle && submenu.submenus.length > 0" class="li-two">
                                 <ul *ngFor="let submenutree of submenu.submenus" class="ul-two-sub">
-                                    <li *ngIf="submenu.enable && submenutree.enable" class="li-two-active">
-                                        <a mat-list-item 
-                                            class="item-two"
-                                            routerLink={{submenutree.routerLink}}
-                                            routerLinkActive={{submenutree.routerLinkActive}}>
-                                            {{ submenutree.name }}
-                                        </a>
+                                    <li 
+                                        *ngIf="submenu.enable && submenutree.enable" 
+                                        class="li-two-active">
+
+                                        <div *ngIf="(submenutree.routerLink == '/classificacao-modelos' || submenutree.routerLink == '/classificacao-classificar') && 
+                                                    (userRoles.includes('tecnical') || userRoles.includes('groupadmin'))"
+                                            style="vertical-align: middle;display: table-cell;">
+                                            
+                                            <a mat-list-item
+                                                class="item-two"
+                                                routerLink={{submenutree.routerLink}}
+                                                routerLinkActive={{submenutree.routerLinkActive}}>
+                                                {{ submenutree.name }}
+                                            </a>
+                                        </div>
+                                        
+                                        <div *ngIf="submenutree.routerLink == '/classificacao-preencher' && 
+                                                    (userRoles.includes('owner') || userRoles.includes('groupadmin'))"
+                                            style="vertical-align: middle;display: table-cell;">
+
+                                            <a mat-list-item 
+                                                class="item-two"
+                                                routerLink={{submenutree.routerLink}}
+                                                routerLinkActive={{submenutree.routerLinkActive}}>
+                                                {{ submenutree.name }}
+                                            </a>
+                                        </div>
+                                        
                                     </li>
                                 </ul>
                             </li>

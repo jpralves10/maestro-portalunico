@@ -66,6 +66,11 @@ export class ModelosListComponent implements OnInit {
         this.resultService.changeFilter(this.filtroValue);
     }
 
+    deselectAll() {
+        this.selection.clear();
+        this.paginator.firstPage();
+    }
+
     updateDataSource(data: IClassificacao[]){
         this.dataSource.data = [...data];
         this.dataSource.fullData = [...data];

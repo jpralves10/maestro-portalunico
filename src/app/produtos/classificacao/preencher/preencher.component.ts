@@ -4,7 +4,6 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import { ProdutoService } from '../../shared/services/produtos.service';
 import { PreencherListComponent } from './preencher-list/preencher-list.component';
-import { SpreadsheetsLinkComponent } from './preencher-edit/spreadsheets-link/spreadsheets-link.component';
 import { ResultService } from '../../shared/services/classificar.result.service';
 import { IResultItem } from '../../shared/models/classificar.result.model';
 import { MatSnackBar } from '@angular/material';

@@ -79,6 +79,11 @@ export class ClassificarListComponent implements OnInit {
         this.updateFiltro();
     }
 
+    deselectAll() {
+        this.selection.clear();
+        this.paginator.firstPage();
+    }
+
     openModelo(row: IClassificar){
         const modalProduto = this.modalService.open(ProdutosEditComponent, {size: '900', centered: true});
         

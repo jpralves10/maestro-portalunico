@@ -66,6 +66,11 @@ export class PreencherListComponent implements OnInit {
         this.resultService.changeFilter(this.filtroValue);
     }
 
+    deselectAll() {
+        this.selection.clear();
+        this.paginator.firstPage();
+    }
+
     updateDataSource(data: IClassificar[]){
         this.dataSource.data = [...data];
         this.dataSource.fullData = [...data];
