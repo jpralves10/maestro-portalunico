@@ -23,6 +23,8 @@ export class NotificacoesComponent implements OnInit {
     formulario = {} as INotificacoes;
     data: INotificacoes[] = [];
 
+    userInfo: any;
+
     current_filtro: IResultItem = {
         notificacoes: {
             tela: '',
@@ -36,31 +38,44 @@ export class NotificacoesComponent implements OnInit {
         private router: Router,
         private route: ActivatedRoute,
         private resultService: ResultService,
-        private filterService: FilterService,
         private modalService: NgbModal,
-        private _snackBar: MatSnackBar
+        private _snackBar: MatSnackBar,
+        private filterService: FilterService
     ) {
-        /*this.route.queryParamMap.subscribe(paramMap => {
-            if(this.childNotificacoesList != undefined){
-                this.data.push(JSON.parse(paramMap.get('paramsFormulario')));
-                this.childNotificacoesList.updateDataSource(this.data);
-            }            
-        });*/
+        this.route.queryParamMap.subscribe(filterNotificacoes => {
+            this.data = JSON.parse(filterNotificacoes.get('filterNotificacoes'));
 
-        this.filterService.getNotificacoesFormAll().subscribe(notificacoes => {
-            this.data = [...notificacoes]
+            if(this.data != undefined){
+                this.carregarDados()
+            }else{
+                this.filterService.getNotificacoesFormAll().subscribe(notificacoes => {
+                    //this.data = [...notificacoes]
 
-            this.data.forEach(item => {
-                item.dataAtualizacao = new Date(item.dataAtualizacao)
-                item.dataCriacao = new Date(item.dataCriacao)
-            })
+                    this.userInfo = JSON.parse(window.sessionStorage.getItem('userInfo'))
 
-            if(this.childNotificacoesList != undefined){
-                this.childNotificacoesList.updateDataSource(this.data);
+                    notificacoes.forEach(item => {
+                        if(item.idEmail == this.userInfo.email){
+                            this.data.push(item);
+                        }
+                    })
+
+                    this.carregarDados()
+                })
             }
+        });
+    }
 
-            this.loading = false;
+    carregarDados(){
+        this.data.forEach(item => {
+            item.dataAtualizacao = new Date(item.dataAtualizacao)
+            item.dataCriacao = new Date(item.dataCriacao)
         })
+
+        if(this.childNotificacoesList != undefined){
+            this.childNotificacoesList.updateDataSource(this.data);
+        }
+
+        this.loading = false;
     }
 
     ngOnInit() {}

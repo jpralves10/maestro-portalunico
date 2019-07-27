@@ -17,9 +17,8 @@ export interface IResposta {
 }
 
 export interface IComentario {
-    spreadsheetId: string,
     idSheet: number,
-    sheetVersao: number,
+    idClassificar: number,
     idComentario: number,
     idResposta: string,
     idProduto: string,
@@ -27,6 +26,7 @@ export interface IComentario {
     idUsuario: string,
     nmUsuario: string,
     status: string,
+    sheetVersao: number,
     descricao: string,
     dataCriacao: Date,
     dataAtualizacao: Date,

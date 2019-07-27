@@ -114,7 +114,9 @@ export class ClassificarEditComponent implements OnInit {
 
             this.classificar.classificacao.comentarios.forEach(comentario => {
                 this.colunas.forEach(coluna => {
-                    if(comentario.idColuna == coluna.idColuna){
+                    if(comentario.idColuna == coluna.idColuna&& 
+                        comentario.idClassificar == this.classificar.codigo){
+                            
                         coluna.comentarios = true
                         coluna.pendentes = ++coluna.pendentes
                     }
@@ -164,7 +166,9 @@ export class ClassificarEditComponent implements OnInit {
 
         if(this.classificar.classificacao.comentarios.length > 0){
             this.classificar.classificacao.comentarios.forEach(comentario => {
-                if(comentario.idColuna == idColuna){
+                if(comentario.idColuna == idColuna && 
+                    comentario.idClassificar == this.classificar.codigo){
+
                     comentario.idUsuario == this.userInfo.email ? 
                     comentario.side = 'right' : comentario.side = 'left';
 
@@ -209,6 +213,8 @@ export class ClassificarEditComponent implements OnInit {
             }else{
                 this.comentario.idComentario = 0;
             }
+
+            this.comentario.idClassificar = this.classificar.codigo
 
             this.comentarios.push(this.comentario);
             this.classificar.classificacao.comentarios.push(this.comentario)

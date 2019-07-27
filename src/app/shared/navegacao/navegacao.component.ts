@@ -11,6 +11,8 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { IFilterResult } from '../filter/filter.model'
 import { FilterComponent } from '../../shared/filter/filter.component';
 import { EmpresaComponent } from '../empresas/empresa.component';
+import { FilterService } from '../service/filter.service';
+import { INotificacoes } from '../notificacoes/notificacoes.model';
 
 @Component({
     selector: 'app-navegacao',
@@ -30,6 +32,8 @@ export class NavegacaoComponent implements OnInit {
     userRoles:string[] = [];
 
     filter: IFilterResult = null;
+    notificacoes: INotificacoes[] = []
+    qtdNotificacoes: number = 0;
 
     constructor(
         private breakpointObserver: BreakpointObserver,
@@ -37,6 +41,7 @@ export class NavegacaoComponent implements OnInit {
         private modalService: NgbModal,
         private router: Router,
         private route: ActivatedRoute,
+        private filterService: FilterService,
     ) {
         this.keycloakAngular.loadUserProfile().then(profile => {
 
@@ -49,6 +54,16 @@ export class NavegacaoComponent implements OnInit {
 
             this.userInfo.name = profile.firstName + ' ' + profile.lastName;
             this.userInfo.email = profile.email;
+
+            this.filterService.getNotificacoesFormAll().subscribe(notificacoes => {
+                //this.notificacoes = [...notificacoes]
+                notificacoes.forEach(item => {
+                    if(item.idEmail == this.userInfo.email){
+                        this.notificacoes.push(item);
+                        this.qtdNotificacoes++;
+                    }
+                })
+            })
         })
         .catch( reason => {console.log( reason )});
 
@@ -130,7 +145,10 @@ export class NavegacaoComponent implements OnInit {
     getNotificaoResult(){
         this.router.navigate([`/notificacao`], {
             relativeTo: this.route,
-            replaceUrl: false
+            replaceUrl: false,
+            queryParams: {
+                filterNotificacoes: JSON.stringify([...this.notificacoes])
+            }
         });
     }
 
@@ -139,5 +157,23 @@ export class NavegacaoComponent implements OnInit {
             relativeTo: this.route,
             replaceUrl: false
         });
+    }
+
+    getRegraMenu(menu: any){
+        if(
+            ((menu.routerLink == '/classificacao-modelos' || menu.routerLink == '/classificacao-classificar') && 
+            (this.userRoles.includes('eficitecnico') || this.userRoles.includes('groupadmin'))) 
+            || 
+            (menu.routerLink == '/classificacao-preencher' && 
+            (this.userRoles.includes('eficicliente') || this.userRoles.includes('groupadmin')))
+        ){
+            return true
+        }else{
+            return false
+        }
+    }
+
+    getRegraTopBarEmpresa(){
+        return (this.userRoles.includes('eficicliente') || this.userRoles.includes('groupadmin')) ? true : false;
     }
 }

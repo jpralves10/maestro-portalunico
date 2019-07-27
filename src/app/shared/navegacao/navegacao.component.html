@@ -62,33 +62,14 @@
 
                             <li *ngIf="submenu.toggle && submenu.submenus.length > 0" class="li-two">
                                 <ul *ngFor="let submenutree of submenu.submenus" class="ul-two-sub">
-                                    <li 
-                                        *ngIf="submenu.enable && submenutree.enable" 
-                                        class="li-two-active">
+                                    <li *ngIf="submenu.enable && submenutree.enable && getRegraMenu(submenutree)" class="li-two-active">
 
-                                        <div *ngIf="(submenutree.routerLink == '/classificacao-modelos' || submenutree.routerLink == '/classificacao-classificar') && 
-                                                    (userRoles.includes('tecnical') || userRoles.includes('groupadmin'))"
-                                            style="vertical-align: middle;display: table-cell;">
-                                            
-                                            <a mat-list-item
-                                                class="item-two"
-                                                routerLink={{submenutree.routerLink}}
-                                                routerLinkActive={{submenutree.routerLinkActive}}>
-                                                {{ submenutree.name }}
-                                            </a>
-                                        </div>
-                                        
-                                        <div *ngIf="submenutree.routerLink == '/classificacao-preencher' && 
-                                                    (userRoles.includes('owner') || userRoles.includes('groupadmin'))"
-                                            style="vertical-align: middle;display: table-cell;">
-
-                                            <a mat-list-item 
-                                                class="item-two"
-                                                routerLink={{submenutree.routerLink}}
-                                                routerLinkActive={{submenutree.routerLinkActive}}>
-                                                {{ submenutree.name }}
-                                            </a>
-                                        </div>
+                                        <a mat-list-item 
+                                            class="item-two"
+                                            routerLink={{submenutree.routerLink}}
+                                            routerLinkActive={{submenutree.routerLinkActive}}>
+                                            {{ submenutree.name }}
+                                        </a>
                                         
                                     </li>
                                 </ul>
@@ -164,8 +145,17 @@
                             </mat-menu>
                         </li>
                         <li>
-                            <button mat-button matTooltip="Notificações" (click)="getNotificaoResult()">
-                                <div class="navbar-icon">
+                            <button 
+                                mat-button matTooltip="Notificações" 
+                                (click)="getNotificaoResult()">
+                                <div 
+                                    class="navbar-icon"
+                                    style="padding: 12px;"
+                                    matBadge="{{qtdNotificacoes}}"
+                                    matBadgePosition="after"
+                                    matBadgeColor="accent"
+                                    matBadgeSize="medium">
+
                                     <i class="fas fa-bell"></i>
                                 </div>
                             </button>
@@ -178,8 +168,8 @@
                             </button>
                         </li-->
                         <li>
-                            <button 
-                                mat-button 
+                            <button
+                                mat-button
                                 [matMenuTriggerFor]="menuConfig"
                                 matTooltip="Configurações">
 
@@ -191,7 +181,7 @@
                                 <button mat-menu-item (click)="openDialogFilter()">
                                     Alterar Importador/Exportador
                                 </button>
-                                <button mat-menu-item (click)="openDialogEmpresa()">
+                                <button *ngIf="getRegraTopBarEmpresa()" mat-menu-item (click)="openDialogEmpresa()">
                                     Alterar Dados da Empresa
                                 </button>
                             </mat-menu>
