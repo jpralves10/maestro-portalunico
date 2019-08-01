@@ -97,6 +97,29 @@ export class ProdutosListDataSource extends DataSource<Produto> {
             );
         }
 
+
+        if (produto.codigoGPC !== '') {
+            newData = newData.filter(d => {
+                if(d.codigoGPC != undefined){
+                    d.codigoGPC.toString().toUpperCase().trim().includes(produto.codigoGPC.toUpperCase().trim())
+                }
+            });
+        }
+        if (produto.codigoGPCBrick !== '') {
+            newData = newData.filter(d => {
+                if(d.codigoGPCBrick != undefined){
+                    d.codigoGPCBrick.toString().toUpperCase().trim().includes(produto.codigoGPCBrick.toUpperCase().trim())
+                }
+            })
+        }
+        if (produto.codigoUNSPSC !== '') {
+            newData = newData.filter(d => {
+                if(d.codigoUNSPSC != undefined){
+                    d.codigoUNSPSC.toString().toUpperCase().trim().includes(produto.codigoUNSPSC.toUpperCase().trim())
+                }
+            })
+        }
+
         /*if(this.filter.importadores.length > 0){
 
             var newProd = [...newData];

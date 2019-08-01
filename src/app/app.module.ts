@@ -35,6 +35,7 @@ import { SuporteComponent } from './shared/suporte/suporte.component';
 import { ModelosClassificarComponent } from './produtos/classificacao/classificar/classificar-list/modelos-classificar/modelos-classificar.component';
 import { ModelosClassificarListComponent } from './produtos/classificacao/classificar/classificar-list/modelos-classificar/modelos-classificar-list/modelos-classificar-list.component';
 import { ProdutosEditComponent } from './produtos/classificacao/classificar/classificar-list/produtos-edit/produtos-edit.component';
+import { RatingCommentComponent } from './produtos/classificacao/preencher/preencher-edit/rating-comment/rating-comment.component';
 
 @NgModule({
     declarations: [
@@ -53,6 +54,7 @@ import { ProdutosEditComponent } from './produtos/classificacao/classificar/clas
         ProdutosEditComponent,
         CategoriasListComponent,
         SpreadsheetsLinkComponent,
+        RatingCommentComponent,
         NotificacoesComponent,
         NotificacoesListComponent,
         SuporteComponent
@@ -84,7 +86,8 @@ import { ProdutosEditComponent } from './produtos/classificacao/classificar/clas
         CategoriasComponent,
         ModelosClassificarComponent,
         ProdutosEditComponent,
-        SpreadsheetsLinkComponent
+        SpreadsheetsLinkComponent,
+        RatingCommentComponent
     ],
     bootstrap: [AppComponent]
 })

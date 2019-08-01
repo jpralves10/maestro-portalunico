@@ -78,6 +78,43 @@
                             
                         </div>
                     </div>
+
+                    <mat-card class="mat-elevation-z5 filtro-card" style="box-shadow: none;">
+                        <mat-card-content class="form-container">
+                            <mat-panel-title style="color:#596679;">
+                                Outros Códigos
+                            </mat-panel-title>
+
+                            <div class="codigos-panel-content">
+                                <div class="produto-codigos-fields">
+                                    <mat-form-field>
+                                        <input
+                                            matInput
+                                            placeholder="Código GPC"
+                                            [(ngModel)]="current_filtro.produto.codigoGPC"
+                                            (ngModelChange)="updateFiltro()" />
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <input
+                                            matInput
+                                            placeholder="Código GPC - Brick"
+                                            [(ngModel)]="current_filtro.produto.codigoGPCBrick"
+                                            (ngModelChange)="updateFiltro()" />
+                                    </mat-form-field>
+
+                                    <mat-form-field>
+                                        <input
+                                            matInput
+                                            placeholder="Código UNSPSC"
+                                            [(ngModel)]="current_filtro.produto.codigoUNSPSC"
+                                            (ngModelChange)="updateFiltro()" />
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                        </mat-card-content>
+                    </mat-card>
+
                 </mat-expansion-panel>
             </mat-accordion>
 

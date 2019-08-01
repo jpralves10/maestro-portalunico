@@ -18,5 +18,8 @@ export interface IResultItem {
         status: string;
         cnpj: string;
         operador: string;
+        codigoGPC:string,
+        codigoGPCBrick:string,
+        codigoUNSPSC:string
     }
 }

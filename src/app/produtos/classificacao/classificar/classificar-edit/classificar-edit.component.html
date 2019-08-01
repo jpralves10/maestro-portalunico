@@ -1,4 +1,4 @@
-<div class="produtos-container">
+<div *ngIf="!flFormulario" class="produtos-container">
     <h3>Dados da Classificação</h3>
 
     <mat-card class="mat-elevation-z5 filtro-card">
@@ -57,6 +57,14 @@
                 Finalizar
             </button-->
         </mat-card-actions>
+    </mat-card>
+</div>
+
+<div *ngIf="flFormulario" class="produtos-container">
+    <mat-card class="mat-elevation-z5 filtro-card">
+        <mat-card-content class="form-container" style="padding-bottom: inherit;">
+            <h3>Formulário Não Preenchido</h3>
+        </mat-card-content>
     </mat-card>
 </div>
 

@@ -9,6 +9,7 @@ import { IColuna, IComentario } from '../../../shared/models/classificacao.legen
 import { IClassificacao } from 'src/app/produtos/shared/models/classificacao.model';
 import $ from "jquery";
 import { IClassificar } from 'src/app/produtos/shared/models/classificar.model';
+import { RatingCommentComponent } from './rating-comment/rating-comment.component';
 
 @Component({
     selector: 'app-preencher-edit',
@@ -33,7 +34,9 @@ export class PreencherEditComponent implements OnInit {
     finish = false;
     spinner = false;
 
-    body:string
+    body:string;
+
+    currentRate = 0;
 
     constructor(
         private router: Router,
@@ -49,6 +52,8 @@ export class PreencherEditComponent implements OnInit {
             if(this.classificar.classificacao.categorias == undefined){
                 this.classificar.classificacao.categorias = []
             }
+
+            this.currentRate = this.classificar.rating
 
             this.comentarios = [...this.classificar.classificacao.comentarios]
 
@@ -212,5 +217,40 @@ export class PreencherEditComponent implements OnInit {
 
     onSubmit(event: Event){
         this.produtoService.setClassificarSpreed(this.classificar).subscribe(ret => {})
+    }
+
+    copyUsuarioEmail(){
+        this.copyText(this.classificar.usuario.email);
+    }
+
+    copyProdutoId(){
+        this.copyText(this.classificar.produto._id);
+    }
+
+    copyText(val: any){
+        var textarea = document.createElement('textarea');
+        textarea.textContent = val;
+        document.body.appendChild(textarea);
+
+        var selection = document.getSelection();
+        var range = document.createRange();
+        //  range.selectNodeContents(textarea);
+        range.selectNode(textarea);
+        selection.removeAllRanges();
+        selection.addRange(range);
+
+        console.log('copy success', document.execCommand('copy'));
+        selection.removeAllRanges();
+
+        document.body.removeChild(textarea);
+    }
+
+    openRatingComment(){
+        const modalLink = this.modalService.open(RatingCommentComponent, {size: '900', centered: true});
+        modalLink.componentInstance.comment = this.classificar.ratingComentario;
+        modalLink.result.then((comment:string) => {
+            this.classificar.ratingComentario = comment;
+            this.classificar.rating = this.currentRate;
+        })
     }
 }

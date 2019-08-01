@@ -303,15 +303,15 @@ export class ProdutosEditComponent implements OnInit {
                 this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código Naladi\': de 1 a 8 caracteres.'})
             }
 
-            if((this.produto.codigoGPC > 0 && this.produto.codigoGPC < 10) || this.produto.codigoGPC > 10){
+            if((this.produto.codigoGPC.toString().length > 0 && this.produto.codigoGPC.toString().length < 10) || this.produto.codigoGPC.toString().length > 10){
                 this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código GPC\': de 1 a 10 caracteres.'})
             }
 
-            if((this.produto.codigoGPCBrick > 0 && this.produto.codigoGPCBrick < 10) || this.produto.codigoGPCBrick > 10){
+            if((this.produto.codigoGPCBrick.toString().length > 0 && this.produto.codigoGPCBrick.toString().length < 10) || this.produto.codigoGPCBrick.toString().length > 10){
                 this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código GPC - Brick\': de 1 a 10 caracteres.'})
             }
 
-            if((this.produto.codigoUNSPSC > 0 && this.produto.codigoUNSPSC < 10) || this.produto.codigoUNSPSC > 10){
+            if((this.produto.codigoUNSPSC.toString().length > 0 && this.produto.codigoUNSPSC.toString().length < 10) || this.produto.codigoUNSPSC.toString().length > 10){
                 this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código UNSPSC\': de 1 a 10 caracteres.'})
             }
 

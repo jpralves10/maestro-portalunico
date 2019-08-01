@@ -53,12 +53,15 @@ export class UnificacaoComponent implements OnInit {
 
     @Input() current_filtro: IResultItem = {
         produto: {
-            numeroDI: '', 
-            descricaoBruta: '', 
-            ncm: '', 
-            status: '', 
+            numeroDI: '',
+            descricaoBruta: '',
+            ncm: '',
+            status: '',
             cnpj: '',
-            operador: ''
+            operador: '',
+            codigoGPC:'',
+            codigoGPCBrick:'',
+            codigoUNSPSC:''
         }
     };
 

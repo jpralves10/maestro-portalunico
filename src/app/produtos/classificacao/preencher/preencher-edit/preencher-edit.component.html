@@ -5,17 +5,27 @@
             <mat-card-title>
                 Preencher Campos Obrigatórios:
             </mat-card-title>
-            <mat-card-subtitle style="font-size: 1.2em;font-weight: 500; margin-bottom:2px;">
+
+            <ngb-rating 
+                [(rate)]="currentRate" 
+                max="5"
+                (click)="openRatingComment()"
+                style="float: right;margin: -60px;margin-right: 0px;">
+            </ngb-rating>
+
+            <mat-card-subtitle class="mat-card-subtitle">
                 Endereço de e-mail:
-                <mat-chip style="background-color:#D4E6F1;">
+                <mat-chip class="mat-chip" (click)=copyUsuarioEmail()>
                     {{classificar.usuario.email}}
                 </mat-chip>
+                <i class="far fa-copy"></i>
             </mat-card-subtitle>
-            <mat-card-subtitle style="font-size: 1.2em;font-weight: 500;">
+            <mat-card-subtitle class="mat-card-subtitle">
                 Código do Produto:
-                <mat-chip style="background-color:#D4E6F1;">
+                <mat-chip class="mat-chip" (click)=copyProdutoId()>
                     {{classificar.produto._id}}
                 </mat-chip>
+                <i class="far fa-copy"></i>
             </mat-card-subtitle>
         </mat-card-content>
     </mat-card>

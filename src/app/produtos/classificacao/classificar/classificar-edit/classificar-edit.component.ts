@@ -37,6 +37,7 @@ export class ClassificarEditComponent implements OnInit {
     errored = false;
     finish = false;
     spinner = false;
+    flFormulario = false;
 
     //mensagem: any = {id: 0, tipo: '', class: '', lista: []};
 
@@ -233,10 +234,12 @@ export class ClassificarEditComponent implements OnInit {
 
         let pergResp = {} as {nmColuna:string, deCampo:string};
 
+        let flResposta = false;
+
         this.classificar.classificacao.respostas.forEach(resposta => {
 
             if(resposta.idResposta == this.classificar.usuario.email && 
-                resposta.idProduto == this.classificar.produto._id){
+                resposta.idProduto.trim() == this.classificar.produto._id.trim()){
 
                 this.classificar.classificacao.colunas.forEach(coluna => {
                     
@@ -253,7 +256,11 @@ export class ClassificarEditComponent implements OnInit {
                         }
                     })
                 })
-            }            
+
+                flResposta = true
+            }
         })
+
+        !flResposta ? this.flFormulario = true : this.flFormulario = false
     }
 }

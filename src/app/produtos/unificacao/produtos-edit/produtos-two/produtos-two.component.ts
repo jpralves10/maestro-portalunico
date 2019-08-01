@@ -49,7 +49,17 @@ export class ProdutosTwoComponent implements OnInit {
     dataSource: ProdutosTwoDataSource;
 
     current_filtro: IResultItem = {
-        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: '', operador: ''}
+        produto: {
+            numeroDI: '',
+            descricaoBruta: '',
+            ncm: '',
+            status: '',
+            cnpj: '',
+            operador: '',
+            codigoGPC:'',
+            codigoGPCBrick:'',
+            codigoUNSPSC:''
+        }
     };
 
     displayedColumns = ['select', 'descricaoBruta', 'ncm', 'quantidade', 'similaridade', 'canal'];

@@ -1,0 +1,41 @@
+
+<div class="modal-header">
+    <span class="modal-title">
+        Comentário de Avaliação
+    </span>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+
+<div class="modal-body">
+
+    <div class="filter-container">
+
+        <h5>Escreva Um Comentário:</h5>
+
+        <div class="content-add-categoria table-list">
+            <mat-form-field class="input-categoria">
+                <input
+                    matInput
+                    placeholder="Comentário"
+                    [(ngModel)]="comment"/>
+            </mat-form-field>
+        </div>
+    </div>
+</div>
+
+<div class="modal-footer">
+
+    <img
+        *ngIf="spinner" 
+        src="assets/spinner.gif" 
+        style="height:30px;padding-right:10px;">
+
+    <button
+        mat-raised-button
+        class="filter-button"
+        (click)="confirmarComment()">
+        Confirmar
+    </button>
+</div>

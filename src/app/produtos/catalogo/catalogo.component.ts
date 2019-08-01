@@ -37,7 +37,10 @@ export class CatalogoComponent implements OnInit {
             ncm: '',
             status: '',
             cnpj: '',
-            operador: ''
+            operador: '',
+            codigoGPC:'',
+            codigoGPCBrick:'',
+            codigoUNSPSC:''
         }
     };
 

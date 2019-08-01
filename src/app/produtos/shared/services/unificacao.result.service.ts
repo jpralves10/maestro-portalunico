@@ -18,7 +18,17 @@ export class ResultService {
     /** Default Filter **/
 
     private defaultFilter: IResultItem = {
-        produto: {numeroDI: '', descricaoBruta: '', ncm: '', status: '', cnpj: '', operador: ''}
+        produto: {
+            numeroDI: '', 
+            descricaoBruta: '', 
+            ncm: '', 
+            status: '', 
+            cnpj: '', 
+            operador: '', 
+            codigoGPC:'',
+            codigoGPCBrick:'',
+            codigoUNSPSC:''
+        }
     };
 
     public filterSource:

@@ -10,6 +10,8 @@ export interface IClassificar {
     status?: string;
     dataCriacao?: Date,
     dataAtualizacao?: Date,
+    rating:number,
+    ratingComentario:string,
     usuario?: {
         nome:string, 
         email:string

@@ -297,6 +297,18 @@
     display: table-cell;
 }
 
-.option-campos{
+.option-campos {
     font-size: 0.85em;
+}
+
+.mat-card-subtitle {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom:2px;
+}
+
+.mat-chip {
+    background-color:#D4E6F1;
+    margin-right: 5px;
+    cursor: pointer;
 }
