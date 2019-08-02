@@ -28,9 +28,18 @@
     }
 }
 
-.form-container {
+/*.form-container {
     display: flex;
     flex-direction: column;
+}*/
+
+.form-container {
+    //max-width: 300px;
+    //min-height: 450px;
+    padding: 12px;
+    padding-bottom: 0px;
+    background-color: white;
+    position: relative;
 }
 
 .filter-file-span {
