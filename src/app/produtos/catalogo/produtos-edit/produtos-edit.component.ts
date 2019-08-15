@@ -295,24 +295,32 @@ export class ProdutosEditComponent implements OnInit {
 
             if(Util.isNullUndefined(this.produto.ncm)){
                 this.mensagem.lista.push({chave: 0, valor: 'Verificar preenchimento do campo \'NCM do Produto\'.'})
-            }else if(this.produto.ncm.length <= 0 || this.produto.ncm.length > 8){
+            }else if(this.produto.ncm.length > 8){
                 this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'NCM do Produto\': de 1 a 8 caracteres.'})
             }
 
-            if((this.produto.codigoNaladi > 0 && this.produto.codigoNaladi < 8) || this.produto.codigoNaladi > 8){
-                this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código Naladi\': de 1 a 8 caracteres.'})
+            if(!Util.isNullUndefined(this.produto.codigoNaladi)){
+                if(this.produto.codigoNaladi.toString().length > 8){
+                    this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código Naladi\': de 1 a 8 caracteres.'})
+                }
             }
 
-            if((this.produto.codigoGPC.toString().length > 0 && this.produto.codigoGPC.toString().length < 10) || this.produto.codigoGPC.toString().length > 10){
-                this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código GPC\': de 1 a 10 caracteres.'})
+            if(!Util.isNullUndefined(this.produto.codigoGPC)){
+                if(this.produto.codigoGPC.toString().length > 10){
+                    this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código GPC\': de 1 a 10 caracteres.'})
+                }
             }
 
-            if((this.produto.codigoGPCBrick.toString().length > 0 && this.produto.codigoGPCBrick.toString().length < 10) || this.produto.codigoGPCBrick.toString().length > 10){
-                this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código GPC - Brick\': de 1 a 10 caracteres.'})
+            if(!Util.isNullUndefined(this.produto.codigoGPCBrick)){
+                if(this.produto.codigoGPCBrick.toString().length > 10){
+                    this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código GPC - Brick\': de 1 a 10 caracteres.'})
+                }
             }
 
-            if((this.produto.codigoUNSPSC.toString().length > 0 && this.produto.codigoUNSPSC.toString().length < 10) || this.produto.codigoUNSPSC.toString().length > 10){
-                this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código UNSPSC\': de 1 a 10 caracteres.'})
+            if(!Util.isNullUndefined(this.produto.codigoUNSPSC)){
+                if(this.produto.codigoUNSPSC.toString().length > 10){
+                    this.mensagem.lista.push({chave: 0, valor: 'Tamanho do campo \'Código UNSPSC\': de 1 a 10 caracteres.'})
+                }
             }
 
             if(Util.isNullUndefined(this.produto.fabricanteConhecido) || !Util.inListObject(this.fabricantes, this.produto.fabricanteConhecido)){

@@ -123,7 +123,7 @@ export class ImportacaoComponent implements OnInit {
             produto.dataRegistro = new Date();
             produto.dataCriacao = new Date();
             produto.dataAtualizacao = new Date();
-            produto.usuarioAtualizacao = this.userInfo.email;       
+            produto.usuarioAtualizacao = this.userInfo.email;
 
             produto.versoesProduto = undefined;
             produto.etapaUnificacao = undefined;
@@ -142,8 +142,8 @@ export class ImportacaoComponent implements OnInit {
             produto.descricao = row.descricao;
             produto.descricaoBruta = row.descricao;
             produto.cnpjRaiz = row.cnpjRaiz;
-            produto.situacao = row.situacao;
-            produto.modalidade = row.modalidade;
+            produto.situacao = row.situacao.toUpperCase();
+            produto.modalidade = row.modalidade.toUpperCase();
             produto.ncm = row.ncm;
             produto.codigoNaladi = row.codigoNaladi;
             produto.codigoGPC = row.codigoGPC;

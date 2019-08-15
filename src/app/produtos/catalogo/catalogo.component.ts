@@ -52,7 +52,7 @@ export class CatalogoComponent implements OnInit {
         private modalService: NgbModal
     ) {
         this.getFilterResult();
-        this.loading = false;
+        //this.loading = false;
 
         if(this.filter != null && this.filter.importers.length > 0){
             this.setDadosResult();

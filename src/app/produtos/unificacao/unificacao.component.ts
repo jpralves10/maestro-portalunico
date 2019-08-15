@@ -73,7 +73,7 @@ export class UnificacaoComponent implements OnInit {
         private modalService: NgbModal
     ) {
         this.getFilterResult();
-        this.loading = false;
+        //this.loading = false;
 
         if(this.filter != null && this.filter.importers.length > 0){
             this.setDadosInit();
@@ -102,7 +102,6 @@ export class UnificacaoComponent implements OnInit {
         if(this.filter != null){
             this.status = ['Pendente', 'Completo', 'Aprovado', 'Integrado']; //this.filter.status;
             this.importers = [...this.filter.importadores];
-            this.loading = false;
             this.setDadosResult();
         }
     }
