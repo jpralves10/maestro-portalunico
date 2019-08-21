@@ -50,6 +50,8 @@ export class NavegacaoComponent implements OnInit {
             window.sessionStorage.setItem('userInfo', JSON.stringify(profile));
             window.sessionStorage.setItem('userRoles', JSON.stringify(this.userRoles));
 
+            this.filter = JSON.parse(window.sessionStorage.getItem('result'));
+
             //this.userRoles.includes('groupadmin') && !userRoles.includes('groupadmin')
 
             this.userInfo.name = profile.firstName + ' ' + profile.lastName;
@@ -134,6 +136,7 @@ export class NavegacaoComponent implements OnInit {
 
     getFilterResult(){
         this.filter = JSON.parse(window.sessionStorage.getItem('result'));
+        console.log(this.filter.importadores[0].name)
     } 
 
     openDialogEmpresa(): void {
