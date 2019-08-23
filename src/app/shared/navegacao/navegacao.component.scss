@@ -65,9 +65,9 @@
     box-shadow: 0 1px 4px 0 rgba(0,0,0,.1);
 }
 
-.mat-list-item.active {
+/*.mat-list-item.active {
     //background: rgba(0, 0, 0, 0.2);
-}
+}*/
 
 /* Lista Menus */
 
@@ -260,4 +260,32 @@
         display: none;
         border: none;
     }
+}
+
+.downloadspall{
+    width: 100%;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    outline: 0;
+    border: none;
+    -webkit-tap-highlight-color: transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+    line-height: 48px;
+    height: 48px;
+    padding: 0 16px;
+    text-align: left;
+    text-decoration: none;
+    max-width: 100%;
+    position: relative;
+    color: #97a8b6;
+    background: 0 0;
+    font-family: Roboto,"Helvetica Neue",sans-serif;
+    font-size: 14px;
+    font-weight: 400;
 }
