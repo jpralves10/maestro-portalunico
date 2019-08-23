@@ -198,7 +198,10 @@
                                         <span class="navbar-username-span">
                                             {{ userInfo.email }}
                                         </span><br/>
-                                        <span class="navbar-username-span" style="font-size: 11px;">
+                                        <span 
+                                            *ngIf="filter != null"
+                                            class="navbar-username-span" 
+                                            style="font-size: 11px;">
                                             {{ filter.importadores[0].name }}
                                         </span>
                                     </div>

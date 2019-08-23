@@ -27,7 +27,7 @@ export class CatalogoComponent implements OnInit {
 
     produtos: Produto[];
     data: IResult = null;
-    status: string[] = ['Pendente', 'Completo', 'Aprovado', 'Integrado'];
+    status: string[] = ['Completo', 'Aprovado', 'Integrado'];
     //importers: any = [];
 
     @Input() current_filtro: IResultItem = {

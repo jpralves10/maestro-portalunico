@@ -136,7 +136,6 @@ export class NavegacaoComponent implements OnInit {
 
     getFilterResult(){
         this.filter = JSON.parse(window.sessionStorage.getItem('result'));
-        console.log(this.filter.importadores[0].name)
     } 
 
     openDialogEmpresa(): void {

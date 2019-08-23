@@ -21,6 +21,8 @@ export class ProdutosEditComponent implements OnInit {
 
     produto: Produto = null;
 
+    filter: IFilterResult;
+
     loading = true;
     errored = false;
     finish = false;
@@ -72,6 +74,10 @@ export class ProdutosEditComponent implements OnInit {
     ) {
         this.route.queryParamMap.subscribe(paramMap => {
             this.produto = JSON.parse(paramMap.get('filterCatalogo'));
+            
+            this.produto.descricao = this.produto.descricaoBruta;
+
+            this.filter = JSON.parse(window.sessionStorage.getItem('result'));
 
             if(this.produto.codigosInterno == null && this.produto.codigosInterno == undefined){
                 this.produto.codigosInterno = [];
@@ -231,7 +237,10 @@ export class ProdutosEditComponent implements OnInit {
 
                         if(this.produto.status == 'Pendente' || this.produto.status == 'Novo'){
                             this.produto.status = 'Completo';
-                        }                        
+                        }
+                        
+                        this.produto.cnpjRaiz = this.filter.importers[0];
+                        this.produto.descricaoBruta = this.produto.descricao;
 
                         this.produto.dataAtualizacao = new Date();
                         this.produto.versoesProduto = undefined;
